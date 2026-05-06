@@ -1,3 +1,4 @@
+/* eslint-disable security/detect-object-injection */
 import type { BriefFormInput, BriefFormat } from '@/lib/validations/brief'
 
 // ─── System Prompt ────────────────────────────────────────────────────────────

@@ -19,7 +19,7 @@ export const briefFormSchema = z.object({
     .transform((v) => v.trim()),
 
   objective: z.enum(['vendas', 'leads', 'awareness', 'consideracao'], {
-    errorMap: () => ({ message: 'Objetivo inválido' }),
+    error: () => ({ message: 'Objetivo inválido' }),
   }),
 
   unique_selling_point: z
@@ -29,7 +29,7 @@ export const briefFormSchema = z.object({
     .transform((v) => v.trim()),
 
   tone: z.enum(['profissional', 'descontraido', 'urgente', 'inspirador', 'educativo'], {
-    errorMap: () => ({ message: 'Tom inválido' }),
+    error: () => ({ message: 'Tom inválido' }),
   }),
 
   formats: z

@@ -11,10 +11,16 @@ import { getPlanFromPriceId, mapStripeStatus } from '@/lib/stripe/plans'
 import { Redis } from '@upstash/redis'
 import { sendWebhookFailureAlert } from '@/lib/resend/alerts'
 
-const redis = new Redis({
-  url:   process.env.UPSTASH_REDIS_REST_URL!,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
-})
+let _redis: Redis | undefined
+function getRedis(): Redis {
+  if (!_redis) {
+    _redis = new Redis({
+      url:   process.env.UPSTASH_REDIS_REST_URL!,
+      token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+    })
+  }
+  return _redis
+}
 
 const WEBHOOK_FAIL_KEY      = 'stripe:webhook:consecutive_fails'
 const WEBHOOK_FAIL_THRESHOLD = 3
@@ -119,7 +125,7 @@ export async function POST(request: NextRequest) {
   }
 
   // Sucesso — reset do contador de falhas consecutivas
-  await redis.set(WEBHOOK_FAIL_KEY, 0).catch(() => {})
+  await getRedis().set(WEBHOOK_FAIL_KEY, 0).catch(() => {})
 
   return NextResponse.json({ received: true })
 }
@@ -128,9 +134,9 @@ export async function POST(request: NextRequest) {
 
 async function trackWebhookFailure(): Promise<void> {
   try {
-    const count = await redis.incr(WEBHOOK_FAIL_KEY)
+    const count = await getRedis().incr(WEBHOOK_FAIL_KEY)
     // Expira em 1 hora para não acumular falhas antigas
-    await redis.expire(WEBHOOK_FAIL_KEY, 3600)
+    await getRedis().expire(WEBHOOK_FAIL_KEY, 3600)
 
     if (count >= WEBHOOK_FAIL_THRESHOLD) {
       // Alerta assíncrono — não bloqueia a resposta ao Stripe
@@ -165,7 +171,9 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   const priceId  = subscription.items.data[0]?.price.id ?? null
   const plan     = getPlanFromPriceId(priceId)
   const status   = mapStripeStatus(subscription.status)
-  const periodEnd = new Date(subscription.current_period_end * 1000).toISOString()
+  // current_period_end foi movido em API versions mais novas — cast necessário
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const periodEnd = new Date(((subscription as any).current_period_end as number) * 1000).toISOString()
 
   await admin.from('subscriptions').upsert({
     user_id:                userId,
@@ -200,7 +208,9 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
   const priceId  = subscription.items.data[0]?.price.id ?? null
   const plan     = getPlanFromPriceId(priceId)
   const status   = mapStripeStatus(subscription.status)
-  const periodEnd = new Date(subscription.current_period_end * 1000).toISOString()
+  // current_period_end foi movido em API versions mais novas — cast necessário
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const periodEnd = new Date(((subscription as any).current_period_end as number) * 1000).toISOString()
 
   await admin.from('subscriptions').update({
     stripe_subscription_id: subscription.id,

@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
   const parsed = briefFormSchema.safeParse(rawBody)
   if (!parsed.success) {
     return errorResponse(
-      parsed.error.errors[0]?.message ?? 'Dados inválidos.',
+      parsed.error.issues[0]?.message ?? 'Dados inválidos.',
       400,
     )
   }
@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
   }
 
   const plan = subscription?.plan ?? 'free'
-  const monthlyLimit = PLAN_MONTHLY_LIMITS[plan] ?? PLAN_MONTHLY_LIMITS.free
+  const monthlyLimit = PLAN_MONTHLY_LIMITS[plan] ?? PLAN_MONTHLY_LIMITS.free // eslint-disable-line security/detect-object-injection
 
   if (monthlyLimit !== Infinity) {
     // Conta briefs criados no mês atual
@@ -173,7 +173,7 @@ export async function POST(request: NextRequest) {
     console.error('[generate] output falhou na validação Zod:', {
       userId,
       durationMs,
-      errors: validated.error.errors,
+      errors: validated.error.issues,
     })
 
     await logUsage({ userId, inputTokens, outputTokens, durationMs, success: false, errorCode: 'invalid_output_schema', costUsd, costBrl })

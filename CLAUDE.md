@@ -10,14 +10,27 @@ SaaS de geração de briefs de criativos com IA para gestores de tráfego e anun
 - IA: Claude Sonnet via API Anthropic
 - PDF: @react-pdf/renderer
 - Billing: Stripe
+- Email: Resend + react-email
+- Analytics: PostHog
 - Deploy: Vercel
 
 ## Estrutura de pastas
 - `src/app/` — rotas Next.js (App Router)
+  - `(marketing)/` — landing page, legal, beta, auth
+  - `(app)/` — área autenticada: dashboard, briefs, settings
+  - `(public)/` — páginas públicas sem auth (briefs compartilhados)
+  - `api/` — API Routes: briefs, stripe, waitlist, feedback, health
 - `src/components/` — componentes reutilizáveis
-- `src/lib/` — utilitários, clientes Supabase, Stripe
+  - `marketing/` — Header, Hero, Pricing, Faq, Footer, BetaForm, etc.
+  - `app/` — AppShell, Sidebar, TopBar, BriefView, Dashboard, Onboarding, Feedback
+  - `ui/` — design system: Button, Accordion, Container, SectionHeader, etc.
+  - `pdf/` — BriefPDF (react-pdf, server-only)
+  - `analytics/` — PostHogProvider
+  - `branding/` — Logo
+- `src/lib/` — utilitários, clientes Supabase, Stripe, PostHog, rate-limit
 - `src/prompts/` — prompts do Claude para geração de briefs
-- `docs/` — documentação técnica (arquitetura, decisões)
+- `src/emails/` — templates react-email
+- `docs/` — documentação técnica (arquitetura, decisões, runbook)
 
 ## Convenções
 - Idioma do código: inglês (variáveis, funções, comentários)
@@ -25,6 +38,9 @@ SaaS de geração de briefs de criativos com IA para gestores de tráfego e anun
 - Componentes: PascalCase
 - Funções/variáveis: camelCase
 - Arquivos: kebab-case
+- **Toda action destrutiva (delete, archive, revoke) DEVE ter confirmação via Dialog antes de executar**
+- Server Components para data fetching; Client Components apenas para interatividade
+- Auth check sempre no início de Server Components e API Routes
 
 ## Comandos importantes
 - `npm run dev` — inicia servidor local
@@ -41,6 +57,8 @@ SaaS de geração de briefs de criativos com IA para gestores de tráfego e anun
 - Não criar backend separado (Railway, FastAPI) — tudo em API Routes
 - Não usar pgvector ou RAG — produto mais simples que o Lore
 - Não commitar o arquivo .env.local
+- Não enviar PII (email, nome, CPF) ao PostHog — apenas UUIDs e eventos
+- Não expor conteúdo dos briefs no PostHog — apenas métricas de uso
 
 ## Security Rules
 Todo código novo deve seguir estes princípios obrigatoriamente:
@@ -61,6 +79,7 @@ Todo código novo deve seguir estes princípios obrigatoriamente:
 - TODA tabela nova no Supabase DEVE ter RLS habilitado antes de ir para produção
 - TODA tabela nova DEVE ter política explícita bloqueando acesso anônimo (`using (false)`)
 - Verificar RLS ativo mensalmente via checklist em `docs/security-checklist.md`
+- Tabelas novas neste projeto: waitlist, feedback (ambas precisam de RLS)
 
 ### Inputs e outputs
 - TODO input de usuário passa por validação Zod no server antes de qualquer uso

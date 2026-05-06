@@ -1,3 +1,4 @@
+/* eslint-disable security/detect-object-injection */
 import * as Sentry from '@sentry/nextjs'
 
 Sentry.init({
@@ -17,7 +18,7 @@ Sentry.init({
     // ── Sanitização de PII ────────────────────────────────────────────────────
     // Remove TODOS os cookies — podem conter session tokens
     if (event.request?.cookies) {
-      event.request.cookies = '[redacted]'
+      event.request.cookies = {}
     }
 
     // Remove headers sensíveis
