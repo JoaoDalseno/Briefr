@@ -41,3 +41,39 @@ SaaS de geração de briefs de criativos com IA para gestores de tráfego e anun
 - Não criar backend separado (Railway, FastAPI) — tudo em API Routes
 - Não usar pgvector ou RAG — produto mais simples que o Lore
 - Não commitar o arquivo .env.local
+
+## Security Rules
+Todo código novo deve seguir estes princípios obrigatoriamente:
+
+### Secrets e credenciais
+- NUNCA hardcodar API keys, tokens ou senhas no código
+- NUNCA usar prefixo `NEXT_PUBLIC_` em variáveis secretas (Anthropic, Supabase service_role, Stripe secret)
+- NUNCA logar API keys, senhas, tokens JWT ou dados pessoais do usuário
+- Variáveis sensíveis vivem APENAS no `.env.local` (nunca commitado)
+
+### Autenticação e autorização
+- TODO endpoint de API Route começa com verificação de `supabase.auth.getUser()`
+- NUNCA confiar no `user_id` vindo do client — sempre derivar da sessão server-side
+- NUNCA usar `createAdminClient()` em Client Components ou código que vai ao browser
+- O plano do usuário (free/pro/agencia) é SEMPRE derivado do webhook do Stripe, nunca do client
+
+### Banco de dados
+- TODA tabela nova no Supabase DEVE ter RLS habilitado antes de ir para produção
+- TODA tabela nova DEVE ter política explícita bloqueando acesso anônimo (`using (false)`)
+- Verificar RLS ativo mensalmente via checklist em `docs/security-checklist.md`
+
+### Inputs e outputs
+- TODO input de usuário passa por validação Zod no server antes de qualquer uso
+- Dados do usuário inseridos em prompts de IA DEVEM usar delimitadores XML + escape de `< > &`
+- Outputs da IA DEVEM ser validados com Zod antes de salvar no banco ou retornar ao client
+- Mensagens de erro para o usuário são SEMPRE genéricas (nunca revelar detalhes internos)
+
+### Webhooks e integrações externas
+- Webhooks do Stripe DEVEM verificar assinatura com `constructEvent` — nunca pular
+- Body de webhooks DEVE ser lido como RAW (`request.text()`) antes de qualquer parse
+- Toda integração externa usa idempotência (salvar event.id antes de processar)
+
+### Rate limiting e proteção
+- Endpoints públicos (auth) usam rate limit por IP via Upstash
+- Endpoints autenticados (geração) usam rate limit por `user_id`
+- Respostas de auth usam mensagens genéricas para não revelar se email existe

@@ -1,3 +1,33 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript",
+    "plugin:security/recommended"
+  ],
+  "plugins": ["security"],
+  "rules": {
+    // Detecta acesso a propriedades de objeto via variável (ex: obj[userInput])
+    // — vetor clássico de prototype pollution e injection
+    "security/detect-object-injection": "error",
+
+    // RegExp construída com valor não-literal pode ser usada para ReDoS
+    "security/detect-non-literal-regexp": "error",
+
+    // eval() com expressão dinâmica é extremamente perigoso
+    "security/detect-eval-with-expression": "error",
+
+    // Buffer sem tamanho explícito pode vazar memória de processos anteriores
+    "security/detect-new-buffer": "error",
+
+    // Math.random() não é criptograficamente seguro
+    "security/detect-pseudoRandomBytes": "error",
+
+    // Comparação de strings com == pode ser vulnerável a timing attacks
+    // (relevante para comparação de tokens/hashes)
+    "security/detect-possible-timing-attacks": "warn",
+
+    // Caminho de arquivo construído com variável pode permitir path traversal
+    "security/detect-non-literal-fs-filename": "warn"
+  }
 }
+
