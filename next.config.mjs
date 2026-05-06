@@ -1,3 +1,5 @@
+import { withSentryConfig } from '@sentry/nextjs'
+
 /** @type {import('next').NextConfig} */
 
 // Content Security Policy
@@ -10,7 +12,7 @@ const csp = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' blob: data: https:",
   "font-src 'self'",
-  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.anthropic.com https://api.stripe.com",
+  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.anthropic.com https://api.stripe.com https://*.ingest.sentry.io",
   "frame-src https://js.stripe.com https://hooks.stripe.com",
   "object-src 'none'",
   "base-uri 'self'",
@@ -43,15 +45,49 @@ const securityHeaders = [
 ]
 
 const nextConfig = {
+  // Remove o header "X-Powered-By: Next.js" — evita fingerprinting do stack
+  poweredByHeader: false,
+
+  // Compressão gzip/brotli habilitada explicitamente
+  compress: true,
+
+  // Redireciona /foo/ → /foo (trailing slash removida)
+  trailingSlash: false,
+
   async headers() {
     return [
       {
-        // Apply security headers to all routes
         source: '/(.*)',
         headers: securityHeaders,
+      },
+      {
+        // Cache imutável para assets estáticos do Next.js
+        source: '/_next/static/(.*)',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+    ]
+  },
+
+  async redirects() {
+    return [
+      // Remove trailing slash de qualquer path com conteúdo
+      // (belt + suspenders com trailingSlash: false)
+      {
+        source:      '/:path+/',
+        destination: '/:path+',
+        permanent:   true,
       },
     ]
   },
 }
 
-export default nextConfig;
+// withSentryConfig injeta o SDK do Sentry no bundle e configura source maps.
+// A captura de erros funciona via sentry.*.config.ts + src/instrumentation.ts.
+export default withSentryConfig(nextConfig, {
+  silent:                  true,  // Não polui o output do build
+  widenClientFileUpload:   true,  // Source maps mais precisos no client
+  disableLogger:           true,  // Remove o logger do Sentry do bundle final
+  automaticVercelMonitors: false, // Desabilitado — usamos Better Uptime
+})

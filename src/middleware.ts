@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
 
 // Routes that require authentication
-const PROTECTED_PREFIXES = ['/app', '/dashboard', '/briefs', '/settings']
+// /admin is protected here (auth) + by email whitelist in the admin layout
+const PROTECTED_PREFIXES = ['/app', '/dashboard', '/briefs', '/settings', '/admin']
 
 // Routes always accessible (no redirect even if unauthenticated)
 const PUBLIC_PATHS = ['/', '/login', '/signup', '/auth', '/pricing']

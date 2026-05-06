@@ -8,6 +8,16 @@ import type Stripe from 'stripe'
 import { stripe } from '@/lib/stripe/client'
 import { createAdminClient } from '@/lib/supabase/server'
 import { getPlanFromPriceId, mapStripeStatus } from '@/lib/stripe/plans'
+import { Redis } from '@upstash/redis'
+import { sendWebhookFailureAlert } from '@/lib/resend/alerts'
+
+const redis = new Redis({
+  url:   process.env.UPSTASH_REDIS_REST_URL!,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+})
+
+const WEBHOOK_FAIL_KEY      = 'stripe:webhook:consecutive_fails'
+const WEBHOOK_FAIL_THRESHOLD = 3
 
 // ─── Handler principal ────────────────────────────────────────────────────────
 
@@ -103,10 +113,32 @@ export async function POST(request: NextRequest) {
       error:   err instanceof Error ? err.message : 'unknown',
     })
     // Retorna 500 → Stripe vai retentar o evento
+    // Incrementa contador de falhas consecutivas e alerta se necessário
+    await trackWebhookFailure()
     return NextResponse.json({ error: 'Event processing failed' }, { status: 500 })
   }
 
+  // Sucesso — reset do contador de falhas consecutivas
+  await redis.set(WEBHOOK_FAIL_KEY, 0).catch(() => {})
+
   return NextResponse.json({ received: true })
+}
+
+// ─── Rastreamento de falhas consecutivas ──────────────────────────────────────
+
+async function trackWebhookFailure(): Promise<void> {
+  try {
+    const count = await redis.incr(WEBHOOK_FAIL_KEY)
+    // Expira em 1 hora para não acumular falhas antigas
+    await redis.expire(WEBHOOK_FAIL_KEY, 3600)
+
+    if (count >= WEBHOOK_FAIL_THRESHOLD) {
+      // Alerta assíncrono — não bloqueia a resposta ao Stripe
+      sendWebhookFailureAlert(count).catch(console.error)
+    }
+  } catch {
+    // Falha no tracking não deve afetar o webhook em si
+  }
 }
 
 // ─── Handlers de evento ───────────────────────────────────────────────────────
