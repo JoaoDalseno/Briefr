@@ -28,6 +28,13 @@ export const forgotPasswordRateLimit = new Ratelimit({
   prefix: 'rl:forgot',
 })
 
+/** 30 gerações por user_id por hora — previne abuso mesmo em planos pagos */
+export const generateRateLimit = new Ratelimit({
+  redis,
+  limiter: Ratelimit.slidingWindow(30, '1 h'),
+  prefix: 'rl:generate',
+})
+
 /** Extrai o IP real do request (considera proxies e Vercel) */
 export function getClientIp(headersList: Headers): string {
   return (
