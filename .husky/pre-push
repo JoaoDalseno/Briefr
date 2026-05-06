@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+# pre-push hook: blocks direct pushes to main branch.
+# All changes to main must go through a pull request.
+
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+PROTECTED_BRANCH="main"
+
+if [ "$CURRENT_BRANCH" = "$PROTECTED_BRANCH" ]; then
+  echo ""
+  echo "============================================================"
+  echo "  PUSH BLOQUEADO: pushes diretos para '$PROTECTED_BRANCH' não são permitidos."
+  echo ""
+  echo "  Crie um branch de feature e abra um Pull Request:"
+  echo "    git checkout -b feat/minha-feature"
+  echo "    git push origin feat/minha-feature"
+  echo "============================================================"
+  exit 1
+fi
+
+exit 0

@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+# Pre-commit hook: runs secrets check then lint-staged (ESLint --fix)
+
+# 1. Detect secrets in staged files
+bash "$(dirname "$0")/check-secrets.sh"
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+# 2. Run ESLint --fix on staged .ts/.tsx files via lint-staged
+npx lint-staged

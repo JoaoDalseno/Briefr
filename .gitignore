@@ -31,6 +31,12 @@ yarn-error.log*
 # vercel
 .vercel
 
+# obsidian
+.obsidian/
+
+# claude code local settings
+.claude/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
