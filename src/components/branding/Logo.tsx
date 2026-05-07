@@ -1,0 +1,40 @@
+import { cn } from "@/lib/utils";
+
+interface LogoProps {
+  className?: string;
+  size?: number;
+}
+
+export function Logo({ className, size = 36 }: LogoProps) {
+  return (
+    <div className={cn("flex items-center gap-2.5", className)}>
+      <LogoMark size={size} />
+      <span
+        className="font-semibold text-foreground tracking-tight"
+        style={{ fontSize: `${size * 0.67}px`, letterSpacing: "-0.03em" }}
+      >
+        Briefr
+      </span>
+    </div>
+  );
+}
+
+export function LogoMark({ size = 36 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 36 36"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-label="Briefr logo"
+    >
+      <rect width="36" height="36" rx="9" fill="#C2410C" />
+      <path
+        d="M11 9h8.5c2.7 0 4.7 1.6 4.7 4.2 0 1.6-.8 2.7-2.1 3.4 1.8.6 3 2 3 4.1 0 2.9-2.1 4.6-5.3 4.6H11V9zm4 6.7h3.7c1.1 0 1.8-.6 1.8-1.6s-.7-1.6-1.8-1.6H15v3.2zm0 6.4h4c1.3 0 2.1-.7 2.1-1.8s-.8-1.8-2.1-1.8h-4v3.6z"
+        fill="#FFFCF5"
+      />
+      <circle cx="27" cy="27" r="2.5" fill="#FFFCF5" />
+    </svg>
+  );
+}

@@ -5,6 +5,7 @@ import { signupSchema } from '@/lib/validations/auth'
 import { signupRateLimit, getClientIp } from '@/lib/rate-limit'
 import { createServerClient } from '@/lib/supabase/server'
 import type { AuthActionState } from '@/app/(auth)/login/actions'
+export type { AuthActionState } from '@/app/(auth)/login/actions'
 
 export async function signupAction(
   _prevState: AuthActionState,
@@ -36,7 +37,7 @@ export async function signupAction(
     password: formData.get('password'),
   })
   if (!parsed.success) {
-    const firstError = parsed.error.errors[0]?.message
+    const firstError = parsed.error.issues[0]?.message
     return { error: firstError ?? 'Dados inválidos. Verifique os campos e tente novamente.' }
   }
 

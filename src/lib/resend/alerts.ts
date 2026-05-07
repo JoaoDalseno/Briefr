@@ -2,8 +2,6 @@
 // NUNCA envia dados sensíveis de usuários (sem emails, CPF, senhas, tokens).
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 // Email de destino dos alertas — do próprio admin do Briefr
 const ALERT_TO   = process.env.ADMIN_ALERT_EMAIL ?? 'alertas@briefr.com.br'
 const ALERT_FROM = 'Briefr Alerts <noreply@briefr.com.br>'
@@ -16,6 +14,8 @@ async function sendAlert(subject: string, html: string): Promise<void> {
     console.warn('[alert] Resend não configurado. Alerta seria enviado:', { subject })
     return
   }
+
+  const resend = new Resend(process.env.RESEND_API_KEY)
 
   try {
     await resend.emails.send({

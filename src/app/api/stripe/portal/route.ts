@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import { createServerClient, createAdminClient } from '@/lib/supabase/server'
 import { stripe } from '@/lib/stripe/client'
 
@@ -6,7 +6,7 @@ function errorResponse(message: string, status: number) {
   return NextResponse.json({ error: message }, { status })
 }
 
-export async function POST(request: NextRequest) {
+export async function POST() {
   // ── 1. Auth ──────────────────────────────────────────────────────────────
   const supabase = createServerClient()
   const { data: { user }, error: authError } = await supabase.auth.getUser()

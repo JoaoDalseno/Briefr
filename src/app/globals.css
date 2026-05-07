@@ -1,94 +1,208 @@
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+/* ─── Briefr Design System — CSS Variables ───────────────────────────────────
+   Paleta: Terracota + Bege quente
+   Primary:    #C2410C (terracota.600) → HSL 17 89% 41%
+   Accent:     #0F766E (petróleo.600)  → HSL 174 77% 26%
+   Background: #FFFCF5 (stone.50)     → HSL 36 100% 98%
+   Foreground: #1F1A14 (stone.900)    → HSL 30 25% 10%
+   Radius:     8px = 0.5rem
+
+   Notação HSL sem wrapper (ex: 17 89% 41%) para suporte a opacity modifiers:
+     bg-primary/50 → hsl(var(--primary) / 0.5)
+──────────────────────────────────────────────────────────────────────────── */
+
+@layer base {
+  :root {
+    /* ── Background / Foreground ─────────────────────────────────────── */
+    --background: 36 100% 98%;    /* stone.50  #FFFCF5 */
+    --foreground: 30 25% 10%;     /* stone.900 #1F1A14 */
+
+    /* ── Surface (cards, seções alternadas) ──────────────────────────── */
+    --surface: 38 60% 96%;        /* stone.100 #FAF6EE */
+
+    /* ── Card ────────────────────────────────────────────────────────── */
+    --card:            38 60% 96%;
+    --card-foreground: 30 25% 10%;
+
+    /* ── Popover ─────────────────────────────────────────────────────── */
+    --popover:            38 60% 96%;
+    --popover-foreground: 30 25% 10%;
+
+    /* ── Primary — terracota #C2410C ──────────────────────────────────── */
+    --primary:            17 89% 41%;
+    --primary-foreground:  0 0% 100%;
+
+    /* ── Secondary — surface leve ────────────────────────────────────── */
+    --secondary:            38 60% 96%;
+    --secondary-foreground: 30 25% 10%;
+
+    /* ── Muted ───────────────────────────────────────────────────────── */
+    --muted:            38 60% 96%;
+    --muted-foreground: 25 11% 38%;   /* stone.600 #6B6258 */
+
+    /* ── Accent — petróleo #0F766E ────────────────────────────────────── */
+    --accent:            174 77% 26%;
+    --accent-foreground:   0 0% 100%;
+
+    /* ── Destructive ─────────────────────────────────────────────────── */
+    --destructive:            0 73% 41%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* ── Border / Input / Ring ───────────────────────────────────────── */
+    --border: 36 50% 84%;    /* stone.300 #E8DCC4 */
+    --input:  36 50% 84%;
+    --ring:   17 89% 41%;    /* terracota.600 */
+
+    /* ── Radius: 8px ─────────────────────────────────────────────────── */
+    --radius: 0.5rem;
+
+    /* ── Tipografia ──────────────────────────────────────────────────── */
+    --font-heading: var(--font-inter);
+    --font-sans:    var(--font-inter);
+    --font-mono:    ui-monospace, "Cascadia Code", monospace;
+
+    /* ── Glassmorphism ───────────────────────────────────────────────── */
+    --glass-bg:     hsl(38 60% 96% / 0.80);
+    --glass-border: hsl(17 89% 41% / 0.12);
+    --glass-blur:   16px;
+
+    /* ── Sidebar ─────────────────────────────────────────────────────── */
+    --sidebar:                    38 60% 96%;
+    --sidebar-foreground:         30 25% 10%;
+    --sidebar-primary:            17 89% 41%;
+    --sidebar-primary-foreground:  0 0% 100%;
+    --sidebar-accent:             36 50% 90%;
+    --sidebar-accent-foreground:  30 25% 10%;
+    --sidebar-border:             36 50% 84%;
+    --sidebar-ring:               17 89% 41%;
+  }
+
+  .dark {
+    /* ── Background / Foreground ─────────────────────────────────────── */
+    --background: 24 20% 9%;      /* warm dark brown */
+    --foreground: 36 30% 92%;     /* warm off-white */
+
+    /* ── Surface ─────────────────────────────────────────────────────── */
+    --surface: 24 18% 14%;
+
+    /* ── Card ────────────────────────────────────────────────────────── */
+    --card:            24 18% 14%;
+    --card-foreground: 36 30% 92%;
+
+    /* ── Popover ─────────────────────────────────────────────────────── */
+    --popover:            24 18% 14%;
+    --popover-foreground: 36 30% 92%;
+
+    /* ── Primary ─────────────────────────────────────────────────────── */
+    --primary:            17 89% 52%;    /* slightly brighter in dark */
+    --primary-foreground:  0 0% 100%;
+
+    /* ── Secondary ───────────────────────────────────────────────────── */
+    --secondary:            24 16% 20%;
+    --secondary-foreground: 36 30% 85%;
+
+    /* ── Muted ───────────────────────────────────────────────────────── */
+    --muted:            24 16% 20%;
+    --muted-foreground: 30 12% 55%;
+
+    /* ── Accent ──────────────────────────────────────────────────────── */
+    --accent:            174 77% 35%;
+    --accent-foreground:   0 0% 100%;
+
+    /* ── Destructive ─────────────────────────────────────────────────── */
+    --destructive:            0 73% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* ── Border / Input / Ring ───────────────────────────────────────── */
+    --border: 30 15% 22%;
+    --input:  30 15% 25%;
+    --ring:   17 89% 52%;
+
+    /* ── Glassmorphism dark ──────────────────────────────────────────── */
+    --glass-bg:     hsl(24 18% 14% / 0.80);
+    --glass-border: hsl(17 89% 52% / 0.20);
+
+    /* ── Sidebar ─────────────────────────────────────────────────────── */
+    --sidebar:                    24 18% 14%;
+    --sidebar-foreground:         36 30% 92%;
+    --sidebar-primary:            17 89% 52%;
+    --sidebar-primary-foreground:  0 0% 100%;
+    --sidebar-accent:             24 16% 20%;
+    --sidebar-accent-foreground:  36 30% 85%;
+    --sidebar-border:             30 15% 22%;
+    --sidebar-ring:               17 89% 52%;
+  }
+
+  /* ── Reset moderno ──────────────────────────────────────────────────── */
+  *, *::before, *::after {
+    box-sizing: border-box;
+    @apply border-border;
+    outline-color: hsl(var(--ring) / 0.5);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    @apply font-sans;
+  }
+
+  body {
+    margin: 0;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading tracking-heading;
+  }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  /* ── Scrollbar (Chrome/Edge) ────────────────────────────────────────── */
+  ::-webkit-scrollbar        { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track  { background: transparent; }
+  ::-webkit-scrollbar-thumb  {
+    background: hsl(17 89% 41% / 0.30);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(17 89% 41% / 0.50);
   }
 }
 
-@layer base {
-  .theme {
-    --font-heading: var(--font-sans);
-    --font-sans: var(--font-sans);
+/* ── Utilities extras ────────────────────────────────────────────────── */
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
   }
-  :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0);
+
+  /* Gradient text terracota→petróleo */
+  .text-gradient-brand {
+    background: linear-gradient(135deg, #C2410C, #0F766E);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
-  .dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
-  }
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-sans;
+
+  /* Gradient text terracota claro→escuro */
+  .text-gradient-primary {
+    background: linear-gradient(135deg, #D55A2B, #9A3309);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }

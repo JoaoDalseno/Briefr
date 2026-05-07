@@ -1,3 +1,4 @@
+/* eslint-disable security/detect-object-injection */
 import * as Sentry from '@sentry/nextjs'
 
 Sentry.init({
@@ -11,7 +12,7 @@ Sentry.init({
 
     // Remove cookies e headers sensíveis
     if (event.request?.cookies) {
-      event.request.cookies = '[redacted]'
+      event.request.cookies = {}
     }
     if (event.request?.headers) {
       const headers = event.request.headers as Record<string, string>

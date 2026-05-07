@@ -19,7 +19,7 @@ export const briefFormSchema = z.object({
     .transform((v) => v.trim()),
 
   objective: z.enum(['vendas', 'leads', 'awareness', 'consideracao'], {
-    errorMap: () => ({ message: 'Objetivo inválido' }),
+    error: () => ({ message: 'Objetivo inválido' }),
   }),
 
   unique_selling_point: z
@@ -29,7 +29,7 @@ export const briefFormSchema = z.object({
     .transform((v) => v.trim()),
 
   tone: z.enum(['profissional', 'descontraido', 'urgente', 'inspirador', 'educativo'], {
-    errorMap: () => ({ message: 'Tom inválido' }),
+    error: () => ({ message: 'Tom inválido' }),
   }),
 
   formats: z
@@ -41,6 +41,16 @@ export const briefFormSchema = z.object({
     .string()
     .max(1000, 'Contexto adicional deve ter no máximo 1000 caracteres')
     .transform((v) => v.trim())
+    .optional(),
+
+  niche: z
+    .string()
+    .max(100, 'Nicho deve ter no máximo 100 caracteres')
+    .transform((v) => v.trim())
+    .optional(),
+
+  platform: z
+    .enum(['meta', 'google', 'tiktok'])
     .optional(),
 })
 

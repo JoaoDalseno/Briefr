@@ -12,7 +12,7 @@ const csp = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' blob: data: https:",
   "font-src 'self'",
-  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.anthropic.com https://api.stripe.com https://*.ingest.sentry.io",
+  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.anthropic.com https://api.stripe.com https://*.ingest.sentry.io https://*.posthog.com https://app.posthog.com",
   "frame-src https://js.stripe.com https://hooks.stripe.com",
   "object-src 'none'",
   "base-uri 'self'",
@@ -45,6 +45,18 @@ const securityHeaders = [
 ]
 
 const nextConfig = {
+  experimental: {
+    // Node.js-only packages — exclude from webpack client bundle
+    serverComponentsExternalPackages: [
+      '@react-pdf/renderer',
+      'require-in-the-middle',
+      'import-in-the-middle',
+      '@opentelemetry/instrumentation',
+      '@prisma/instrumentation',
+      '@fastify/otel',
+    ],
+  },
+
   // Remove o header "X-Powered-By: Next.js" — evita fingerprinting do stack
   poweredByHeader: false,
 

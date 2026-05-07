@@ -1,8 +1,7 @@
 'use server'
 
-import { headers } from 'next/headers'
 import { forgotPasswordSchema } from '@/lib/validations/auth'
-import { forgotPasswordRateLimit, getClientIp } from '@/lib/rate-limit'
+import { forgotPasswordRateLimit } from '@/lib/rate-limit'
 import { createServerClient } from '@/lib/supabase/server'
 import type { AuthActionState } from '@/app/(auth)/login/actions'
 
@@ -10,7 +9,6 @@ export async function forgotPasswordAction(
   _prevState: AuthActionState,
   formData: FormData,
 ): Promise<AuthActionState> {
-  const ip = getClientIp(headers())
   const email = formData.get('email') as string
 
   // 1. Validar email antes do rate limit (evita consumir limite com emails inválidos)

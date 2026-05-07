@@ -1,14 +1,31 @@
 // Server-side only — NUNCA importe em Client Components.
 // STRIPE_SECRET_KEY não tem prefixo NEXT_PUBLIC_ propositalmente.
+//
+// Usa inicialização lazy para que o Next.js consiga fazer build sem as
+// variáveis de produção presentes — o erro aparece apenas no primeiro request.
 import Stripe from 'stripe'
 
-if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error('STRIPE_SECRET_KEY não definida. Verifique o .env.local.')
+let _instance: Stripe | undefined
+
+function getInstance(): Stripe {
+  if (!_instance) {
+    if (!process.env.STRIPE_SECRET_KEY) {
+      throw new Error('STRIPE_SECRET_KEY não definida. Verifique o .env.local.')
+    }
+    _instance = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: '2026-04-22.dahlia',
+      typescript: true,
+    })
+  }
+  return _instance
 }
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  // Pina a versão da API para evitar breaking changes silenciosos.
-  // Atualize manualmente após testar as mudanças do changelog do Stripe.
-  apiVersion: '2025-04-30.basil',
-  typescript: true,
+// Proxy transparente: callers usam `stripe.x()` normalmente, mas a instância
+// só é criada quando o primeiro método é acessado (em runtime).
+export const stripe = new Proxy({} as Stripe, {
+  get(_, prop): unknown {
+    const instance = getInstance()
+    const value = (instance as unknown as Record<string | symbol, unknown>)[prop] // eslint-disable-line security/detect-object-injection
+    return typeof value === 'function' ? value.bind(instance) : value
+  },
 })

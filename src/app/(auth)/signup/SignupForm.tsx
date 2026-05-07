@@ -26,7 +26,7 @@ export function SignupForm() {
   }
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-8 shadow-sm">
+    <div className="rounded-xl border border-border bg-card p-8 shadow-sm">
       <h2 className="mb-6 text-xl font-semibold text-gray-900">Criar conta grátis</h2>
 
       <form action={formAction} noValidate className="space-y-4">

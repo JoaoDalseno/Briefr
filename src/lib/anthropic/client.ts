@@ -18,16 +18,25 @@ export const USD_TO_BRL = 5.5
 // Custo em BRL que dispara console.warn por request
 export const COST_ALERT_THRESHOLD_BRL = 2.0
 
-if (!process.env.ANTHROPIC_API_KEY) {
-  throw new Error('ANTHROPIC_API_KEY não definida. Verifique o .env.local.')
-}
+// Lazy init — o erro aparece no primeiro request, não no build
+let _anthropic: Anthropic | undefined
 
-export const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-  // SDK faz backoff exponencial automaticamente entre tentativas
-  maxRetries: 3,
-  // 30 segundos: briefs podem ser longos, mas não queremos pendurar a rota indefinidamente
-  timeout: 30_000,
+export const anthropic = new Proxy({} as Anthropic, {
+  get(_, prop): unknown {
+    if (!_anthropic) {
+      if (!process.env.ANTHROPIC_API_KEY) {
+        throw new Error('ANTHROPIC_API_KEY não definida. Verifique o .env.local.')
+      }
+      _anthropic = new Anthropic({
+        apiKey: process.env.ANTHROPIC_API_KEY,
+        maxRetries: 3,
+        timeout: 30_000,
+      })
+    }
+    const instance = _anthropic
+    const value = (instance as unknown as Record<string | symbol, unknown>)[prop] // eslint-disable-line security/detect-object-injection
+    return typeof value === 'function' ? value.bind(instance) : value
+  },
 })
 
 /** Calcula custo estimado em USD e BRL dado o uso de tokens */
