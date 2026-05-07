@@ -1,115 +1,105 @@
-'use client'
+"use client";
 
-import { motion } from 'framer-motion'
-import { FileText, Sparkles, Download } from 'lucide-react'
-import { Container } from '@/components/ui/Container'
-import { SectionHeader } from '@/components/ui/SectionHeader'
-import { cn } from '@/lib/utils'
+import { Container } from "@/components/ui/Container";
+import { FadeUp } from "@/components/animations";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 const STEPS = [
   {
-    number: '01',
-    icon: FileText,
-    title: 'Descreva seu produto',
-    description: 'Preencha 8 campos em 2 minutos: produto, público-alvo, objetivo, diferencial, tom e formatos desejados.',
-    detail: 'Sem briefing complexo · Formulário inteligente',
+    number: "01",
+    title: "Descreva seu produto ou serviço.",
+    description:
+      "Preenche 8 campos sobre produto, público, diferencial e objetivo. Leva menos de 2 minutos.",
   },
   {
-    number: '02',
-    icon: Sparkles,
-    title: 'A IA monta o brief',
-    description: 'O Claude analisa o contexto brasileiro e gera um brief específico para cada formato — com hook, copy, CTA e referência visual.',
-    detail: 'Contexto BR · Sem hallucination',
+    number: "02",
+    title: "A IA monta o brief completo.",
+    description:
+      "O Claude analisa o contexto brasileiro do seu nicho e gera hooks, copy, roteiro e direção visual calibrados.",
   },
   {
-    number: '03',
-    icon: Download,
-    title: 'Exporte e mande pro designer',
-    description: 'Baixe em PDF formatado ou compartilhe com link direto. O designer recebe tudo que precisa sem uma palavra a mais.',
-    detail: 'PDF em 1 clique · Link compartilhável',
+    number: "03",
+    title: "Exporte e mande pro designer.",
+    description:
+      "PDF formatado, link compartilhável ou texto puro. Pronto para executar sem uma pergunta sequer.",
   },
-]
+];
+
+function Step({
+  step,
+  delay,
+}: {
+  step: (typeof STEPS)[0];
+  delay: number;
+}) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 24 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay, ease: [0.25, 0.1, 0.25, 1] }}
+      className="flex flex-col gap-4"
+    >
+      {/* Large number */}
+      <span
+        className="font-bold leading-none select-none"
+        style={{
+          fontSize: "64px",
+          color: "#F4E8D6",
+          letterSpacing: "-0.03em",
+        }}
+      >
+        {step.number}
+      </span>
+      <div className="space-y-2">
+        <h3 className="text-lg font-semibold text-[#1F1A14] leading-snug">
+          {step.title}
+        </h3>
+        <p className="text-sm text-[#6B6258] leading-relaxed">
+          {step.description}
+        </p>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function HowItWorks() {
   return (
-    <section id="how" className="py-24 bg-surface/70">
+    <section id="how" className="py-24 bg-[#FFFCF5]">
       <Container>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <SectionHeader
-            eyebrow="Como funciona"
-            title="Conecte uma vez."
-            subtitle="Brief pronto pra sempre."
-          />
-        </motion.div>
+        {/* Header */}
+        <FadeUp className="text-center mb-16">
+          <span className="inline-flex items-center rounded-full border border-[#E8DCC4] bg-[#FAF6EE] px-4 py-1.5 text-xs font-semibold text-[#9A3309] mb-4">
+            ✦ Como funciona
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#1F1A14] leading-tight">
+            Conecte uma vez.
+            <br />
+            Brief pronto para sempre.
+          </h2>
+          <p className="mt-4 text-base sm:text-lg text-[#6B6258] max-w-xl mx-auto leading-relaxed">
+            Três passos para sair do improviso e ter briefs profissionais em
+            minutos.
+          </p>
+        </FadeUp>
 
         {/* Steps */}
-        <div className="mt-16 relative">
-          {/* Connector line — visible on desktop */}
+        <div className="relative grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-8">
+          {/* Dashed connector on desktop */}
           <div
             aria-hidden
-            className="hidden lg:block absolute top-12 left-[calc(16.67%+0.5px)] right-[calc(16.67%+0.5px)] h-px"
-            style={{
-              background: 'linear-gradient(90deg, hsl(17 89% 41% / 0.15), hsl(17 89% 41% / 0.4), hsl(174 77% 26% / 0.3), hsl(174 77% 26% / 0.15))',
-            }}
+            className="hidden lg:block absolute top-8 left-[calc(33.33%+1rem)] right-[calc(33.33%+1rem)] border-t border-dashed border-[#E8DCC4]"
           />
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {STEPS.map(({ number, icon: Icon, title, description, detail }, i) => (
-              <motion.div
-                key={number}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.5, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-                className={cn(
-                  'group relative flex flex-col gap-5 rounded-xl border border-border bg-white p-7',
-                  'shadow-card hover:shadow-card-lg hover:-translate-y-1 transition-all duration-300',
-                )}
-              >
-                {/* Number + Icon */}
-                <div className="flex items-center gap-4">
-                  {/* Circle with number */}
-                  <div className="relative flex-shrink-0">
-                    <div className="size-12 rounded-full bg-white border-2 border-border group-hover:border-primary/40 transition-colors flex items-center justify-center z-10 relative">
-                      <span className="text-gradient-brand font-heading font-bold text-lg leading-none">
-                        {number}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Icon */}
-                  <div className="p-2.5 rounded-xl bg-primary/8 group-hover:bg-primary/12 transition-colors">
-                    <Icon className="size-5 text-primary" />
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="space-y-2.5">
-                  <h3 className="font-heading font-semibold text-lg tracking-heading text-foreground">
-                    {title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {description}
-                  </p>
-                </div>
-
-                {/* Detail pill */}
-                <div className="pt-1">
-                  <span className="inline-flex items-center gap-1.5 text-xs font-medium text-primary/80">
-                    <span className="size-1.5 rounded-full bg-primary/60" />
-                    {detail}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          {STEPS.map((step, i) => (
+            <Step key={step.number} step={step} delay={i * 0.12} />
+          ))}
         </div>
       </Container>
     </section>
-  )
+  );
 }

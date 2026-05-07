@@ -1,49 +1,49 @@
-'use client'
+"use client";
 
-import { motion } from 'framer-motion'
-import { Container } from '@/components/ui/Container'
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { Container } from "@/components/ui/Container";
 
 const STATS = [
-  {
-    number: '10×',
-    label: 'mais rápido',
-    description: 'De 30 min para 3 min por brief',
-  },
-  {
-    number: '+340%',
-    label: 'de CTR',
-    description: 'Aumento médio com briefs estruturados',
-  },
-  {
-    number: '100%',
-    label: 'em português',
-    description: 'Contexto e linguagem do mercado BR',
-  },
-]
+  { number: "10×", label: "mais rápido que montar no Word" },
+  { number: "2 min", label: "do briefing ao brief completo" },
+  { number: "100%", label: "em português, contexto BR" },
+];
 
 export default function StatsBar() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+
   return (
-    <div className="border-y border-border bg-surface/60">
+    <div
+      ref={ref}
+      className="border-y border-[#E8DCC4] bg-[#FAF6EE]"
+    >
       <Container>
-        <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-border">
-          {STATS.map(({ number, label, description }, i) => (
+        <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[#E8DCC4]">
+          {STATS.map(({ number, label }, i) => (
             <motion.div
               key={label}
               initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.45, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="flex flex-col items-center justify-center gap-1 py-8 px-6 text-center"
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{
+                duration: 0.5,
+                delay: i * 0.1,
+                ease: [0.25, 0.1, 0.25, 1],
+              }}
+              className="flex flex-col items-center justify-center gap-1 py-10 px-6 text-center"
             >
-              <span className="text-gradient-brand font-heading font-bold tracking-heading text-4xl sm:text-5xl">
+              <span
+                className="font-semibold leading-none tracking-[-0.03em] text-[#C2410C]"
+                style={{ fontSize: "48px" }}
+              >
                 {number}
               </span>
-              <span className="font-semibold text-sm text-foreground">{label}</span>
-              <span className="text-xs text-muted-foreground">{description}</span>
+              <span className="text-sm text-[#6B6258] mt-1">{label}</span>
             </motion.div>
           ))}
         </div>
       </Container>
     </div>
-  )
+  );
 }
