@@ -73,13 +73,13 @@ export default function HowItWorks() {
       <Container>
         {/* Header */}
         <FadeUp className="text-center mb-16">
-          <span className="inline-flex items-center rounded-full border border-[#E8DCC4] bg-[#FAF6EE] px-4 py-1.5 text-xs font-semibold text-[#9A3309] mb-4">
-            ✦ Como funciona
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#1F1A14] leading-tight">
-            Conecte uma vez.
+          <p className="text-[13px] font-medium text-[#9A9080] uppercase tracking-[0.08em] mb-4">
+            — Como funciona
+          </p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl tracking-tight text-[#1F1A14] leading-tight">
+            <span className="font-normal">Conecte uma vez.</span>
             <br />
-            Brief pronto para sempre.
+            <span className="font-bold">Brief pronto para sempre.</span>
           </h2>
           <p className="mt-4 text-base sm:text-lg text-[#6B6258] max-w-xl mx-auto leading-relaxed">
             Três passos para sair do improviso e ter briefs profissionais em

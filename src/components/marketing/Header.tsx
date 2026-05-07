@@ -37,9 +37,10 @@ export default function Header() {
       className={cn(
         'fixed inset-x-0 top-0 z-50 transition-all duration-300',
         scrolled
-          ? 'bg-white/80 backdrop-blur-md border-b border-border/60 shadow-card-sm'
+          ? 'backdrop-blur-md border-b border-border/60 shadow-card-sm'
           : 'bg-transparent',
       )}
+      style={scrolled ? { backgroundColor: 'rgba(255,252,245,0.85)' } : undefined}
     >
       <Container>
         <div className="flex h-16 items-center justify-between gap-6">
@@ -54,7 +55,8 @@ export default function Header() {
               <a
                 key={href}
                 href={href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-150"
+                className="font-medium hover:text-foreground transition-colors duration-150"
+                style={{ fontSize: '15px', color: '#4A4238' }}
               >
                 {label}
               </a>
@@ -69,7 +71,11 @@ export default function Header() {
             >
               Entrar
             </Link>
-            <Link href="/signup" className={buttonVariants({ size: 'sm' })}>
+            <Link
+              href="/signup"
+              className="inline-flex items-center justify-center bg-[#C2410C] text-white font-medium rounded-lg transition-colors hover:bg-[#9A3309]"
+              style={{ fontSize: '14px', padding: '9px 20px' }}
+            >
               Começar grátis
             </Link>
           </div>

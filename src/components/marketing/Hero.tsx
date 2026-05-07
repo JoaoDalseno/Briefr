@@ -14,11 +14,11 @@ function DashboardMockup() {
       className="relative rounded-2xl overflow-hidden border border-[#E8DCC4] bg-white"
       style={{
         boxShadow:
-          "0 32px 64px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.04)",
+          "0 0 0 1px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.06), 0 32px 64px rgba(0,0,0,0.08), 0 64px 120px rgba(0,0,0,0.06)",
       }}
     >
       {/* Browser chrome */}
-      <div className="bg-[#FAF6EE] border-b border-[#E8DCC4] h-10 flex items-center gap-3 px-4">
+      <div className="h-10 flex items-center gap-3 px-4" style={{ background: "#F5F0E8", borderBottom: "1px solid #E8DCC4" }}>
         <div className="flex gap-1.5">
           <span className="size-3 rounded-full bg-[#FF5F57]/70" />
           <span className="size-3 rounded-full bg-[#FFBD2E]/70" />
@@ -142,8 +142,9 @@ function DashboardMockup() {
       {/* Fade gradient at bottom */}
       <div
         aria-hidden
-        className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 pointer-events-none"
         style={{
+          height: "120px",
           background:
             "linear-gradient(to bottom, transparent, rgba(255,252,245,0.9))",
         }}
