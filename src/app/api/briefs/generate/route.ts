@@ -4,7 +4,8 @@ import { createAdminClient } from '@/lib/supabase/server'
 import { anthropic, ANTHROPIC_MODEL, calculateCost, COST_ALERT_THRESHOLD_BRL } from '@/lib/anthropic/client'
 import { generateRateLimit } from '@/lib/rate-limit'
 import { briefFormSchema, briefOutputSchema, PLAN_MONTHLY_LIMITS } from '@/lib/validations/brief'
-import { BRIEF_SYSTEM_PROMPT, buildUserPrompt } from '@/prompts/brief-generator'
+import { BRIEF_SYSTEM_PROMPT, buildBriefUserPrompt } from '@/prompts/brief-generator'
+import { BR_CULTURAL_CONTEXT, getNicheContext, PLATFORM_SPECIFICS } from '@/prompts/br-context'
 
 // ─── Helpers de resposta ──────────────────────────────────────────────────────
 
@@ -96,14 +97,22 @@ export async function POST(request: NextRequest) {
   }
 
   // ── 5. Chamada à API do Claude ───────────────────────────────────────────
-  const userPrompt = buildUserPrompt(formInput)
+  const enrichedSystemPrompt = [
+    BRIEF_SYSTEM_PROMPT,
+    BR_CULTURAL_CONTEXT,
+    getNicheContext(formInput.niche),
+    PLATFORM_SPECIFICS[formInput.platform] ?? '',
+  ].filter(Boolean).join('\n\n')
+
+  const userPrompt = buildBriefUserPrompt(formInput)
   let claudeResponse: Awaited<ReturnType<typeof anthropic.messages.create>>
 
   try {
     claudeResponse = await anthropic.messages.create({
       model: ANTHROPIC_MODEL,
-      max_tokens: 2048,
-      system: BRIEF_SYSTEM_PROMPT,
+      max_tokens: 4096,
+      temperature: 0.7,
+      system: enrichedSystemPrompt,
       messages: [{ role: 'user', content: userPrompt }],
     })
   } catch (err) {
