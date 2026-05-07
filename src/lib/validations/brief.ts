@@ -42,6 +42,16 @@ export const briefFormSchema = z.object({
     .max(1000, 'Contexto adicional deve ter no máximo 1000 caracteres')
     .transform((v) => v.trim())
     .optional(),
+
+  niche: z
+    .string()
+    .max(100, 'Nicho deve ter no máximo 100 caracteres')
+    .transform((v) => v.trim())
+    .optional(),
+
+  platform: z
+    .enum(['meta', 'google', 'tiktok'])
+    .optional(),
 })
 
 export type BriefFormInput = z.infer<typeof briefFormSchema>

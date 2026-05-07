@@ -101,7 +101,7 @@ export async function POST(request: NextRequest) {
     BRIEF_SYSTEM_PROMPT,
     BR_CULTURAL_CONTEXT,
     getNicheContext(formInput.niche),
-    PLATFORM_SPECIFICS[formInput.platform] ?? '',
+    formInput.platform ? (PLATFORM_SPECIFICS[formInput.platform] ?? '') : '',
   ].filter(Boolean).join('\n\n')
 
   const userPrompt = buildBriefUserPrompt(formInput)

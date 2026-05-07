@@ -15,14 +15,46 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: {
     default: "Briefr — Briefs de criativos com IA",
-    template: "%s | Briefr",
+    template: "%s · Briefr",
   },
   description:
-    "Gere briefs completos para anúncios estáticos, stories e vídeos UGC em segundos. IA treinada para o mercado brasileiro.",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "https://briefr.com.br"),
+    "Da ideia ao criativo em minutos. A IA que monta o brief completo do seu anúncio em português, com contexto BR.",
+  keywords: [
+    "brief de criativo",
+    "anúncios",
+    "tráfego pago",
+    "Meta Ads",
+    "Google Ads",
+    "IA para marketing",
+    "gestor de tráfego",
+  ],
+  authors: [{ name: "Briefr" }],
+  creator: "Briefr",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+  ),
   openGraph: {
-    siteName: "Briefr",
+    type: "website",
     locale: "pt_BR",
+    url: "/",
+    title: "Briefr — Briefs de criativos com IA",
+    description:
+      "Da ideia ao criativo em minutos. Em português, com contexto BR.",
+    siteName: "Briefr",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Briefr — Briefs de criativos com IA",
+    description:
+      "Da ideia ao criativo em minutos. Em português, com contexto BR.",
+  },
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/apple-icon.svg", type: "image/svg+xml" }],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
@@ -33,31 +65,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className={inter.variable}>
-      <body className="antialiased">
-        {/* Skip to content — WCAG 2.4.1 */}
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white focus:shadow-lg"
-        >
-          Ir para o conteúdo
-        </a>
-
+      <body className="antialiased bg-background text-foreground">
         <Suspense>
           <PostHogProvider>
             {children}
+            <Toaster richColors position="top-right" />
           </PostHogProvider>
         </Suspense>
-
-        <Toaster
-          position="bottom-right"
-          richColors
-          closeButton
-          toastOptions={{
-            classNames: {
-              toast: 'font-sans text-sm',
-            },
-          }}
-        />
       </body>
     </html>
   );
