@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import Hero from "@/components/marketing/Hero";
+import Waitlist from "@/components/marketing/Waitlist";
 import StatsBar from "@/components/marketing/StatsBar";
 import Features from "@/components/marketing/Features";
 import FormatTabs from "@/components/marketing/FormatTabs";
@@ -111,6 +112,7 @@ export default function HomePage() {
       />
 
       <Hero />
+      <Waitlist />
       <StatsBar />
       <Features />
       <FormatTabs />
