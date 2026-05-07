@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import Header from "@/components/marketing/Header";
 import Hero from "@/components/marketing/Hero";
 import StatsBar from "@/components/marketing/StatsBar";
 import Features from "@/components/marketing/Features";
@@ -10,7 +9,6 @@ import SocialProof from "@/components/marketing/SocialProof";
 import Pricing from "@/components/marketing/Pricing";
 import Faq from "@/components/marketing/Faq";
 import CtaFinal from "@/components/marketing/CtaFinal";
-import Footer from "@/components/marketing/Footer";
 
 // ─── SEO Metadata ─────────────────────────────────────────────────────────────
 
@@ -112,19 +110,15 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
       />
 
-      <Header />
-      <main id="main-content">
-        <Hero />
-        <StatsBar />
-        <Features />
-        <FormatTabs />
-        <HowItWorks />
-        <SocialProof />
-        <Pricing />
-        <Faq />
-        <CtaFinal />
-      </main>
-      <Footer />
+      <Hero />
+      <StatsBar />
+      <Features />
+      <FormatTabs />
+      <HowItWorks />
+      <SocialProof />
+      <Pricing />
+      <Faq />
+      <CtaFinal />
     </>
   );
 }
