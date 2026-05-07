@@ -55,7 +55,7 @@ export default async function SharedBriefPage({ params }: { params: { token: str
   }
 
   return (
-    <div className="min-h-screen bg-slate-50/60">
+    <div className="min-h-screen bg-surface/60">
       {/* Header */}
       <header className="border-b border-border bg-white px-6 py-4">
         <div className="mx-auto max-w-3xl flex items-center justify-between">

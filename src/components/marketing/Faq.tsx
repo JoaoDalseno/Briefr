@@ -47,7 +47,7 @@ const FAQS = [
 
 export default function Faq() {
   return (
-    <section id="faq" className="py-24 bg-slate-50/60">
+    <section id="faq" className="py-24 bg-surface/60">
       <Container size="narrow">
         <SectionHeader
           eyebrow="FAQ"
@@ -56,7 +56,7 @@ export default function Faq() {
         />
 
         <div className="mt-12">
-          <Accordion defaultValue="q1" className="rounded-2xl border border-border bg-white shadow-card overflow-hidden divide-y divide-border">
+          <Accordion defaultValue="q1" className="rounded-2xl border border-border bg-card shadow-card overflow-hidden divide-y divide-border">
             {FAQS.map(({ id, q, a }) => (
               <AccordionItem key={id} value={id} className="px-6">
                 <AccordionTrigger>{q}</AccordionTrigger>

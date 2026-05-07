@@ -21,21 +21,21 @@ function DashboardMockup() {
       style={{ perspective: '1200px', transform: 'rotateY(-3deg) rotateX(3deg) translateZ(0)' }}
     >
       {/* Browser chrome */}
-      <div className="bg-secondary-900 h-9 flex items-center gap-3 px-4 shrink-0">
+      <div className="bg-stone-900 h-9 flex items-center gap-3 px-4 shrink-0">
         <div className="flex gap-1.5">
           <span className="size-3 rounded-full bg-[#FF5F57]/80" />
           <span className="size-3 rounded-full bg-[#FFBD2E]/80" />
           <span className="size-3 rounded-full bg-[#28CA41]/80" />
         </div>
         <div className="flex-1 flex justify-center">
-          <div className="bg-secondary-800 rounded h-5 w-44 flex items-center justify-center">
-            <span className="text-[10px] text-secondary-400 font-mono">briefr.com.br/dashboard</span>
+          <div className="bg-stone-800 rounded h-5 w-44 flex items-center justify-center">
+            <span className="text-[10px] text-stone-500 font-mono">briefr.com.br/dashboard</span>
           </div>
         </div>
       </div>
 
       {/* App UI */}
-      <div className="bg-slate-50 grid grid-cols-5 gap-3 p-3">
+      <div className="bg-surface grid grid-cols-5 gap-3 p-3">
         {/* Sidebar form */}
         <div className="col-span-2 bg-white rounded-lg border border-border p-3 space-y-3 text-xs">
           <p className="font-semibold text-[10px] uppercase tracking-widest text-muted-foreground">
@@ -51,14 +51,14 @@ function DashboardMockup() {
 
           <div className="space-y-1">
             <p className="text-muted-foreground text-[10px]">Público-alvo</p>
-            <div className="bg-slate-50 border border-border rounded-md h-6 px-2 flex items-center text-muted-foreground">
+            <div className="bg-surface border border-border rounded-md h-6 px-2 flex items-center text-muted-foreground">
               Homens 25–40 que treinam…
             </div>
           </div>
 
           <div className="space-y-1">
             <p className="text-muted-foreground text-[10px]">Tom</p>
-            <div className="bg-slate-50 border border-border rounded-md h-6 px-2 flex items-center text-muted-foreground">
+            <div className="bg-surface border border-border rounded-md h-6 px-2 flex items-center text-muted-foreground">
               Urgente e direto
             </div>
           </div>

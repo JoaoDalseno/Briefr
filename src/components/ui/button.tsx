@@ -9,16 +9,16 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        // Primário — roxo com glow sutil
+        // Primário — terracota com glow sutil
         default:
           "bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-glow-sm focus-visible:border-primary/50",
-        // CTA — coral para ações de destaque máximo
+        // CTA — petróleo para ações de destaque máximo
         cta:
           "bg-accent text-accent-foreground hover:bg-accent/90 hover:shadow-glow-accent focus-visible:border-accent/50",
-        // Outline — borda roxa
+        // Outline — borda border-border
         outline:
           "border-border bg-background hover:bg-primary/5 hover:border-primary/40 hover:text-primary aria-expanded:bg-primary/5 dark:border-input dark:bg-input/30 dark:hover:bg-primary/10",
-        // Secondary — fundo lilás leve
+        // Secondary — bg-surface
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/70 aria-expanded:bg-secondary",
         // Ghost — transparente

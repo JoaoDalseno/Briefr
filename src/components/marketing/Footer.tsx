@@ -83,13 +83,13 @@ function NavLink({ href, label }: { href: string; label: string }) {
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border bg-slate-50/60 pt-14 pb-8">
+    <footer className="border-t border-border bg-surface/60 pt-14 pb-8">
       <Container>
         {/* 4-column grid */}
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Col 1: Brand */}
           <div className="flex flex-col gap-4">
-            <Logo size="sm" />
+            <Logo size={32} />
             <p className="text-sm text-muted-foreground max-w-[220px] leading-relaxed">
               Briefs de criativos gerados por IA para gestores de tráfego brasileiros.
             </p>

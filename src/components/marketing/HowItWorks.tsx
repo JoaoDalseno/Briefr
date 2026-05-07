@@ -32,7 +32,7 @@ const STEPS = [
 
 export default function HowItWorks() {
   return (
-    <section id="how" className="py-24 bg-slate-50/70">
+    <section id="how" className="py-24 bg-surface/70">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -54,7 +54,7 @@ export default function HowItWorks() {
             aria-hidden
             className="hidden lg:block absolute top-12 left-[calc(16.67%+0.5px)] right-[calc(16.67%+0.5px)] h-px"
             style={{
-              background: 'linear-gradient(90deg, oklch(0.563 0.196 271.2 / 0.15), oklch(0.563 0.196 271.2 / 0.4), oklch(0.724 0.188 19.8 / 0.3), oklch(0.724 0.188 19.8 / 0.15))',
+              background: 'linear-gradient(90deg, hsl(17 89% 41% / 0.15), hsl(17 89% 41% / 0.4), hsl(174 77% 26% / 0.3), hsl(174 77% 26% / 0.15))',
             }}
           />
 

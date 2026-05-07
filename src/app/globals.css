@@ -1,182 +1,160 @@
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* ─── Briefr Design System — CSS Variables ───────────────────────────────────
-   Primary:   #6C63E0 (roxo elétrico)  → oklch(0.563 0.196 271.2)
-   Secondary: #1A1A2E (azul-escuro)    → oklch(0.154 0.032 264.4)
-   Accent:    #FF6B6B (coral)          → oklch(0.724 0.188 19.8)
-   Radius:    12px = 0.75rem
+   Paleta: Terracota + Bege quente
+   Primary:    #C2410C (terracota.600) → HSL 17 89% 41%
+   Accent:     #0F766E (petróleo.600)  → HSL 174 77% 26%
+   Background: #FFFCF5 (stone.50)     → HSL 36 100% 98%
+   Foreground: #1F1A14 (stone.900)    → HSL 30 25% 10%
+   Radius:     8px = 0.5rem
 
-   Padrão de dupla variável:
-     --X      → valor completo para uso direto em CSS (var(--primary))
-     --X-ch   → canais oklch (sem função) para opacity modifiers do Tailwind
-                 ex: background-color: oklch(var(--primary-ch) / 0.08)
+   Notação HSL sem wrapper (ex: 17 89% 41%) para suporte a opacity modifiers:
+     bg-primary/50 → hsl(var(--primary) / 0.5)
 ──────────────────────────────────────────────────────────────────────────── */
 
 @layer base {
   :root {
-    /* ── Background / Foreground ── */
-    --background:    oklch(1 0 0);
-    --foreground:    oklch(0.154 0.032 264.4);
-    --background-ch: 1 0 0;
-    --foreground-ch: 0.154 0.032 264.4;
+    /* ── Background / Foreground ─────────────────────────────────────── */
+    --background: 36 100% 98%;    /* stone.50  #FFFCF5 */
+    --foreground: 30 25% 10%;     /* stone.900 #1F1A14 */
 
-    /* ── Card ── */
-    --card:       oklch(1 0 0);
-    --card-fg:    oklch(0.154 0.032 264.4);
-    --card-ch:    1 0 0;
-    --card-fg-ch: 0.154 0.032 264.4;
+    /* ── Surface (cards, seções alternadas) ──────────────────────────── */
+    --surface: 38 60% 96%;        /* stone.100 #FAF6EE */
 
-    /* ── Popover ── */
-    --popover:       oklch(1 0 0);
-    --popover-fg:    oklch(0.154 0.032 264.4);
-    --popover-ch:    1 0 0;
-    --popover-fg-ch: 0.154 0.032 264.4;
+    /* ── Card ────────────────────────────────────────────────────────── */
+    --card:            38 60% 96%;
+    --card-foreground: 30 25% 10%;
 
-    /* ── Primary — roxo #6C63E0 ── */
-    --primary:    oklch(0.563 0.196 271.2);
-    --primary-ch: 0.563 0.196 271.2;
+    /* ── Popover ─────────────────────────────────────────────────────── */
+    --popover:            38 60% 96%;
+    --popover-foreground: 30 25% 10%;
 
-    /* ── Secondary — lilás claro ── */
-    --secondary:    oklch(0.94 0.025 271.2);
-    --secondary-fg: oklch(0.341 0.154 271.2);
-    --secondary-ch:    0.94 0.025 271.2;
-    --secondary-fg-ch: 0.341 0.154 271.2;
+    /* ── Primary — terracota #C2410C ──────────────────────────────────── */
+    --primary:            17 89% 41%;
+    --primary-foreground:  0 0% 100%;
 
-    /* ── Muted ── */
-    --muted:    oklch(0.965 0.004 264.4);
-    --muted-fg: oklch(0.520 0.018 264.4);
-    --muted-ch:    0.965 0.004 264.4;
-    --muted-fg-ch: 0.520 0.018 264.4;
+    /* ── Secondary — surface leve ────────────────────────────────────── */
+    --secondary:            38 60% 96%;
+    --secondary-foreground: 30 25% 10%;
 
-    /* ── Accent — coral #FF6B6B ── */
-    --accent:    oklch(0.724 0.188 19.8);
-    --accent-ch: 0.724 0.188 19.8;
+    /* ── Muted ───────────────────────────────────────────────────────── */
+    --muted:            38 60% 96%;
+    --muted-foreground: 25 11% 38%;   /* stone.600 #6B6258 */
 
-    /* ── Destructive ── */
-    --destructive:    oklch(0.577 0.245 27.3);
-    --destructive-ch: 0.577 0.245 27.3;
+    /* ── Accent — petróleo #0F766E ────────────────────────────────────── */
+    --accent:            174 77% 26%;
+    --accent-foreground:   0 0% 100%;
 
-    /* ── Border / Input / Ring ── */
-    --border:    oklch(0.920 0.012 271.2);
-    --input:     oklch(0.920 0.012 271.2);
-    --ring:      oklch(0.563 0.196 271.2);
-    --border-ch: 0.920 0.012 271.2;
-    --input-ch:  0.920 0.012 271.2;
-    --ring-ch:   0.563 0.196 271.2;
+    /* ── Destructive ─────────────────────────────────────────────────── */
+    --destructive:            0 73% 41%;
+    --destructive-foreground: 0 0% 100%;
 
-    /* ── Radius: 12px ── */
-    --radius: 0.75rem;
+    /* ── Border / Input / Ring ───────────────────────────────────────── */
+    --border: 36 50% 84%;    /* stone.300 #E8DCC4 */
+    --input:  36 50% 84%;
+    --ring:   17 89% 41%;    /* terracota.600 */
 
-    /* ── Tipografia ── */
+    /* ── Radius: 8px ─────────────────────────────────────────────────── */
+    --radius: 0.5rem;
+
+    /* ── Tipografia ──────────────────────────────────────────────────── */
     --font-heading: var(--font-inter);
     --font-sans:    var(--font-inter);
     --font-mono:    ui-monospace, "Cascadia Code", monospace;
 
-    /* ── Glassmorphism ── */
-    --glass-bg:     oklch(1 0 0 / 0.72);
-    --glass-border: oklch(0.563 0.196 271.2 / 0.12);
+    /* ── Glassmorphism ───────────────────────────────────────────────── */
+    --glass-bg:     hsl(38 60% 96% / 0.80);
+    --glass-border: hsl(17 89% 41% / 0.12);
     --glass-blur:   16px;
 
-    /* ── Sidebar ── */
-    --sidebar:           oklch(0.985 0.004 264.4);
-    --sidebar-foreground: oklch(0.154 0.032 264.4);
-    --sidebar-primary:    oklch(0.563 0.196 271.2);
-    --sidebar-primary-foreground: oklch(0.98 0 0);
-    --sidebar-accent:     oklch(0.94 0.025 271.2);
-    --sidebar-accent-foreground: oklch(0.341 0.154 271.2);
-    --sidebar-border:     oklch(0.920 0.012 271.2);
-    --sidebar-ring:       oklch(0.563 0.196 271.2);
+    /* ── Sidebar ─────────────────────────────────────────────────────── */
+    --sidebar:                    38 60% 96%;
+    --sidebar-foreground:         30 25% 10%;
+    --sidebar-primary:            17 89% 41%;
+    --sidebar-primary-foreground:  0 0% 100%;
+    --sidebar-accent:             36 50% 90%;
+    --sidebar-accent-foreground:  30 25% 10%;
+    --sidebar-border:             36 50% 84%;
+    --sidebar-ring:               17 89% 41%;
   }
 
   .dark {
-    /* ── Background / Foreground ── */
-    --background:    oklch(0.140 0.032 264.4);
-    --foreground:    oklch(0.96 0.006 264.4);
-    --background-ch: 0.140 0.032 264.4;
-    --foreground-ch: 0.96 0.006 264.4;
+    /* ── Background / Foreground ─────────────────────────────────────── */
+    --background: 24 20% 9%;      /* warm dark brown */
+    --foreground: 36 30% 92%;     /* warm off-white */
 
-    /* ── Card ── */
-    --card:       oklch(0.190 0.032 264.4);
-    --card-fg:    oklch(0.96 0.006 264.4);
-    --card-ch:    0.190 0.032 264.4;
-    --card-fg-ch: 0.96 0.006 264.4;
+    /* ── Surface ─────────────────────────────────────────────────────── */
+    --surface: 24 18% 14%;
 
-    /* ── Popover ── */
-    --popover:       oklch(0.190 0.032 264.4);
-    --popover-fg:    oklch(0.96 0.006 264.4);
-    --popover-ch:    0.190 0.032 264.4;
-    --popover-fg-ch: 0.96 0.006 264.4;
+    /* ── Card ────────────────────────────────────────────────────────── */
+    --card:            24 18% 14%;
+    --card-foreground: 36 30% 92%;
 
-    /* ── Primary ── */
-    --primary:    oklch(0.600 0.196 271.2);
-    --primary-ch: 0.600 0.196 271.2;
+    /* ── Popover ─────────────────────────────────────────────────────── */
+    --popover:            24 18% 14%;
+    --popover-foreground: 36 30% 92%;
 
-    /* ── Secondary ── */
-    --secondary:       oklch(0.230 0.030 264.4);
-    --secondary-fg:    oklch(0.87 0.020 271.2);
-    --secondary-ch:    0.230 0.030 264.4;
-    --secondary-fg-ch: 0.87 0.020 271.2;
+    /* ── Primary ─────────────────────────────────────────────────────── */
+    --primary:            17 89% 52%;    /* slightly brighter in dark */
+    --primary-foreground:  0 0% 100%;
 
-    /* ── Muted ── */
-    --muted:       oklch(0.230 0.030 264.4);
-    --muted-fg:    oklch(0.600 0.018 271.2);
-    --muted-ch:    0.230 0.030 264.4;
-    --muted-fg-ch: 0.600 0.018 271.2;
+    /* ── Secondary ───────────────────────────────────────────────────── */
+    --secondary:            24 16% 20%;
+    --secondary-foreground: 36 30% 85%;
 
-    /* ── Accent ── */
-    --accent:    oklch(0.724 0.188 19.8);
-    --accent-ch: 0.724 0.188 19.8;
+    /* ── Muted ───────────────────────────────────────────────────────── */
+    --muted:            24 16% 20%;
+    --muted-foreground: 30 12% 55%;
 
-    /* ── Destructive ── */
-    --destructive:    oklch(0.704 0.191 22.2);
-    --destructive-ch: 0.704 0.191 22.2;
+    /* ── Accent ──────────────────────────────────────────────────────── */
+    --accent:            174 77% 35%;
+    --accent-foreground:   0 0% 100%;
 
-    /* ── Border / Input / Ring ── */
-    --border:    oklch(1 0 0 / 0.10);
-    --input:     oklch(1 0 0 / 0.14);
-    --ring:      oklch(0.600 0.196 271.2);
-    --border-ch: 1 0 0;
-    --input-ch:  1 0 0;
-    --ring-ch:   0.600 0.196 271.2;
+    /* ── Destructive ─────────────────────────────────────────────────── */
+    --destructive:            0 73% 55%;
+    --destructive-foreground: 0 0% 100%;
 
-    /* ── Glassmorphism dark ── */
-    --glass-bg:     oklch(0.190 0.032 264.4 / 0.75);
-    --glass-border: oklch(0.600 0.196 271.2 / 0.20);
+    /* ── Border / Input / Ring ───────────────────────────────────────── */
+    --border: 30 15% 22%;
+    --input:  30 15% 25%;
+    --ring:   17 89% 52%;
 
-    /* ── Sidebar ── */
-    --sidebar:           oklch(0.190 0.032 264.4);
-    --sidebar-foreground: oklch(0.96 0.006 264.4);
-    --sidebar-primary:    oklch(0.600 0.196 271.2);
-    --sidebar-primary-foreground: oklch(0.98 0 0);
-    --sidebar-accent:     oklch(0.230 0.030 264.4);
-    --sidebar-accent-foreground: oklch(0.87 0.020 271.2);
-    --sidebar-border:     oklch(1 0 0 / 0.10);
-    --sidebar-ring:       oklch(0.600 0.196 271.2);
+    /* ── Glassmorphism dark ──────────────────────────────────────────── */
+    --glass-bg:     hsl(24 18% 14% / 0.80);
+    --glass-border: hsl(17 89% 52% / 0.20);
+
+    /* ── Sidebar ─────────────────────────────────────────────────────── */
+    --sidebar:                    24 18% 14%;
+    --sidebar-foreground:         36 30% 92%;
+    --sidebar-primary:            17 89% 52%;
+    --sidebar-primary-foreground:  0 0% 100%;
+    --sidebar-accent:             24 16% 20%;
+    --sidebar-accent-foreground:  36 30% 85%;
+    --sidebar-border:             30 15% 22%;
+    --sidebar-ring:               17 89% 52%;
   }
 
-  /* ── Reset moderno ─────────────────────────────────────────────────────── */
+  /* ── Reset moderno ──────────────────────────────────────────────────── */
   *, *::before, *::after {
     box-sizing: border-box;
     @apply border-border;
-    outline-color: oklch(var(--ring-ch) / 0.5);
+    outline-color: hsl(var(--ring) / 0.5);
   }
 
   html {
     scroll-behavior: smooth;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
     @apply font-sans;
   }
 
   body {
     margin: 0;
-    background-color: var(--background);
-    color: var(--foreground);
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
@@ -185,23 +163,23 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--ring);
+    outline: 2px solid hsl(var(--ring));
     outline-offset: 2px;
   }
 
-  /* ── Scrollbar (Chrome/Edge) ─────────────────────────────────────────── */
+  /* ── Scrollbar (Chrome/Edge) ────────────────────────────────────────── */
   ::-webkit-scrollbar        { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track  { background: transparent; }
   ::-webkit-scrollbar-thumb  {
-    background: oklch(0.563 0.196 271.2 / 0.30);
+    background: hsl(17 89% 41% / 0.30);
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: oklch(0.563 0.196 271.2 / 0.50);
+    background: hsl(17 89% 41% / 0.50);
   }
 }
 
-/* ── Utilities extras ──────────────────────────────────────────────────── */
+/* ── Utilities extras ────────────────────────────────────────────────── */
 @layer utilities {
   .text-balance { text-wrap: balance; }
 
@@ -212,17 +190,17 @@
     border: 1px solid var(--glass-border);
   }
 
-  /* Gradient text roxo→coral */
+  /* Gradient text terracota→petróleo */
   .text-gradient-brand {
-    background: linear-gradient(135deg, oklch(0.563 0.196 271.2), oklch(0.724 0.188 19.8));
+    background: linear-gradient(135deg, #C2410C, #0F766E);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* Gradient text roxo */
+  /* Gradient text terracota claro→escuro */
   .text-gradient-primary {
-    background: linear-gradient(135deg, oklch(0.563 0.196 271.2), oklch(0.680 0.163 271.2));
+    background: linear-gradient(135deg, #D55A2B, #9A3309);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

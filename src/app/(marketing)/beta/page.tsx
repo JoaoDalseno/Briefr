@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function BetaPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[oklch(0.97_0.01_271.2)] to-white flex items-center py-20">
+    <div className="min-h-screen bg-gradient-to-br from-surface to-background flex items-center py-20">
       <Container size="narrow">
         <div className="text-center mb-10">
           <span className="inline-flex items-center rounded-full border border-primary/25 bg-primary/8 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary mb-4">

@@ -2,14 +2,14 @@ import { cn } from "@/lib/utils"
 
 interface GradientTextProps {
   children: React.ReactNode
-  /** "brand" = roxo→coral | "primary" = roxo→roxo claro */
+  /** "brand" = terracota→petróleo | "primary" = terracota.500→terracota.700 */
   gradient?: "brand" | "primary"
   className?: string
   as?: "span" | "h1" | "h2" | "h3" | "p"
 }
 
 /**
- * Texto com gradiente roxo→coral (brand) ou roxo→roxo-claro (primary).
+ * Texto com gradiente terracota→petróleo (brand) ou terracota claro→escuro (primary).
  * Usado em headings principais da landing page e dashboard.
  *
  * Uso:
