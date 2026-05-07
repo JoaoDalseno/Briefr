@@ -30,7 +30,7 @@ export function ForgotPasswordForm() {
   }
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-8 shadow-sm">
+    <div className="rounded-xl border border-border bg-card p-8 shadow-sm">
       <h2 className="mb-2 text-xl font-semibold text-gray-900">Recuperar senha</h2>
       <p className="mb-6 text-sm text-gray-500">
         Insira seu email e enviaremos um link para redefinir sua senha.

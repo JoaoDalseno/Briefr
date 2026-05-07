@@ -41,10 +41,10 @@ export function Sidebar({ plan = 'free', userName, onClose }: SidebarProps) {
   const isFree = plan === 'free'
 
   return (
-    <aside className="flex h-full w-64 flex-col bg-white border-r border-border">
+    <aside className="flex h-full w-64 flex-col bg-surface border-r border-border">
       {/* Logo */}
       <div className="flex h-16 shrink-0 items-center px-6 border-b border-border">
-        <Logo size="sm" />
+        <Logo size={32} />
       </div>
 
       {/* Nav */}

@@ -75,7 +75,7 @@ function ContentBlock({
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay }}
-      className="rounded-xl border border-border bg-white p-5 shadow-card"
+      className="rounded-xl border border-border bg-card p-5 shadow-card"
     >
       <div className="flex items-center justify-between mb-3">
         <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{label}</span>
@@ -252,7 +252,7 @@ function ExportDropdown({ brief, isPro }: { brief: BriefData; isPro: boolean }) 
       {open && (
         <>
           <div className="fixed inset-0 z-30" onClick={() => setOpen(false)} aria-hidden />
-          <div className="absolute right-0 top-full mt-2 z-40 w-56 rounded-xl border border-border bg-white shadow-card py-1 overflow-hidden">
+          <div className="absolute right-0 top-full mt-2 z-40 w-56 rounded-xl border border-border bg-card shadow-card py-1 overflow-hidden">
             <button
               type="button"
               onClick={downloadPdf}
@@ -507,7 +507,7 @@ export function BriefView({ brief, plan }: BriefViewProps) {
       <div className="grid lg:grid-cols-[300px_1fr] gap-6 items-start">
         {/* Left: Metadata */}
         <aside className="flex flex-col gap-4">
-          <div className="rounded-2xl border border-border bg-white p-5 shadow-card">
+          <div className="rounded-2xl border border-border bg-card p-5 shadow-card">
             <h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">Detalhes</h2>
             <dl className="flex flex-col gap-3">
               {/* eslint-disable security/detect-object-injection */}

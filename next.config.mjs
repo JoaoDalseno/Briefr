@@ -46,8 +46,15 @@ const securityHeaders = [
 
 const nextConfig = {
   experimental: {
-    // @react-pdf/renderer has Node.js-only deps — exclude from webpack client bundle
-    serverComponentsExternalPackages: ['@react-pdf/renderer'],
+    // Node.js-only packages — exclude from webpack client bundle
+    serverComponentsExternalPackages: [
+      '@react-pdf/renderer',
+      'require-in-the-middle',
+      'import-in-the-middle',
+      '@opentelemetry/instrumentation',
+      '@prisma/instrumentation',
+      '@fastify/otel',
+    ],
   },
 
   // Remove o header "X-Powered-By: Next.js" — evita fingerprinting do stack

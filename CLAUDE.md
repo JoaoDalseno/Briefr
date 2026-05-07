@@ -96,3 +96,55 @@ Todo código novo deve seguir estes princípios obrigatoriamente:
 - Endpoints públicos (auth) usam rate limit por IP via Upstash
 - Endpoints autenticados (geração) usam rate limit por `user_id`
 - Respostas de auth usam mensagens genéricas para não revelar se email existe
+
+## Design System
+
+### Paleta — Terracota + Bege quente
+
+| Ramp | 50 | 600 (base) | 900 |
+|------|----|-----------|-----|
+| terracota | #FFF7F2 | **#C2410C** | #5C1F08 |
+| petroleo  | #F0FDFA | **#0F766E** | #063431 |
+| stone     | #FFFCF5 | **#6B6258** | #1F1A14 |
+
+### Tokens semânticos
+
+| Token | Valor | Uso |
+|-------|-------|-----|
+| `primary` | terracota.600 `hsl(17 89% 41%)` | CTAs, links ativos, marca |
+| `accent` | petróleo.600 `hsl(174 77% 26%)` | Destaques secundários |
+| `background` | stone.50 `hsl(36 100% 98%)` | Fundo da página |
+| `surface` | stone.100 `hsl(38 60% 96%)` | Cards, sidebars, seções alt. |
+| `foreground` | stone.900 `hsl(30 25% 10%)` | Texto principal |
+| `muted-foreground` | stone.600 `hsl(25 11% 38%)` | Texto secundário |
+| `border` | stone.300 `hsl(36 50% 84%)` | Bordas padrão |
+
+### Regras obrigatórias
+- **Sempre use classes Tailwind.** NUNCA hardcode cores hexadecimais nos componentes.
+- Backgrounds de cards/painéis: `bg-card` ou `bg-surface`
+- Backgrounds de seção alternada: `bg-surface`
+- Gradiente de texto: `.text-gradient-brand` (terracota→petróleo)
+- Glow do primário: `shadow-glow-sm`, `shadow-glow`, `shadow-glow-lg`
+- Radius padrão: `--radius: 0.5rem` (8px)
+
+## Brand Assets
+
+### Logo
+- Componente: `src/components/branding/Logo.tsx` (com texto "Briefr")
+- Componente: `LogoMark` (só ícone, exportado do mesmo arquivo)
+- Tamanho padrão: `size={36}` (default), `size={32}` (header/sidebar)
+- Sempre use o componente, NUNCA SVG inline em outros lugares
+
+### Arquivos estáticos
+- `/logo.svg` — versão colorida principal (terracota)
+- `/logo-mono.svg` — versão monocromática (preto, para PDFs/print)
+- `/logo-dark.svg` — versão para dark mode (terracota mais clara)
+- `/icon.svg` — favicon 32×32 (Next.js detecta automaticamente)
+- `/apple-icon.svg` — ícone iOS 180×180
+
+### Conceito da marca
+B. Mark — inicial B customizada com terminação reta. O ponto branco no
+canto inferior direito é um elemento de marca reutilizável que pode aparecer:
+- Como separador entre seções
+- Como bullet em listas de features
+- Como indicador de status ativo

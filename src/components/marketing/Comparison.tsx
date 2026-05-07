@@ -99,7 +99,7 @@ function Cell({ value, isBriefr = false }: { value: CellValue; isBriefr?: boolea
 
 export default function Comparison() {
   return (
-    <section className="py-24 bg-slate-50/60">
+    <section className="py-24 bg-surface/60">
       <Container size="narrow">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -130,7 +130,7 @@ export default function Comparison() {
                 {/* Briefr — highlighted */}
                 <th className="px-4 py-4 text-center bg-primary/5 border-x border-primary/15">
                   <div className="flex flex-col items-center gap-1">
-                    <Logo size="xs" />
+                    <Logo size={20} />
                     <span className="text-[10px] font-bold uppercase tracking-widest text-primary">
                       Briefr
                     </span>
@@ -160,7 +160,7 @@ export default function Comparison() {
                   key={feature}
                   className={cn(
                     'border-b border-border last:border-0',
-                    i % 2 === 0 ? 'bg-white' : 'bg-slate-50/50',
+                    i % 2 === 0 ? 'bg-white' : 'bg-surface/50',
                   )}
                 >
                   <td className="px-4 py-4 font-medium text-foreground text-sm">{feature}</td>
@@ -173,7 +173,7 @@ export default function Comparison() {
           </table>
 
           {/* Legend */}
-          <div className="flex items-center justify-center gap-6 px-4 py-3 border-t border-border bg-slate-50/40 rounded-b-xl">
+          <div className="flex items-center justify-center gap-6 px-4 py-3 border-t border-border bg-surface/40 rounded-b-xl">
             <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <CheckCircle2 className="size-3.5 text-primary" /> Sim
             </span>

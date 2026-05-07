@@ -13,11 +13,11 @@ import type { BriefFormInput } from '@/lib/validations/brief'
 
 // ─── Styles ───────────────────────────────────────────────────────────────────
 
-const PRIMARY = '#6C63E0'
-const DARK    = '#1A1A2E'
-const MUTED   = '#6B7280'
-const BORDER  = '#E5E7EB'
-const BG_SOFT = '#F8F7FF'
+const PRIMARY = '#C2410C'
+const DARK    = '#1F1A14'
+const MUTED   = '#6B6258'
+const BORDER  = '#E8DCC4'
+const BG_SOFT = '#FFF7F2'
 
 const s = StyleSheet.create({
   page: {

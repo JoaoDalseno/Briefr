@@ -185,7 +185,7 @@ function BriefPreview({ format }: { format: typeof FORMATS[0] }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.25, ease: 'easeInOut' }}
-      className="rounded-xl border border-border bg-white shadow-card p-6 space-y-5"
+      className="rounded-xl border border-border bg-card shadow-card p-6 space-y-5"
     >
       {/* Header */}
       <div className="flex items-center gap-2 pb-4 border-b border-border">
@@ -284,7 +284,7 @@ export default function Features() {
                   <div
                     className={cn(
                       'p-2 rounded-lg transition-colors',
-                      isActive ? 'bg-primary/15' : 'bg-slate-100',
+                      isActive ? 'bg-primary/15' : 'bg-surface',
                     )}
                   >
                     <format.icon

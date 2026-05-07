@@ -44,8 +44,8 @@ export default function Header() {
       <Container>
         <div className="flex h-16 items-center justify-between gap-6">
           {/* Logo */}
-          <Link href="/" aria-label="Briefr — Página inicial">
-            <Logo size="sm" />
+          <Link href="/" aria-label="Briefr - Página inicial">
+            <Logo size={32} />
           </Link>
 
           {/* Nav — desktop */}
@@ -88,7 +88,7 @@ export default function Header() {
               <SheetContent side="right" className="w-72 p-0">
                 <SheetHeader className="border-b border-border px-6 py-4">
                   <SheetTitle>
-                    <Logo size="sm" />
+                    <Logo size={32} />
                   </SheetTitle>
                 </SheetHeader>
 

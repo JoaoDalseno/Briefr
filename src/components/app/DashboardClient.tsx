@@ -59,7 +59,7 @@ function StatCard({
   progress?: { value: number; max: number }
 }) {
   return (
-    <div className="rounded-2xl border border-border bg-white p-5 shadow-card flex flex-col gap-3">
+    <div className="rounded-2xl border border-border bg-card p-5 shadow-card flex flex-col gap-3">
       <div className="flex items-center justify-between">
         <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{label}</span>
         <span className="flex items-center justify-center size-8 rounded-lg bg-primary/8 text-primary">
@@ -147,7 +147,7 @@ function BriefCard({ brief }: { brief: BriefRow }) {
 
   return (
     <Link
-      href={`/dashboard/briefs/${brief.id}`}
+      href={`/briefs/${brief.id}`}
       className="flex items-center gap-4 rounded-xl border border-border bg-white p-4 hover:border-primary/30 hover:shadow-card transition-all"
     >
       <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/8 text-primary">
@@ -273,10 +273,10 @@ export function DashboardClient({
             gradient="bg-gradient-to-br from-accent/5 to-transparent"
           />
           <QuickActionCard
-            href="/dashboard/new-brief?format=carrossel"
+            href="/dashboard/new-brief?format=story"
             icon={LayoutGrid}
-            title="Novo brief carrossel"
-            desc="Sequência de slides para feed"
+            title="Novo brief story"
+            desc="Story vertical 9:16 para redes sociais"
             gradient="bg-gradient-to-br from-emerald-500/5 to-transparent"
           />
         </div>

@@ -23,7 +23,7 @@ const STATS = [
 
 export default function StatsBar() {
   return (
-    <div className="border-y border-border bg-slate-50/60">
+    <div className="border-y border-border bg-surface/60">
       <Container>
         <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-border">
           {STATS.map(({ number, label, description }, i) => (

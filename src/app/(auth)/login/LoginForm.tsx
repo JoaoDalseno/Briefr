@@ -13,7 +13,7 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
   const [state, formAction] = useFormState(loginAction, initialState)
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-8 shadow-sm">
+    <div className="rounded-xl border border-border bg-card p-8 shadow-sm">
       <h2 className="mb-6 text-xl font-semibold text-gray-900">Entrar na sua conta</h2>
 
       <form action={formAction} noValidate className="space-y-4">

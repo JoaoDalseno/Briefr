@@ -56,7 +56,7 @@ function UserDropdown({ open, userName, userEmail, initials, onClose }: Dropdown
       <div className="fixed inset-0 z-40" onClick={onClose} aria-hidden />
 
       {/* Menu */}
-      <div className="absolute right-0 top-full mt-2 z-50 w-56 rounded-xl border border-border bg-white shadow-card py-1 overflow-hidden">
+      <div className="absolute right-0 top-full mt-2 z-50 w-56 rounded-xl border border-border bg-card shadow-card py-1 overflow-hidden">
         {/* User info */}
         <div className="flex items-center gap-3 px-4 py-3 border-b border-border">
           <Avatar initials={initials} />
@@ -105,7 +105,7 @@ export function TopBar({ userName, userEmail, userInitials, onMenuClick }: TopBa
   const initials = userInitials ?? (userName ? userName.slice(0, 2).toUpperCase() : 'U')
 
   return (
-    <header className="flex h-16 shrink-0 items-center gap-4 border-b border-border bg-white px-4 sm:px-6">
+    <header className="flex h-16 shrink-0 items-center gap-4 border-b border-border bg-background px-4 sm:px-6">
       {/* Mobile menu button */}
       <button
         type="button"

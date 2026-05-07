@@ -9,7 +9,7 @@ export default function CtaFinal() {
       {/* Dark gradient background */}
       <div
         aria-hidden
-        className="absolute inset-0 bg-gradient-to-br from-[oklch(0.18_0.06_271.2)] via-[oklch(0.12_0.04_271.2)] to-[oklch(0.08_0.01_264.4)]"
+        className="absolute inset-0 bg-gradient-to-br from-[#3D1A08] via-[#2C1206] to-[#1F1A14]"
       />
 
       {/* Glow orbs */}
@@ -27,7 +27,7 @@ export default function CtaFinal() {
         {/* Headline */}
         <h2 className="font-heading font-bold tracking-heading text-4xl sm:text-5xl lg:text-6xl text-balance text-white leading-tight">
           Pare de improvisar{' '}
-          <span className="bg-gradient-to-r from-[oklch(0.82_0.12_271.2)] to-[oklch(0.85_0.16_19.8)] bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-[#FCC9A8] to-[#99F6E4] bg-clip-text text-transparent">
             briefs hoje.
           </span>
         </h2>
