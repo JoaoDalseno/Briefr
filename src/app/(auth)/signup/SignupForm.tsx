@@ -27,6 +27,29 @@ export function SignupForm() {
 
   return (
     <div className="rounded-xl border border-border bg-card p-8 shadow-sm">
+      {/* Invite-only banner */}
+      <div
+        style={{
+          background: '#FAF6EE',
+          border: '1px solid #E8DCC4',
+          borderRadius: '8px',
+          padding: '12px 16px',
+          marginBottom: '20px',
+          fontSize: '13px',
+          color: '#6B6258',
+          lineHeight: 1.5,
+        }}
+      >
+        🔒 <strong style={{ color: '#1F1A14' }}>Acesso por convite</strong> · Você precisa de um código para criar sua conta.{' '}
+        Não tem código?{' '}
+        <a
+          href="https://briefr-five.vercel.app/#waitlist"
+          style={{ color: '#C2410C', fontWeight: 500, textDecoration: 'underline' }}
+        >
+          Entrar na lista →
+        </a>
+      </div>
+
       <h2 className="mb-6 text-xl font-semibold text-gray-900">Criar conta grátis</h2>
 
       <form action={formAction} noValidate className="space-y-4">

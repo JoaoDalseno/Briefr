@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
 import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -21,7 +20,7 @@ export default function CtaFinal() {
       <Container size="narrow" className="relative z-10 flex flex-col items-center text-center gap-6">
         {/* Eyebrow */}
         <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white/80 backdrop-blur-sm">
-          Comece hoje — é grátis
+          Beta fechado · Acesso por convite
         </span>
 
         {/* Headline */}
@@ -39,29 +38,29 @@ export default function CtaFinal() {
 
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row items-center gap-4 mt-2">
-          <Link
-            href="/signup"
+          <a
+            href="#waitlist"
             className={cn(
               buttonVariants({ size: 'xl' }),
               'bg-white text-primary hover:bg-white/90 shadow-xl shadow-black/20 hover:shadow-2xl hover:shadow-black/30 transition-all'
             )}
           >
-            Começar grátis →
-          </Link>
-          <Link
-            href="/signup?demo=1"
+            Entrar na lista de espera →
+          </a>
+          <a
+            href="#how"
             className={cn(
               buttonVariants({ variant: 'ghost', size: 'xl' }),
               'border border-white/30 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm'
             )}
           >
-            Agendar demo
-          </Link>
+            Ver como funciona
+          </a>
         </div>
 
         {/* Microcopy */}
         <p className="text-xs text-white/45 mt-1">
-          3 briefs grátis&nbsp;·&nbsp;Sem cartão&nbsp;·&nbsp;2 minutos para começar
+          Gratuito durante o beta&nbsp;·&nbsp;Acesso por convite
         </p>
       </Container>
     </section>

@@ -180,10 +180,10 @@ export default function Waitlist() {
             — Acesso antecipado
           </p>
           <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#1F1A14] leading-tight">
-            Entre antes de todo mundo.
+            Acesso antecipado.
           </h2>
           <p className="mt-3 text-base text-[#6B6258] max-w-md mx-auto leading-relaxed">
-            O Briefr está em beta fechado. Cadastre-se agora e receba seu acesso
+            O Briefr está em beta fechado. Cadastre-se agora e receba seu convite
             assim que abrirmos novas vagas.
           </p>
           <div className="mt-3">
