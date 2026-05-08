@@ -36,17 +36,7 @@ const COLUMNS = [
     links: [
       { label: "Recursos", href: "#features" },
       { label: "Como funciona", href: "#how" },
-      { label: "Preços", href: "#pricing" },
-      { label: "Changelog", href: "/changelog" },
-      { label: "Roadmap", href: "/roadmap" },
-    ],
-  },
-  {
-    label: "Empresa",
-    links: [
-      { label: "Sobre", href: "/sobre" },
-      { label: "Blog", href: "/blog" },
-      { label: "Contato", href: "/contato" },
+      { label: "Lista de espera", href: "#waitlist" },
     ],
   },
   {
