@@ -56,13 +56,16 @@ export default function Features() {
       <Container>
         {/* Header */}
         <FadeUp className="text-center mb-14">
-          <span className="inline-flex items-center rounded-full border border-[#E8DCC4] bg-[#FAF6EE] px-4 py-1.5 text-xs font-semibold text-[#9A3309] mb-4">
-            ✦ Recursos
-          </span>
+          <p className="text-[13px] font-medium text-[#9A9080] uppercase tracking-[0.08em] mb-4">
+            — Recursos
+          </p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#1F1A14] leading-tight">
             Antes levava horas,
             <br />
-            agora leva 2 minutos.
+            agora leva{" "}
+            <em className="not-italic" style={{ fontStyle: "italic", color: "#C2410C" }}>
+              2 minutos.
+            </em>
           </h2>
           <p className="mt-4 text-base sm:text-lg text-[#6B6258] max-w-xl mx-auto leading-relaxed">
             A Briefr transforma dados do produto em brief executável, pronto
@@ -74,14 +77,31 @@ export default function Features() {
         <StaggerChildren className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {FEATURES.map(({ icon: Icon, title, description }) => (
             <StaggerItem key={title}>
-              <div className="group h-full rounded-2xl border border-[#E8DCC4] bg-white p-7 transition-all duration-200 hover:border-[#C2410C]/50 hover:shadow-[0_4px_20px_rgba(194,65,12,0.08)]">
-                <div className="mb-4 inline-flex items-center justify-center rounded-xl bg-[#FAF6EE] p-3 group-hover:bg-[#C2410C]/8 transition-colors">
-                  <Icon className="size-5 text-[#C2410C]" strokeWidth={1.75} />
-                </div>
+              <div
+                className="group h-full rounded-2xl border border-[#E8DCC4] bg-white p-8 transition-[box-shadow,border-color] duration-200"
+                style={{
+                  boxShadow: "0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04)",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.boxShadow =
+                    "0 4px 16px rgba(0,0,0,0.10)";
+                  (e.currentTarget as HTMLDivElement).style.borderColor = "#C2410C";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.boxShadow =
+                    "0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04)";
+                  (e.currentTarget as HTMLDivElement).style.borderColor = "#E8DCC4";
+                }}
+              >
+                <Icon
+                  className="text-[#C2410C] mb-4"
+                  style={{ width: 20, height: 20 }}
+                  strokeWidth={1.75}
+                />
                 <h3 className="text-base font-semibold text-[#1F1A14] mb-2">
                   {title}
                 </h3>
-                <p className="text-sm text-[#6B6258] leading-relaxed">
+                <p className="text-sm text-[#6B6258] leading-[1.65]">
                   {description}
                 </p>
               </div>
