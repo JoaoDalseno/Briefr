@@ -8,60 +8,138 @@ import { FloatingMockup } from "@/components/animations";
 
 // ─── Dashboard Mockup ─────────────────────────────────────────────────────────
 
+const HOOKS = [
+  '"Ganhe 5kg de músculo em 30 dias"',
+  '"O motivo pelo qual seu treino não está funcionando"',
+  '"+12.000 brasileiros já transformaram o físico"',
+];
+
 function DashboardMockup() {
   return (
     <div
       className="relative rounded-2xl overflow-hidden border border-[#E8DCC4] bg-white"
       style={{
         boxShadow:
-          "0 0 0 1px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.06), 0 32px 64px rgba(0,0,0,0.08), 0 64px 120px rgba(0,0,0,0.06)",
+          "0 0 0 1px rgba(0,0,0,0.05), 0 4px 8px rgba(0,0,0,0.04), 0 12px 24px rgba(0,0,0,0.06), 0 32px 64px rgba(0,0,0,0.08), 0 64px 120px rgba(194,65,12,0.04)",
       }}
     >
       {/* Browser chrome */}
-      <div className="h-10 flex items-center gap-3 px-4" style={{ background: "#F5F0E8", borderBottom: "1px solid #E8DCC4" }}>
-        <div className="flex gap-1.5">
-          <span className="size-3 rounded-full bg-[#FF5F57]/70" />
-          <span className="size-3 rounded-full bg-[#FFBD2E]/70" />
-          <span className="size-3 rounded-full bg-[#28CA41]/70" />
+      <div
+        style={{
+          background: "#F5F0E8",
+          borderBottom: "1px solid #E8DCC4",
+          padding: "10px 16px",
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
+        }}
+      >
+        <div style={{ display: "flex", gap: "6px" }}>
+          <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#FF5F56" }} />
+          <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#FFBD2E" }} />
+          <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#27C93F" }} />
         </div>
-        <div className="flex-1 flex justify-center">
-          <div className="bg-white border border-[#E8DCC4] rounded-md h-5 w-48 flex items-center justify-center">
-            <span className="text-[10px] text-[#9A9080] font-mono">
-              briefr.com.br/dashboard
-            </span>
-          </div>
+        <div
+          style={{
+            flex: 1,
+            margin: "0 12px",
+            background: "white",
+            border: "1px solid #E8DCC4",
+            borderRadius: "6px",
+            padding: "4px 12px",
+            fontSize: "12px",
+            color: "#9A9080",
+            textAlign: "center",
+            fontFamily: "monospace",
+          }}
+        >
+          briefr.com.br/dashboard
         </div>
+        <div style={{ color: "#C4B8A0", fontSize: 16, lineHeight: 1 }}>↻</div>
       </div>
 
-      {/* App UI */}
-      <div className="bg-[#FAF6EE] grid grid-cols-5 gap-3 p-3">
-        {/* Sidebar / form */}
-        <div className="col-span-2 bg-white rounded-xl border border-[#E8DCC4] p-3 space-y-3 text-xs">
-          <p className="font-bold text-[9px] uppercase tracking-widest text-[#9A9080]">
-            Novo brief
-          </p>
+      {/* App UI — two panels side by side */}
+      <div style={{ display: "flex", background: "#FAF6EE" }}>
 
-          <div className="space-y-1">
-            <p className="text-[#9A9080] text-[10px]">Produto</p>
-            <div className="bg-[#C2410C]/5 border border-[#C2410C]/20 rounded-lg h-6 px-2 flex items-center text-[#1F1A14]/80 text-[10px]">
+        {/* ── Left: Form panel ── */}
+        <div
+          style={{
+            background: "#FAF6EE",
+            borderRight: "1px solid #E8DCC4",
+            padding: "16px",
+            width: "38%",
+            flexShrink: 0,
+          }}
+        >
+          <div
+            style={{
+              fontSize: "10px", fontWeight: 600,
+              color: "#9A9080", letterSpacing: "0.08em",
+              textTransform: "uppercase", marginBottom: "14px",
+            }}
+          >
+            Novo Brief
+          </div>
+
+          {/* Produto */}
+          <div style={{ marginBottom: "10px" }}>
+            <div style={{ fontSize: "10px", color: "#9A9080", marginBottom: "4px" }}>Produto</div>
+            <div
+              style={{
+                background: "white", border: "1px solid #C2410C",
+                borderRadius: "6px", padding: "6px 10px",
+                fontSize: "11px", color: "#1F1A14",
+                boxShadow: "0 0 0 3px rgba(194,65,12,0.1)",
+              }}
+            >
               Suplemento Alpha Pro
             </div>
           </div>
 
-          <div className="space-y-1">
-            <p className="text-[#9A9080] text-[10px]">Público-alvo</p>
-            <div className="bg-[#FAF6EE] border border-[#E8DCC4] rounded-lg h-6 px-2 flex items-center text-[#6B6258] text-[10px]">
-              Homens 25–40 que treinam…
+          {/* Público */}
+          <div style={{ marginBottom: "10px" }}>
+            <div style={{ fontSize: "10px", color: "#9A9080", marginBottom: "4px" }}>Público-alvo</div>
+            <div
+              style={{
+                background: "white", border: "1px solid #E8DCC4",
+                borderRadius: "6px", padding: "6px 10px",
+                fontSize: "11px", color: "#6B6258",
+              }}
+            >
+              Homens 25–40 que treinam...
             </div>
           </div>
 
-          <div className="space-y-1">
-            <p className="text-[#9A9080] text-[10px]">Formatos</p>
-            <div className="flex gap-1 flex-wrap">
-              {["Estático", "Story", "UGC"].map((f) => (
+          {/* Plataforma */}
+          <div style={{ marginBottom: "10px" }}>
+            <div style={{ fontSize: "10px", color: "#9A9080", marginBottom: "4px" }}>Plataforma</div>
+            <div
+              style={{
+                background: "white", border: "1px solid #E8DCC4",
+                borderRadius: "6px", padding: "6px 10px",
+                fontSize: "11px", color: "#1F1A14",
+                display: "flex", alignItems: "center", justifyContent: "space-between",
+              }}
+            >
+              <span>Meta Ads</span>
+              <span style={{ color: "#C4B8A0", fontSize: "10px" }}>▼</span>
+            </div>
+          </div>
+
+          {/* Formatos */}
+          <div style={{ marginBottom: "14px" }}>
+            <div style={{ fontSize: "10px", color: "#9A9080", marginBottom: "6px" }}>Formatos</div>
+            <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
+              {(["Estático", "Story", "UGC"] as const).map((f, i) => (
                 <span
                   key={f}
-                  className="bg-[#C2410C]/10 text-[#C2410C] text-[9px] font-semibold rounded-full px-2 py-0.5 border border-[#C2410C]/15"
+                  style={{
+                    background: i === 0 ? "#C2410C" : "white",
+                    color: i === 0 ? "white" : "#6B6258",
+                    border: `1px solid ${i === 0 ? "#C2410C" : "#E8DCC4"}`,
+                    borderRadius: "20px", padding: "2px 8px",
+                    fontSize: "10px", fontWeight: i === 0 ? 500 : 400,
+                  }}
                 >
                   {f}
                 </span>
@@ -69,72 +147,123 @@ function DashboardMockup() {
             </div>
           </div>
 
-          <div className="bg-[#C2410C] text-white text-[10px] font-semibold rounded-lg h-7 flex items-center justify-center gap-1 cursor-pointer">
-            Gerar brief →
+          {/* Botão */}
+          <div
+            style={{
+              width: "100%", background: "#C2410C", color: "white",
+              borderRadius: "8px", padding: "8px 0",
+              fontSize: "11px", fontWeight: 600,
+              display: "flex", alignItems: "center", justifyContent: "center",
+              gap: "6px", cursor: "pointer",
+            }}
+          >
+            <span>Gerar brief</span>
+            <span>→</span>
           </div>
         </div>
 
-        {/* Brief output */}
-        <div className="col-span-3 bg-white rounded-xl border border-[#E8DCC4] p-3 space-y-2.5 text-xs">
+        {/* ── Right: Output panel ── */}
+        <div style={{ padding: "16px", width: "62%", overflow: "hidden", background: "white" }}>
+
           {/* Tabs */}
-          <div className="flex gap-3 border-b border-[#E8DCC4] pb-2">
-            <span className="text-[#C2410C] font-semibold text-[10px] border-b-2 border-[#C2410C] pb-0.5">
-              Estático 1:1
-            </span>
-            <span className="text-[#9A9080] text-[10px]">Story 9:16</span>
-            <span className="text-[#9A9080] text-[10px]">UGC 15s</span>
+          <div style={{ display: "flex", borderBottom: "1px solid #E8DCC4", marginBottom: "14px" }}>
+            {["Estático 1:1", "Story 9:16", "UGC 15s"].map((tab, i) => (
+              <div
+                key={tab}
+                style={{
+                  padding: "6px 10px", fontSize: "10px",
+                  fontWeight: i === 0 ? 600 : 400,
+                  color: i === 0 ? "#C2410C" : "#9A9080",
+                  borderBottom: i === 0 ? "2px solid #C2410C" : "2px solid transparent",
+                  marginBottom: "-1px", cursor: "pointer",
+                }}
+              >
+                {tab}
+              </div>
+            ))}
           </div>
 
-          <div>
-            <p className="text-[9px] font-bold uppercase tracking-widest text-[#9A9080] mb-1">
+          {/* Headline */}
+          <div style={{ marginBottom: "10px" }}>
+            <div style={{ fontSize: "9px", fontWeight: 600, color: "#9A9080", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "4px" }}>
               Headline
-            </p>
-            <p className="font-semibold text-[#1F1A14] text-[11px] leading-snug">
+            </div>
+            <div style={{ fontSize: "12px", fontWeight: 600, color: "#1F1A14", lineHeight: 1.4 }}>
               &quot;Ganhe 5kg de músculo em 30 dias&quot;
-            </p>
+            </div>
           </div>
 
-          <div>
-            <p className="text-[9px] font-bold uppercase tracking-widest text-[#9A9080] mb-1">
+          <div style={{ height: "1px", background: "#F4E8D6", margin: "8px 0" }} />
+
+          {/* Hooks */}
+          <div style={{ marginBottom: "10px" }}>
+            <div style={{ fontSize: "9px", fontWeight: 600, color: "#9A9080", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "6px" }}>
+              Hooks (3 opções)
+            </div>
+            {HOOKS.map((hook, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "6px", marginBottom: "4px" }}>
+                <span style={{ color: "#C2410C", fontWeight: 700, fontSize: "10px", minWidth: "14px", marginTop: "1px" }}>
+                  {i + 1}.
+                </span>
+                <span style={{ fontSize: "10px", color: "#4A4238", lineHeight: 1.5 }}>{hook}</span>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ height: "1px", background: "#F4E8D6", margin: "8px 0" }} />
+
+          {/* Copy */}
+          <div style={{ marginBottom: "10px" }}>
+            <div style={{ fontSize: "9px", fontWeight: 600, color: "#9A9080", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "4px" }}>
               Copy
-            </p>
-            <p className="text-[10px] text-[#6B6258] leading-relaxed">
-              Whey isolado com absorção 3× mais rápida. +12.000 clientes no
-              Brasil. Frete grátis hoje.
-            </p>
+            </div>
+            <div style={{ fontSize: "10px", color: "#6B6258", lineHeight: 1.6 }}>
+              Whey isolado com absorção 3× mais rápida. +12.000 clientes no Brasil. Frete grátis hoje.
+            </div>
           </div>
 
-          <div>
-            <p className="text-[9px] font-bold uppercase tracking-widest text-[#9A9080] mb-1">
+          {/* CTA */}
+          <div style={{ marginBottom: "10px" }}>
+            <div style={{ fontSize: "9px", fontWeight: 600, color: "#9A9080", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "6px" }}>
               CTA
-            </p>
-            <span className="inline-flex items-center bg-[#0F766E]/10 text-[#0F766E] text-[10px] font-semibold rounded px-2 py-0.5 border border-[#0F766E]/15">
+            </div>
+            <div
+              style={{
+                display: "inline-flex", alignItems: "center", gap: "4px",
+                background: "#C2410C", color: "white",
+                borderRadius: "6px", padding: "5px 12px",
+                fontSize: "10px", fontWeight: 500,
+              }}
+            >
               Comprar com 40% OFF →
-            </span>
+            </div>
+          </div>
+
+          <div style={{ height: "1px", background: "#F4E8D6", margin: "8px 0" }} />
+
+          {/* Footer */}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div style={{ fontSize: "9px", color: "#9A9080", display: "flex", alignItems: "center", gap: "4px" }}>
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#16A34A", display: "inline-block" }} />
+              CTR estimado: 2.8–4.2%
+            </div>
+            <div style={{ fontSize: "9px", color: "#C2410C", fontWeight: 500, cursor: "pointer" }}>
+              Exportar PDF →
+            </div>
           </div>
 
           {/* Progress bar */}
-          <div className="pt-2 border-t border-[#E8DCC4] space-y-1.5">
-            <div className="flex items-center justify-between">
-              <span className="text-[9px] text-[#9A9080]">
-                CTR estimado: 2.8–4.2%
-              </span>
-              <span className="text-[10px] font-medium text-[#C2410C]">
-                Exportar PDF →
-              </span>
-            </div>
-            <div className="h-1 rounded-full bg-[#E8DCC4] overflow-hidden">
-              <motion.div
-                className="h-full bg-[#C2410C] rounded-full"
-                initial={{ width: "0%" }}
-                animate={{ width: "78%" }}
-                transition={{
-                  duration: 1.5,
-                  delay: 1.2,
-                  ease: [0.25, 0.1, 0.25, 1],
-                }}
-              />
-            </div>
+          <div style={{ marginTop: "8px", height: "2px", background: "#F4E8D6", borderRadius: "1px", overflow: "hidden" }}>
+            <motion.div
+              style={{
+                height: "100%",
+                background: "linear-gradient(to right, #C2410C, #E87445)",
+                borderRadius: "1px",
+              }}
+              initial={{ width: "0%" }}
+              animate={{ width: "73%" }}
+              transition={{ duration: 1.5, delay: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
+            />
           </div>
         </div>
       </div>
@@ -142,11 +271,13 @@ function DashboardMockup() {
       {/* Fade gradient at bottom */}
       <div
         aria-hidden
-        className="absolute bottom-0 left-0 right-0 pointer-events-none"
         style={{
-          height: "120px",
-          background:
-            "linear-gradient(to bottom, transparent, rgba(255,252,245,0.9))",
+          position: "absolute",
+          bottom: 0, left: 0, right: 0,
+          height: "80px",
+          background: "linear-gradient(to bottom, transparent, #FFFCF5)",
+          pointerEvents: "none",
+          zIndex: 2,
         }}
       />
     </div>
@@ -157,7 +288,7 @@ function DashboardMockup() {
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-[#FFFCF5] pt-20 pb-0 sm:pt-24">
+    <section className="relative overflow-x-hidden bg-[#FFFCF5] pt-20 pb-0 sm:pt-24">
       {/* Radial glow behind mockup */}
       <div
         aria-hidden
@@ -267,22 +398,39 @@ export default function Hero() {
               delay: 0.2,
               ease: [0.25, 0.1, 0.25, 1],
             }}
-            className="flex items-center justify-center lg:justify-end mt-12 lg:mt-0"
+            className="relative flex items-center justify-center lg:justify-end mt-12 lg:mt-0"
+            style={{ overflow: "visible" }}
           >
-            {/* 3D tilt wrapper (static — does NOT float) */}
+            {/* Radial glow behind mockup */}
             <div
-              className="w-full lg:hidden"
-              style={{ maxWidth: "560px" }}
+              aria-hidden
+              style={{
+                position: "absolute",
+                inset: "-40px",
+                background: "radial-gradient(ellipse 70% 70% at 60% 50%, rgba(194,65,12,0.06) 0%, transparent 70%)",
+                pointerEvents: "none",
+                zIndex: 0,
+              }}
+            />
+
+            {/* Mobile: no 3D tilt */}
+            <div
+              className="relative w-full lg:hidden"
+              style={{ maxWidth: "560px", zIndex: 1 }}
             >
               <FloatingMockup>
                 <DashboardMockup />
               </FloatingMockup>
             </div>
+
+            {/* Desktop: 3D tilt + bleed right */}
             <div
-              className="hidden lg:block w-full"
+              className="relative hidden lg:block w-full"
               style={{
-                maxWidth: "560px",
-                transform: "perspective(1000px) rotateY(-4deg) rotateX(2deg)",
+                maxWidth: "640px",
+                marginRight: "-48px",
+                transform: "perspective(1200px) rotateY(-6deg) rotateX(3deg)",
+                zIndex: 1,
               }}
             >
               <FloatingMockup>
