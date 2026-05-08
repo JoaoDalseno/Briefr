@@ -59,10 +59,7 @@ export async function POST(request: NextRequest) {
 }
 
 async function sendConfirmationEmail(name: string, email: string, profile: string) {
-  if (!process.env.RESEND_API_KEY) {
-    console.warn('[waitlist] Resend não configurado — email de confirmação não enviado.')
-    return
-  }
+  console.log('[waitlist] Enviando email, key existe:', !!process.env.RESEND_API_KEY)
 
   const resend = new Resend(process.env.RESEND_API_KEY)
   const firstName = name.split(' ')[0]
@@ -70,7 +67,7 @@ async function sendConfirmationEmail(name: string, email: string, profile: strin
 
   try {
     await resend.emails.send({
-      from:    'Briefr <noreply@briefr.com.br>',
+      from:    'Briefr <onboarding@resend.dev>',
       to:      email,
       subject: '✦ Você está na lista do Briefr!',
       html: `
@@ -151,7 +148,9 @@ async function sendConfirmationEmail(name: string, email: string, profile: strin
       `.trim(),
     })
   } catch (err) {
-    // Falha no email não deve afetar o cadastro — apenas logar
-    console.error('[waitlist] falha ao enviar email de confirmação:', err)
+    console.error('[waitlist] falha ao enviar email de confirmação:', {
+      to: email,
+      error: err instanceof Error ? err.message : String(err),
+    })
   }
 }
