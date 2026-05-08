@@ -14,11 +14,11 @@ function DashboardMockup() {
       className="relative rounded-2xl overflow-hidden border border-[#E8DCC4] bg-white"
       style={{
         boxShadow:
-          "0 32px 64px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.04)",
+          "0 0 0 1px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.06), 0 32px 64px rgba(0,0,0,0.08), 0 64px 120px rgba(0,0,0,0.06)",
       }}
     >
       {/* Browser chrome */}
-      <div className="bg-[#FAF6EE] border-b border-[#E8DCC4] h-10 flex items-center gap-3 px-4">
+      <div className="h-10 flex items-center gap-3 px-4" style={{ background: "#F5F0E8", borderBottom: "1px solid #E8DCC4" }}>
         <div className="flex gap-1.5">
           <span className="size-3 rounded-full bg-[#FF5F57]/70" />
           <span className="size-3 rounded-full bg-[#FFBD2E]/70" />
@@ -142,8 +142,9 @@ function DashboardMockup() {
       {/* Fade gradient at bottom */}
       <div
         aria-hidden
-        className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 pointer-events-none"
         style={{
+          height: "120px",
           background:
             "linear-gradient(to bottom, transparent, rgba(255,252,245,0.9))",
         }}
@@ -156,100 +157,151 @@ function DashboardMockup() {
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-[#FFFCF5] pt-32 pb-0 sm:pt-36 text-center">
+    <section className="relative overflow-hidden bg-[#FFFCF5] pt-20 pb-0 sm:pt-24">
+      {/* Radial glow behind mockup */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 80% at 80% 50%, rgba(194,65,12,0.04) 0%, transparent 70%)",
+        }}
+      />
+
       <Container>
-        <div className="flex flex-col items-center">
-          {/* Badge */}
+        {/* Split grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-[45fr_55fr] gap-0 lg:gap-12 items-center min-h-[90vh] py-16 lg:py-0">
+
+          {/* ── Left: Text ── */}
+          <div className="flex flex-col items-center lg:items-start text-center lg:text-left lg:pr-12">
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, x: -24 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+            >
+              <span className="inline-flex items-center rounded-full border border-[#E8DCC4] bg-[#FAF6EE] px-4 py-1.5 text-[13px] font-medium text-[#9A3309]">
+                ✦ Plataforma de Briefs de Criativos com IA
+              </span>
+            </motion.div>
+
+            {/* H1 */}
+            <motion.h1
+              initial={{ opacity: 0, x: -24 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                duration: 0.7,
+                delay: 0.1,
+                ease: [0.25, 0.1, 0.25, 1],
+              }}
+              className="mt-5 font-semibold leading-[1.05] tracking-[-0.03em]"
+              style={{ fontSize: "clamp(40px, 5vw, 60px)", maxWidth: "560px" }}
+            >
+              Briefs que convertem,
+              <br />
+              <span style={{ color: "#C2410C" }}>em minutos.</span>
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, x: -24 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                duration: 0.7,
+                delay: 0.2,
+                ease: [0.25, 0.1, 0.25, 1],
+              }}
+              className="mt-5 text-[#6B6258] leading-relaxed"
+              style={{ fontSize: "19px", maxWidth: "440px" }}
+            >
+              Descreva seu produto e a IA monta o brief completo do anúncio —
+              hook, copy, roteiro e referência visual. Em português, com contexto
+              BR.
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, x: -24 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                duration: 0.7,
+                delay: 0.3,
+                ease: [0.25, 0.1, 0.25, 1],
+              }}
+              className="mt-8 flex flex-row flex-wrap items-center justify-center lg:justify-start gap-3"
+            >
+              <Link
+                href="/signup"
+                className="inline-flex items-center gap-2 rounded-full bg-[#C2410C] text-white font-medium px-7 py-3.5 text-base transition-all duration-200 hover:bg-[#9A3309] hover:scale-[1.02] active:scale-[0.98]"
+                style={{ fontSize: "16px" }}
+              >
+                Começar grátis
+                <ArrowRight className="size-4" />
+              </Link>
+              <Link
+                href="#features"
+                className="inline-flex items-center rounded-full border border-[#E8DCC4] bg-transparent text-[#1F1A14] font-medium px-7 py-3.5 text-base transition-all duration-200 hover:bg-[#FAF6EE]"
+                style={{ fontSize: "16px" }}
+              >
+                Explorar plataforma
+              </Link>
+            </motion.div>
+
+            {/* Social proof */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="mt-4 text-[13px] text-[#9A9080]"
+            >
+              Sem cartão de crédito · Configuração em 2 minutos
+            </motion.p>
+          </div>
+
+          {/* ── Right: Mockup ── */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-          >
-            <span className="inline-flex items-center rounded-full border border-[#E8DCC4] bg-[#FAF6EE] px-4 py-1.5 text-[13px] font-medium text-[#9A3309]">
-              ✦ Plataforma de Briefs de Criativos com IA
-            </span>
-          </motion.div>
-
-          {/* H1 */}
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
-              duration: 0.7,
-              delay: 0.1,
-              ease: [0.25, 0.1, 0.25, 1],
-            }}
-            className="mt-6 font-semibold leading-[1.05] tracking-[-0.03em]"
-            style={{ fontSize: "clamp(40px, 6vw, 72px)" }}
-          >
-            Briefs que convertem,
-            <br />
-            <span style={{ color: "#C2410C" }}>em minutos.</span>
-          </motion.h1>
-
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.7,
+              duration: 0.8,
               delay: 0.2,
               ease: [0.25, 0.1, 0.25, 1],
             }}
-            className="mt-6 text-[#6B6258] leading-relaxed"
-            style={{ fontSize: "19px", maxWidth: "520px" }}
+            className="flex items-center justify-center lg:justify-end mt-12 lg:mt-0"
           >
-            Descreva seu produto e a IA monta o brief completo do anúncio —
-            hook, copy, roteiro e referência visual. Em português, com contexto
-            BR.
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.7,
-              delay: 0.3,
-              ease: [0.25, 0.1, 0.25, 1],
-            }}
-            className="mt-8 flex flex-col sm:flex-row items-center gap-3"
-          >
-            <Link
-              href="/signup"
-              className="inline-flex items-center gap-2 rounded-full bg-[#C2410C] text-white font-medium px-7 py-3.5 text-base transition-all duration-200 hover:bg-[#9A3309] hover:scale-[1.02] active:scale-[0.98]"
-              style={{ fontSize: "16px" }}
+            {/* 3D tilt wrapper (static — does NOT float) */}
+            <div
+              className="w-full lg:hidden"
+              style={{ maxWidth: "560px" }}
             >
-              Começar grátis
-              <ArrowRight className="size-4" />
-            </Link>
-            <Link
-              href="#features"
-              className="inline-flex items-center rounded-full border border-[#E8DCC4] bg-transparent text-[#1F1A14] font-medium px-7 py-3.5 text-base transition-all duration-200 hover:bg-[#FAF6EE]"
-              style={{ fontSize: "16px" }}
+              <FloatingMockup>
+                <DashboardMockup />
+              </FloatingMockup>
+            </div>
+            <div
+              className="hidden lg:block w-full"
+              style={{
+                maxWidth: "560px",
+                transform: "perspective(1000px) rotateY(-4deg) rotateX(2deg)",
+              }}
             >
-              Explorar plataforma
-            </Link>
+              <FloatingMockup>
+                <DashboardMockup />
+              </FloatingMockup>
+            </div>
           </motion.div>
-
-          {/* Social proof */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="mt-4 text-[13px] text-[#9A9080]"
-          >
-            Sem cartão de crédito · Configuração em 2 minutos
-          </motion.p>
-
-          {/* Mockup */}
-          <div className="mt-16 w-full" style={{ maxWidth: "760px" }}>
-            <FloatingMockup>
-              <DashboardMockup />
-            </FloatingMockup>
-          </div>
         </div>
       </Container>
+
+      {/* Section separator */}
+      <div
+        aria-hidden
+        style={{
+          height: "1px",
+          background:
+            "linear-gradient(to right, transparent, #E8DCC4 30%, #E8DCC4 70%, transparent)",
+        }}
+      />
     </section>
   );
 }

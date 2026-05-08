@@ -253,13 +253,13 @@ export default function FormatTabs() {
       <Container>
         {/* Header */}
         <FadeUp className="text-center mb-14">
-          <span className="inline-flex items-center rounded-full border border-[#E8DCC4] bg-[#FFFCF5] px-4 py-1.5 text-xs font-semibold text-[#9A3309] mb-4">
-            ✦ Formatos
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#1F1A14] leading-tight">
-            Escolha o formato.
+          <p className="text-[13px] font-medium text-[#9A9080] uppercase tracking-[0.08em] mb-4">
+            — Formatos
+          </p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl tracking-tight text-[#1F1A14] leading-tight">
+            <span className="font-normal">Escolha o formato.</span>
             <br />
-            <span className="text-[#C2410C]">O Briefr entrega o restante.</span>
+            <span className="font-bold">O Briefr entrega o restante.</span>
           </h2>
           <p className="mt-4 text-base sm:text-lg text-[#6B6258] max-w-xl mx-auto leading-relaxed">
             Cada formato gera um brief específico com estrutura, linguagem e
@@ -278,31 +278,18 @@ export default function FormatTabs() {
                   key={format.id}
                   onClick={() => setActiveId(format.id)}
                   className={cn(
-                    "w-full flex items-center gap-3 rounded-xl px-4 py-3.5 text-left transition-all duration-200",
+                    "w-full flex items-center gap-3 px-4 py-3.5 text-left transition-all duration-200",
                     isActive
-                      ? "bg-white border border-[#C2410C]/30 shadow-[0_2px_8px_rgba(194,65,12,0.08)]"
-                      : "hover:bg-white/60 border border-transparent"
+                      ? "bg-white border border-[#C2410C]/30 border-l-[3px] border-l-[#C2410C] rounded-r-xl shadow-[0_2px_8px_rgba(194,65,12,0.08)]"
+                      : "rounded-xl hover:bg-white/60 border border-transparent"
                   )}
                 >
-                  <span
+                  <format.icon
                     className={cn(
-                      "w-0.5 self-stretch rounded-full transition-all duration-200 shrink-0",
-                      isActive ? "bg-[#C2410C]" : "bg-transparent"
+                      "size-4 shrink-0 transition-colors",
+                      isActive ? "text-[#C2410C]" : "text-[#6B6258]"
                     )}
                   />
-                  <div
-                    className={cn(
-                      "p-2 rounded-lg transition-colors shrink-0",
-                      isActive ? "bg-[#C2410C]/10" : "bg-[#E8DCC4]/60"
-                    )}
-                  >
-                    <format.icon
-                      className={cn(
-                        "size-4 transition-colors",
-                        isActive ? "text-[#C2410C]" : "text-[#6B6258]"
-                      )}
-                    />
-                  </div>
                   <div className="flex-1 min-w-0">
                     <p
                       className={cn(
@@ -316,14 +303,9 @@ export default function FormatTabs() {
                       {format.channel}
                     </p>
                   </div>
-                  <ChevronRight
-                    className={cn(
-                      "size-4 shrink-0 transition-all duration-200",
-                      isActive
-                        ? "text-[#C2410C]"
-                        : "text-[#6B6258]/40"
-                    )}
-                  />
+                  {!isActive && (
+                    <ChevronRight className="size-4 shrink-0 text-[#6B6258]/40" />
+                  )}
                 </button>
               );
             })}

@@ -28,10 +28,23 @@ function WaitlistCounter() {
 
   if (count === null) return null
 
+  if (count === 0) {
+    return (
+      <p className="text-sm text-[#6B6258]">Seja um dos primeiros.</p>
+    )
+  }
+
+  if (count < 10) {
+    return (
+      <p className="text-sm text-[#6B6258]">Junte-se aos primeiros.</p>
+    )
+  }
+
   return (
     <p className="text-sm text-[#6B6258]">
+      Junte-se a{' '}
       <span className="font-semibold text-[#C2410C]">{count.toLocaleString('pt-BR')}</span>
-      {' '}pessoa{count !== 1 ? 's' : ''} já na lista
+      {' '}pessoas na lista.
     </p>
   )
 }
@@ -163,9 +176,9 @@ export default function Waitlist() {
     <section id="waitlist" className="py-24 bg-[#FAF6EE]">
       <Container size="narrow">
         <FadeUp className="text-center mb-10">
-          <span className="inline-flex items-center rounded-full border border-[#E8DCC4] bg-[#FFFCF5] px-4 py-1.5 text-xs font-semibold text-[#9A3309] mb-4">
-            ✦ Acesso antecipado
-          </span>
+          <p className="text-[13px] font-medium text-[#9A9080] uppercase tracking-[0.08em] mb-4">
+            — Acesso antecipado
+          </p>
           <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#1F1A14] leading-tight">
             Entre antes de todo mundo.
           </h2>
