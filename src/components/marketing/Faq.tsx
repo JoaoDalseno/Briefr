@@ -30,13 +30,13 @@ const FAQS = [
   },
   {
     id: 'q6',
-    q: 'Como cancelar a assinatura?',
-    a: 'Pelo próprio painel, em Configurações → Assinatura → Cancelar. O cancelamento é imediato, sem multa e sem burocracia. Você mantém o acesso até o fim do período pago e depois migra automaticamente para o plano Free.',
+    q: 'Quanto custa o Briefr?',
+    a: 'Durante o beta, o acesso é completamente gratuito. Os planos serão definidos com base no feedback dos primeiros usuários — quem entrar na lista agora terá condições especiais no lançamento.',
   },
   {
     id: 'q7',
-    q: 'Tem teste grátis?',
-    a: 'Sim! O plano Free inclui 3 briefs por mês sem precisar de cartão de crédito. É suficiente para experimentar a qualidade e ver se o Briefr funciona para o seu fluxo de trabalho antes de decidir por um plano pago.',
+    q: 'Como faço para conseguir acesso?',
+    a: 'O Briefr está em beta fechado com acesso por convite. Cadastre-se na lista de espera e você será avisado por email assim que abrirmos novas vagas. Estamos priorizando gestores de tráfego e anunciantes ativos.',
   },
   {
     id: 'q8',

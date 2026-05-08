@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import Hero from "@/components/marketing/Hero";
-import Waitlist from "@/components/marketing/Waitlist";
 import StatsBar from "@/components/marketing/StatsBar";
 import Features from "@/components/marketing/Features";
 import FormatTabs from "@/components/marketing/FormatTabs";
 import HowItWorks from "@/components/marketing/HowItWorks";
 import SocialProof from "@/components/marketing/SocialProof";
-import Pricing from "@/components/marketing/Pricing";
 import Faq from "@/components/marketing/Faq";
+import Waitlist from "@/components/marketing/Waitlist";
 import CtaFinal from "@/components/marketing/CtaFinal";
 
 // ─── SEO Metadata ─────────────────────────────────────────────────────────────
@@ -89,9 +88,7 @@ const productSchema = {
   description:
     "Gere briefs completos para anúncios digitais em segundos usando inteligência artificial.",
   offers: [
-    { "@type": "Offer", name: "Free", price: "0", priceCurrency: "BRL" },
-    { "@type": "Offer", name: "Pro", price: "97", priceCurrency: "BRL" },
-    { "@type": "Offer", name: "Agência", price: "197", priceCurrency: "BRL" },
+    { "@type": "Offer", name: "Beta", price: "0", priceCurrency: "BRL" },
   ],
 };
 
@@ -112,14 +109,13 @@ export default function HomePage() {
       />
 
       <Hero />
-      <Waitlist />
       <StatsBar />
       <Features />
       <FormatTabs />
       <HowItWorks />
       <SocialProof />
-      <Pricing />
       <Faq />
+      <Waitlist />
       <CtaFinal />
     </>
   );

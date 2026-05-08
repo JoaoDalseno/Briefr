@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
@@ -361,21 +360,21 @@ export default function Hero() {
               }}
               className="mt-8 flex flex-row flex-wrap items-center justify-center lg:justify-start gap-3"
             >
-              <Link
-                href="/signup"
+              <a
+                href="#waitlist"
                 className="inline-flex items-center gap-2 rounded-full bg-[#C2410C] text-white font-medium px-7 py-3.5 text-base transition-all duration-200 hover:bg-[#9A3309] hover:scale-[1.02] active:scale-[0.98]"
                 style={{ fontSize: "16px" }}
               >
-                Começar grátis
+                Garantir minha vaga
                 <ArrowRight className="size-4" />
-              </Link>
-              <Link
-                href="#features"
+              </a>
+              <a
+                href="#how"
                 className="inline-flex items-center rounded-full border border-[#E8DCC4] bg-transparent text-[#1F1A14] font-medium px-7 py-3.5 text-base transition-all duration-200 hover:bg-[#FAF6EE]"
                 style={{ fontSize: "16px" }}
               >
-                Explorar plataforma
-              </Link>
+                Ver como funciona
+              </a>
             </motion.div>
 
             {/* Social proof */}
@@ -385,7 +384,7 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.5 }}
               className="mt-4 text-[13px] text-[#9A9080]"
             >
-              Sem cartão de crédito · Configuração em 2 minutos
+              Beta fechado · Acesso por convite · Gratuito durante o beta
             </motion.p>
           </div>
 

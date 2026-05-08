@@ -18,7 +18,6 @@ import { cn } from '@/lib/utils'
 const NAV_LINKS = [
   { label: 'Recursos',        href: '#features' },
   { label: 'Como funciona',   href: '#how' },
-  { label: 'Preços',          href: '#pricing' },
   { label: 'FAQ',             href: '#faq' },
 ]
 
@@ -65,19 +64,27 @@ export default function Header() {
 
           {/* Actions — desktop */}
           <div className="hidden md:flex items-center gap-3">
-            <Link
-              href="/login"
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            <span
+              style={{
+                background: '#FAF6EE',
+                border: '1px solid #E8DCC4',
+                color: '#9A3309',
+                fontSize: '11px',
+                padding: '4px 10px',
+                borderRadius: '20px',
+                fontWeight: 500,
+                whiteSpace: 'nowrap',
+              }}
             >
-              Entrar
-            </Link>
-            <Link
-              href="/signup"
+              Beta fechado
+            </span>
+            <a
+              href="#waitlist"
               className="inline-flex items-center justify-center bg-[#C2410C] text-white font-medium rounded-lg transition-colors hover:bg-[#9A3309]"
-              style={{ fontSize: '14px', padding: '9px 20px' }}
+              style={{ fontSize: '14px', padding: '8px 18px' }}
             >
-              Começar grátis
-            </Link>
+              Entrar na lista →
+            </a>
           </div>
 
           {/* Mobile hamburger */}
@@ -112,20 +119,13 @@ export default function Header() {
                 </nav>
 
                 <div className="px-4 pb-6 flex flex-col gap-2 border-t border-border pt-4">
-                  <Link
-                    href="/login"
-                    onClick={() => setOpen(false)}
-                    className={buttonVariants({ variant: 'outline', size: 'default' })}
-                  >
-                    Entrar
-                  </Link>
-                  <Link
-                    href="/signup"
+                  <a
+                    href="#waitlist"
                     onClick={() => setOpen(false)}
                     className={buttonVariants({ size: 'default' })}
                   >
-                    Começar grátis
-                  </Link>
+                    Entrar na lista →
+                  </a>
                 </div>
               </SheetContent>
             </Sheet>
