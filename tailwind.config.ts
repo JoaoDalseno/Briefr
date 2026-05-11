@@ -102,6 +102,7 @@ const config: Config = {
       },
 
       fontFamily: {
+        display: ["var(--font-display)", "Georgia", "serif"],
         serif:   ["var(--font-serif)", "Georgia", "serif"],
         sans:    ["var(--font-sans)", "system-ui", "sans-serif"],
         heading: ["var(--font-serif)", "Georgia", "serif"],

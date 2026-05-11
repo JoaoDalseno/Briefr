@@ -1,17 +1,18 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { FloatingMockup } from "@/components/animations";
 
-// ─── Dashboard Mockup ─────────────────────────────────────────────────────────
+const EASE = [0.25, 0.1, 0.25, 1] as const;
 
 const HOOKS = [
   '"Ganhe 5kg de músculo em 30 dias"',
-  '"O motivo pelo qual seu treino não está funcionando"',
+  '"O motivo pelo qual seu treino não funciona"',
   '"+12.000 brasileiros já transformaram o físico"',
 ];
+
+// ─── Dashboard Mockup ─────────────────────────────────────────────────────────
 
 function DashboardMockup() {
   return (
@@ -19,7 +20,7 @@ function DashboardMockup() {
       className="relative rounded-2xl overflow-hidden border border-[#E8DCC4] bg-white"
       style={{
         boxShadow:
-          "0 0 0 1px rgba(0,0,0,0.05), 0 4px 8px rgba(0,0,0,0.04), 0 12px 24px rgba(0,0,0,0.06), 0 32px 64px rgba(0,0,0,0.08), 0 64px 120px rgba(194,65,12,0.04)",
+          "0 0 0 1px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06), 0 32px 80px rgba(0,0,0,0.1), 0 64px 120px rgba(194,65,12,0.05)",
       }}
     >
       {/* Browser chrome */}
@@ -46,7 +47,7 @@ function DashboardMockup() {
             border: "1px solid #E8DCC4",
             borderRadius: "6px",
             padding: "4px 12px",
-            fontSize: "12px",
+            fontSize: "11px",
             color: "#9A9080",
             textAlign: "center",
             fontFamily: "monospace",
@@ -57,37 +58,46 @@ function DashboardMockup() {
         <div style={{ color: "#C4B8A0", fontSize: 16, lineHeight: 1 }}>↻</div>
       </div>
 
-      {/* App UI — two panels side by side */}
+      {/* App UI — two panels */}
       <div style={{ display: "flex", background: "#FAF6EE" }}>
 
-        {/* ── Left: Form panel ── */}
+        {/* Left: Form panel (35%) */}
         <div
           style={{
             background: "#FAF6EE",
             borderRight: "1px solid #E8DCC4",
             padding: "16px",
-            width: "38%",
+            width: "35%",
             flexShrink: 0,
           }}
         >
           <div
             style={{
-              fontSize: "10px", fontWeight: 600,
-              color: "#9A9080", letterSpacing: "0.08em",
-              textTransform: "uppercase", marginBottom: "14px",
+              fontFamily: "monospace",
+              fontSize: "10px",
+              fontWeight: 600,
+              color: "#9A9080",
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              marginBottom: "14px",
             }}
           >
             Novo Brief
           </div>
 
-          {/* Produto */}
+          {/* Produto — campo ativo */}
           <div style={{ marginBottom: "10px" }}>
-            <div style={{ fontSize: "10px", color: "#9A9080", marginBottom: "4px" }}>Produto</div>
+            <div style={{ fontFamily: "monospace", fontSize: "9px", color: "#9A9080", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "4px" }}>
+              Produto
+            </div>
             <div
               style={{
-                background: "white", border: "1px solid #C2410C",
-                borderRadius: "6px", padding: "6px 10px",
-                fontSize: "11px", color: "#1F1A14",
+                background: "white",
+                border: "1px solid #C2410C",
+                borderRadius: "6px",
+                padding: "6px 10px",
+                fontSize: "11px",
+                color: "#1F1A14",
                 boxShadow: "0 0 0 3px rgba(194,65,12,0.1)",
               }}
             >
@@ -97,37 +107,28 @@ function DashboardMockup() {
 
           {/* Público */}
           <div style={{ marginBottom: "10px" }}>
-            <div style={{ fontSize: "10px", color: "#9A9080", marginBottom: "4px" }}>Público-alvo</div>
+            <div style={{ fontFamily: "monospace", fontSize: "9px", color: "#9A9080", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "4px" }}>
+              Público-alvo
+            </div>
             <div
               style={{
-                background: "white", border: "1px solid #E8DCC4",
-                borderRadius: "6px", padding: "6px 10px",
-                fontSize: "11px", color: "#6B6258",
+                background: "white",
+                border: "1px solid #E8DCC4",
+                borderRadius: "6px",
+                padding: "6px 10px",
+                fontSize: "11px",
+                color: "#9A9080",
               }}
             >
               Homens 25–40 que treinam...
             </div>
           </div>
 
-          {/* Plataforma */}
-          <div style={{ marginBottom: "10px" }}>
-            <div style={{ fontSize: "10px", color: "#9A9080", marginBottom: "4px" }}>Plataforma</div>
-            <div
-              style={{
-                background: "white", border: "1px solid #E8DCC4",
-                borderRadius: "6px", padding: "6px 10px",
-                fontSize: "11px", color: "#1F1A14",
-                display: "flex", alignItems: "center", justifyContent: "space-between",
-              }}
-            >
-              <span>Meta Ads</span>
-              <span style={{ color: "#C4B8A0", fontSize: "10px" }}>▼</span>
-            </div>
-          </div>
-
           {/* Formatos */}
           <div style={{ marginBottom: "14px" }}>
-            <div style={{ fontSize: "10px", color: "#9A9080", marginBottom: "6px" }}>Formatos</div>
+            <div style={{ fontFamily: "monospace", fontSize: "9px", color: "#9A9080", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "6px" }}>
+              Formatos
+            </div>
             <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
               {(["Estático", "Story", "UGC"] as const).map((f, i) => (
                 <span
@@ -136,8 +137,10 @@ function DashboardMockup() {
                     background: i === 0 ? "#C2410C" : "white",
                     color: i === 0 ? "white" : "#6B6258",
                     border: `1px solid ${i === 0 ? "#C2410C" : "#E8DCC4"}`,
-                    borderRadius: "20px", padding: "2px 8px",
-                    fontSize: "10px", fontWeight: i === 0 ? 500 : 400,
+                    borderRadius: "20px",
+                    padding: "2px 8px",
+                    fontSize: "10px",
+                    fontWeight: i === 0 ? 500 : 400,
                   }}
                 >
                   {f}
@@ -149,11 +152,18 @@ function DashboardMockup() {
           {/* Botão */}
           <div
             style={{
-              width: "100%", background: "#C2410C", color: "white",
-              borderRadius: "8px", padding: "8px 0",
-              fontSize: "11px", fontWeight: 600,
-              display: "flex", alignItems: "center", justifyContent: "center",
-              gap: "6px", cursor: "pointer",
+              width: "100%",
+              background: "#C2410C",
+              color: "white",
+              borderRadius: "8px",
+              padding: "8px 0",
+              fontSize: "11px",
+              fontWeight: 600,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "6px",
+              cursor: "pointer",
             }}
           >
             <span>Gerar brief</span>
@@ -161,8 +171,8 @@ function DashboardMockup() {
           </div>
         </div>
 
-        {/* ── Right: Output panel ── */}
-        <div style={{ padding: "16px", width: "62%", overflow: "hidden", background: "white" }}>
+        {/* Right: Output panel (65%) */}
+        <div style={{ padding: "16px", width: "65%", overflow: "hidden", background: "white" }}>
 
           {/* Tabs */}
           <div style={{ display: "flex", borderBottom: "1px solid #E8DCC4", marginBottom: "14px" }}>
@@ -170,11 +180,13 @@ function DashboardMockup() {
               <div
                 key={tab}
                 style={{
-                  padding: "6px 10px", fontSize: "10px",
+                  padding: "6px 10px",
+                  fontSize: "10px",
                   fontWeight: i === 0 ? 600 : 400,
                   color: i === 0 ? "#C2410C" : "#9A9080",
                   borderBottom: i === 0 ? "2px solid #C2410C" : "2px solid transparent",
-                  marginBottom: "-1px", cursor: "pointer",
+                  marginBottom: "-1px",
+                  cursor: "pointer",
                 }}
               >
                 {tab}
@@ -184,7 +196,7 @@ function DashboardMockup() {
 
           {/* Headline */}
           <div style={{ marginBottom: "10px" }}>
-            <div style={{ fontSize: "9px", fontWeight: 600, color: "#9A9080", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "4px" }}>
+            <div style={{ fontFamily: "monospace", fontSize: "9px", fontWeight: 600, color: "#9A9080", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "4px" }}>
               Headline
             </div>
             <div style={{ fontSize: "12px", fontWeight: 600, color: "#1F1A14", lineHeight: 1.4 }}>
@@ -196,7 +208,7 @@ function DashboardMockup() {
 
           {/* Hooks */}
           <div style={{ marginBottom: "10px" }}>
-            <div style={{ fontSize: "9px", fontWeight: 600, color: "#9A9080", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "6px" }}>
+            <div style={{ fontFamily: "monospace", fontSize: "9px", fontWeight: 600, color: "#9A9080", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "6px" }}>
               Hooks (3 opções)
             </div>
             {HOOKS.map((hook, i) => (
@@ -211,27 +223,22 @@ function DashboardMockup() {
 
           <div style={{ height: "1px", background: "#F4E8D6", margin: "8px 0" }} />
 
-          {/* Copy */}
-          <div style={{ marginBottom: "10px" }}>
-            <div style={{ fontSize: "9px", fontWeight: 600, color: "#9A9080", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "4px" }}>
-              Copy
-            </div>
-            <div style={{ fontSize: "10px", color: "#6B6258", lineHeight: 1.6 }}>
-              Whey isolado com absorção 3× mais rápida. +12.000 clientes no Brasil. Frete grátis hoje.
-            </div>
-          </div>
-
           {/* CTA */}
           <div style={{ marginBottom: "10px" }}>
-            <div style={{ fontSize: "9px", fontWeight: 600, color: "#9A9080", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "6px" }}>
+            <div style={{ fontFamily: "monospace", fontSize: "9px", fontWeight: 600, color: "#9A9080", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "6px" }}>
               CTA
             </div>
             <div
               style={{
-                display: "inline-flex", alignItems: "center", gap: "4px",
-                background: "#C2410C", color: "white",
-                borderRadius: "6px", padding: "5px 12px",
-                fontSize: "10px", fontWeight: 500,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "4px",
+                background: "#C2410C",
+                color: "white",
+                borderRadius: "6px",
+                padding: "5px 12px",
+                fontSize: "10px",
+                fontWeight: 500,
               }}
             >
               Comprar com 40% OFF →
@@ -242,11 +249,11 @@ function DashboardMockup() {
 
           {/* Footer */}
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <div style={{ fontSize: "9px", color: "#9A9080", display: "flex", alignItems: "center", gap: "4px" }}>
+            <div style={{ fontFamily: "monospace", fontSize: "9px", color: "#9A9080", display: "flex", alignItems: "center", gap: "4px" }}>
               <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#16A34A", display: "inline-block" }} />
-              CTR estimado: 2.8–4.2%
+              CTR: 2.8–4.2%
             </div>
-            <div style={{ fontSize: "9px", color: "#C2410C", fontWeight: 500, cursor: "pointer" }}>
+            <div style={{ fontFamily: "monospace", fontSize: "9px", color: "#C2410C", cursor: "pointer" }}>
               Exportar PDF →
             </div>
           </div>
@@ -261,7 +268,7 @@ function DashboardMockup() {
               }}
               initial={{ width: "0%" }}
               animate={{ width: "73%" }}
-              transition={{ duration: 1.5, delay: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
+              transition={{ duration: 1.5, delay: 1.2, ease: EASE }}
             />
           </div>
         </div>
@@ -272,7 +279,9 @@ function DashboardMockup() {
         aria-hidden
         style={{
           position: "absolute",
-          bottom: 0, left: 0, right: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
           height: "80px",
           background: "linear-gradient(to bottom, transparent, #FFFCF5)",
           pointerEvents: "none",
@@ -287,8 +296,8 @@ function DashboardMockup() {
 
 export default function Hero() {
   return (
-    <section className="hero-section relative overflow-x-hidden pt-20 pb-0 sm:pt-24">
-      {/* Radial glow behind mockup */}
+    <section className="relative overflow-x-hidden pt-20 pb-0 sm:pt-24">
+      {/* Subtle radial bg */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
@@ -299,66 +308,114 @@ export default function Hero() {
       />
 
       <Container>
-        {/* Split grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-[45fr_55fr] gap-0 lg:gap-12 items-center min-h-[90vh] py-16 lg:py-0">
+        <div className="grid grid-cols-1 lg:grid-cols-[45fr_55fr] gap-0 lg:gap-12 items-center min-h-[100vh] py-16 lg:py-0">
 
-          {/* ── Left: Text ── */}
-          <div className="flex flex-col items-center lg:items-start text-center lg:text-left lg:pr-12">
+          {/* ── Left: Text column ── */}
+          <div className="flex flex-col items-center lg:items-start text-center lg:text-left lg:pr-8">
+
             {/* Badge */}
-            <div className="hero-eyebrow">
-              <span className="inline-flex items-center rounded-full border border-[#E8DCC4] bg-[#FAF6EE] px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.08em] font-medium text-[#9A3309]">
-                ✦ Plataforma de Briefs de Criativos com IA
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0, ease: EASE }}
+            >
+              <span
+                className="inline-flex items-center rounded-full border bg-[#FAF6EE] font-sans text-xs uppercase tracking-widest font-medium"
+                style={{ borderColor: "#E8DCC4", color: "#9A3309", padding: "6px 16px" }}
+              >
+                ✦ Plataforma de Briefs com IA
               </span>
-            </div>
+            </motion.div>
 
             {/* H1 */}
-            <h1
-              className="hero-h1 mt-5 font-serif font-normal leading-[1.05] tracking-[-0.02em]"
-              style={{ fontSize: "clamp(40px, 5vw, 60px)", maxWidth: "560px" }}
+            <motion.h1
+              className="font-display font-normal leading-[1.0] tracking-[-0.03em]"
+              style={{ fontSize: "clamp(44px, 5vw, 72px)", maxWidth: "560px", marginTop: "20px" }}
+              initial={{ opacity: 0, x: -24 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
             >
-              Briefs que convertem,
+              <span style={{ color: "#1F1A14" }}>Briefs que convertem,</span>
               <br />
-              <em className="font-serif font-normal" style={{ color: "#C2410C" }}>em minutos.</em>
-            </h1>
+              <em className="font-display not-italic" style={{ color: "#C2410C", fontStyle: "italic" }}>
+                em minutos.
+              </em>
+            </motion.h1>
 
             {/* Subtitle */}
-            <p
-              className="hero-sub mt-5 font-sans text-[#6B6258] leading-relaxed"
-              style={{ fontSize: "19px", maxWidth: "440px" }}
+            <motion.p
+              className="font-sans"
+              style={{
+                fontSize: "18px",
+                color: "#6B6258",
+                maxWidth: "440px",
+                lineHeight: 1.65,
+                marginTop: "24px",
+              }}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
             >
               Descreva seu produto e a IA monta o brief completo do anúncio —
-              hook, copy, roteiro e referência visual. Em português, com contexto
-              BR.
-            </p>
+              hook, copy, roteiro e referência visual. Em português, com contexto BR.
+            </motion.p>
 
             {/* CTAs */}
-            <div
-              className="hero-ctas mt-8 flex flex-row flex-wrap items-center justify-center lg:justify-start gap-3"
+            <motion.div
+              className="flex flex-row flex-wrap items-center justify-center lg:justify-start gap-3"
+              style={{ marginTop: "36px" }}
+              initial={{ opacity: 0, x: -16 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.3, ease: EASE }}
             >
               <a
                 href="#waitlist"
-                className="inline-flex items-center gap-2 rounded-[6px] bg-[#C2410C] text-white font-sans font-medium px-7 py-3 text-sm tracking-[0.02em] transition-all duration-200 hover:bg-[#9A3309] active:scale-[0.98]"
+                className="inline-flex items-center font-sans font-medium transition-colors duration-200"
+                style={{
+                  background: "#C2410C",
+                  color: "white",
+                  borderRadius: "8px",
+                  padding: "13px 28px",
+                  fontSize: "15px",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "#9A3309")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "#C2410C")}
               >
-                Garantir minha vaga
-                <ArrowRight className="size-4" />
+                Garantir minha vaga →
               </a>
               <a
                 href="#how"
-                className="inline-flex items-center rounded-[6px] border border-[#E8DCC4] bg-transparent text-[#1F1A14] font-sans font-medium px-7 py-3 text-sm tracking-[0.02em] transition-all duration-200 hover:bg-[#FAF6EE]"
+                className="inline-flex items-center font-sans font-medium transition-colors duration-200"
+                style={{
+                  border: "1px solid #E8DCC4",
+                  background: "transparent",
+                  color: "#1F1A14",
+                  borderRadius: "8px",
+                  padding: "13px 28px",
+                  fontSize: "15px",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "#FAF6EE")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
               >
                 Ver como funciona
               </a>
-            </div>
+            </motion.div>
 
             {/* Social proof */}
-            <p className="hero-ctas mt-4 font-mono text-[11px] text-[#9A9080] tracking-[0.04em]">
+            <motion.p
+              className="font-sans"
+              style={{ fontSize: "13px", color: "#9A9080", marginTop: "20px" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.4, ease: EASE }}
+            >
               Beta fechado · Acesso por convite · Gratuito durante o beta
-            </p>
+            </motion.p>
           </div>
 
-          {/* ── Right: Mockup ── */}
+          {/* ── Right: Mockup column ── */}
           <div
-            className="hero-mockup relative flex items-center justify-center lg:justify-end mt-12 lg:mt-0"
+            className="relative flex items-center justify-center lg:justify-end mt-12 lg:mt-0"
             style={{ overflow: "visible" }}
           >
             {/* Radial glow behind mockup */}
@@ -367,7 +424,8 @@ export default function Hero() {
               style={{
                 position: "absolute",
                 inset: "-40px",
-                background: "radial-gradient(ellipse 70% 70% at 60% 50%, rgba(194,65,12,0.06) 0%, transparent 70%)",
+                background:
+                  "radial-gradient(ellipse 80% 70% at 60% 50%, rgba(194,65,12,0.07) 0%, transparent 70%)",
                 pointerEvents: "none",
                 zIndex: 0,
               }}
@@ -376,20 +434,20 @@ export default function Hero() {
             {/* Mobile: no 3D tilt */}
             <div
               className="relative w-full lg:hidden"
-              style={{ maxWidth: "560px", zIndex: 1 }}
+              style={{ maxWidth: "100%", zIndex: 1, overflow: "hidden" }}
             >
               <FloatingMockup>
                 <DashboardMockup />
               </FloatingMockup>
             </div>
 
-            {/* Desktop: 3D tilt + bleed right */}
+            {/* Desktop: 3D tilt */}
             <div
               className="relative hidden lg:block w-full"
               style={{
-                maxWidth: "640px",
+                maxWidth: "580px",
                 marginRight: "-48px",
-                transform: "perspective(1200px) rotateY(-6deg) rotateX(3deg)",
+                transform: "perspective(1200px) rotateY(-6deg) rotateX(2deg)",
                 zIndex: 1,
               }}
             >
