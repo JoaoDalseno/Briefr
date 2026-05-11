@@ -60,9 +60,9 @@
     --radius: 0.5rem;
 
     /* ── Tipografia ──────────────────────────────────────────────────── */
-    --font-heading: var(--font-inter);
-    --font-sans:    var(--font-inter);
-    --font-mono:    ui-monospace, "Cascadia Code", monospace;
+    --font-heading: var(--font-serif);
+    --font-sans:    var(--font-sans);
+    --font-mono:    var(--font-mono);
 
     /* ── Glassmorphism ───────────────────────────────────────────────── */
     --glass-bg:     hsl(38 60% 96% / 0.80);
@@ -151,6 +151,8 @@
   body {
     margin: 0;
     background-color: hsl(var(--background));
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
+    background-repeat: repeat;
     color: hsl(var(--foreground));
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -159,7 +161,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading tracking-heading;
+    @apply font-serif tracking-heading;
   }
 
   :focus-visible {
@@ -205,4 +207,55 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+
+  /* Hero section atmospheric background */
+  .hero-section {
+    background:
+      radial-gradient(ellipse 80% 50% at 70% 0%, rgba(194,65,12,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 20% 100%, rgba(15,118,110,0.03) 0%, transparent 50%),
+      hsl(var(--background));
+  }
+
+  /* Hero entrance animations */
+  .hero-eyebrow { animation: fadeUpIn 0.5s ease forwards; }
+  .hero-h1      { animation: fadeUpIn 0.6s 0.1s ease both; }
+  .hero-sub     { animation: fadeUpIn 0.6s 0.2s ease both; }
+  .hero-ctas    { animation: fadeUpIn 0.6s 0.3s ease both; }
+  .hero-mockup  { animation: fadeUpIn 0.8s 0.4s ease both; }
+}
+
+/* ── Keyframes ───────────────────────────────────────────────────────── */
+@keyframes fadeUpIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Nav link hover underline ────────────────────────────────────────── */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #C2410C;
+  transition: width 0.2s ease;
+}
+.nav-link:hover::after { width: 100%; }
+
+/* ── Custom cursor ───────────────────────────────────────────────────── */
+* { cursor: default; }
+a, button, [role="button"] {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='4' fill='%23C2410C'/%3E%3C/svg%3E") 10 10, pointer;
+}
+
+/* ── Decorative section rule (between eyebrow and headline) ──────────── */
+.section-rule {
+  width: 40px;
+  height: 1px;
+  background: #C2410C;
+  margin: 0 auto;
 }

@@ -54,7 +54,7 @@ export default function Header() {
               <a
                 key={href}
                 href={href}
-                className="font-medium hover:text-foreground transition-colors duration-150"
+                className="nav-link font-sans font-medium transition-colors duration-150"
                 style={{ fontSize: '15px', color: '#4A4238' }}
               >
                 {label}
@@ -65,14 +65,16 @@ export default function Header() {
           {/* Actions — desktop */}
           <div className="hidden md:flex items-center gap-3">
             <span
+              className="font-mono"
               style={{
                 background: '#FAF6EE',
                 border: '1px solid #E8DCC4',
                 color: '#9A3309',
-                fontSize: '11px',
+                fontSize: '10px',
                 padding: '4px 10px',
-                borderRadius: '20px',
-                fontWeight: 500,
+                borderRadius: '4px',
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
                 whiteSpace: 'nowrap',
               }}
             >
@@ -80,8 +82,8 @@ export default function Header() {
             </span>
             <a
               href="#waitlist"
-              className="inline-flex items-center justify-center bg-[#C2410C] text-white font-medium rounded-lg transition-colors hover:bg-[#9A3309]"
-              style={{ fontSize: '14px', padding: '8px 18px' }}
+              className="inline-flex items-center justify-center bg-[#C2410C] text-white font-sans font-medium rounded-[6px] transition-colors hover:bg-[#9A3309]"
+              style={{ fontSize: '13px', padding: '8px 18px', letterSpacing: '0.02em' }}
             >
               Entrar na lista →
             </a>

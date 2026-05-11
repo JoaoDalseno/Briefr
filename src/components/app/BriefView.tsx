@@ -78,7 +78,7 @@ function ContentBlock({
       className="rounded-xl border border-border bg-card p-5 shadow-card"
     >
       <div className="flex items-center justify-between mb-3">
-        <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{label}</span>
+        <span className="font-mono text-[10px] font-medium uppercase tracking-widest text-muted-foreground">{label}</span>
         {copyText && <CopyButton text={copyText} />}
       </div>
       {children}
@@ -245,7 +245,7 @@ function ExportDropdown({ brief, isPro }: { brief: BriefData; isPro: boolean }) 
         aria-expanded={open}
       >
         <Download className="size-4" />
-        {pdfLoading ? 'Gerando PDF...' : shareLoading ? 'Gerando link...' : 'Exportar'}
+        <em className="font-serif font-normal not-italic">{pdfLoading ? 'Gerando PDF...' : shareLoading ? 'Gerando link...' : 'Exportar →'}</em>
         <ChevronDown className={cn('size-3.5 transition-transform', open && 'rotate-180')} />
       </Button>
 
@@ -412,7 +412,7 @@ function InlineTitle({ value, briefId, onChange }: { value: string; briefId: str
       aria-label="Clique para editar o nome do produto"
       title="Clique para editar"
     >
-      <h1 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors line-clamp-2">
+      <h1 className="font-serif font-normal text-2xl text-foreground group-hover:text-primary transition-colors line-clamp-2 tracking-[-0.02em]">
         {value}
       </h1>
       <Edit2 className="size-4 shrink-0 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden />
@@ -508,7 +508,7 @@ export function BriefView({ brief, plan }: BriefViewProps) {
         {/* Left: Metadata */}
         <aside className="flex flex-col gap-4">
           <div className="rounded-2xl border border-border bg-card p-5 shadow-card">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">Detalhes</h2>
+            <h2 className="font-mono text-[10px] font-medium uppercase tracking-widest text-muted-foreground mb-4">Detalhes</h2>
             <dl className="flex flex-col gap-3">
               {/* eslint-disable security/detect-object-injection */}
               {[
@@ -520,7 +520,7 @@ export function BriefView({ brief, plan }: BriefViewProps) {
               /* eslint-enable security/detect-object-injection */
               ].map(({ label, value }) => (
                 <div key={label}>
-                  <dt className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-0.5">{label}</dt>
+                  <dt className="font-mono text-[9px] font-medium uppercase tracking-wider text-muted-foreground mb-0.5">{label}</dt>
                   <dd className="text-sm text-foreground leading-snug">{value}</dd>
                 </div>
               ))}

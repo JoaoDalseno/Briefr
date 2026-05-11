@@ -51,14 +51,17 @@ export function SectionHeader({
       )}
     >
       {eyebrow && (
-        <p className="text-[13px] font-medium text-[#9A9080] uppercase tracking-[0.08em]">
-          — {eyebrow}
-        </p>
+        <>
+          <p className="font-mono text-[11px] text-[#9A9080] uppercase tracking-[0.08em]">
+            — {eyebrow}
+          </p>
+          <div className="section-rule" />
+        </>
       )}
 
       <h2
         className={cn(
-          "font-heading font-bold tracking-heading text-balance",
+          "font-serif font-normal tracking-[-0.02em] text-balance",
           "text-3xl sm:text-4xl lg:text-5xl",
           !gradient && "text-foreground"
         )}

@@ -38,7 +38,7 @@ export default function StatsBar() {
               style={{ padding: "56px 24px" }}
             >
               <span
-                className="font-bold leading-none tracking-[-0.03em]"
+                className="font-serif font-normal leading-none tracking-[-0.02em]"
                 style={{
                   fontSize: "56px",
                   color: number === "100%" ? "#C2410C" : "#1F1A14",
@@ -46,7 +46,7 @@ export default function StatsBar() {
               >
                 {number}
               </span>
-              <span className="text-[#6B6258] mt-1" style={{ fontSize: "15px" }}>{label}</span>
+              <span className="font-sans text-[#6B6258] mt-1" style={{ fontSize: "15px" }}>{label}</span>
             </motion.div>
           ))}
         </div>
