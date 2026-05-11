@@ -287,7 +287,7 @@ function DashboardMockup() {
 
 export default function Hero() {
   return (
-    <section className="relative overflow-x-hidden bg-[#FFFCF5] pt-20 pb-0 sm:pt-24">
+    <section className="hero-section relative overflow-x-hidden pt-20 pb-0 sm:pt-24">
       {/* Radial glow behind mockup */}
       <div
         aria-hidden
@@ -305,99 +305,60 @@ export default function Hero() {
           {/* ── Left: Text ── */}
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left lg:pr-12">
             {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, x: -24 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-            >
-              <span className="inline-flex items-center rounded-full border border-[#E8DCC4] bg-[#FAF6EE] px-4 py-1.5 text-[13px] font-medium text-[#9A3309]">
+            <div className="hero-eyebrow">
+              <span className="inline-flex items-center rounded-full border border-[#E8DCC4] bg-[#FAF6EE] px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.08em] font-medium text-[#9A3309]">
                 ✦ Plataforma de Briefs de Criativos com IA
               </span>
-            </motion.div>
+            </div>
 
             {/* H1 */}
-            <motion.h1
-              initial={{ opacity: 0, x: -24 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{
-                duration: 0.7,
-                delay: 0.1,
-                ease: [0.25, 0.1, 0.25, 1],
-              }}
-              className="mt-5 font-semibold leading-[1.05] tracking-[-0.03em]"
+            <h1
+              className="hero-h1 mt-5 font-serif font-normal leading-[1.05] tracking-[-0.02em]"
               style={{ fontSize: "clamp(40px, 5vw, 60px)", maxWidth: "560px" }}
             >
               Briefs que convertem,
               <br />
-              <span style={{ color: "#C2410C" }}>em minutos.</span>
-            </motion.h1>
+              <em className="font-serif font-normal" style={{ color: "#C2410C" }}>em minutos.</em>
+            </h1>
 
             {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, x: -24 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{
-                duration: 0.7,
-                delay: 0.2,
-                ease: [0.25, 0.1, 0.25, 1],
-              }}
-              className="mt-5 text-[#6B6258] leading-relaxed"
+            <p
+              className="hero-sub mt-5 font-sans text-[#6B6258] leading-relaxed"
               style={{ fontSize: "19px", maxWidth: "440px" }}
             >
               Descreva seu produto e a IA monta o brief completo do anúncio —
               hook, copy, roteiro e referência visual. Em português, com contexto
               BR.
-            </motion.p>
+            </p>
 
             {/* CTAs */}
-            <motion.div
-              initial={{ opacity: 0, x: -24 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{
-                duration: 0.7,
-                delay: 0.3,
-                ease: [0.25, 0.1, 0.25, 1],
-              }}
-              className="mt-8 flex flex-row flex-wrap items-center justify-center lg:justify-start gap-3"
+            <div
+              className="hero-ctas mt-8 flex flex-row flex-wrap items-center justify-center lg:justify-start gap-3"
             >
               <a
                 href="#waitlist"
-                className="inline-flex items-center gap-2 rounded-full bg-[#C2410C] text-white font-medium px-7 py-3.5 text-base transition-all duration-200 hover:bg-[#9A3309] hover:scale-[1.02] active:scale-[0.98]"
-                style={{ fontSize: "16px" }}
+                className="inline-flex items-center gap-2 rounded-[6px] bg-[#C2410C] text-white font-sans font-medium px-7 py-3 text-sm tracking-[0.02em] transition-all duration-200 hover:bg-[#9A3309] active:scale-[0.98]"
               >
                 Garantir minha vaga
                 <ArrowRight className="size-4" />
               </a>
               <a
                 href="#how"
-                className="inline-flex items-center rounded-full border border-[#E8DCC4] bg-transparent text-[#1F1A14] font-medium px-7 py-3.5 text-base transition-all duration-200 hover:bg-[#FAF6EE]"
-                style={{ fontSize: "16px" }}
+                className="inline-flex items-center rounded-[6px] border border-[#E8DCC4] bg-transparent text-[#1F1A14] font-sans font-medium px-7 py-3 text-sm tracking-[0.02em] transition-all duration-200 hover:bg-[#FAF6EE]"
               >
                 Ver como funciona
               </a>
-            </motion.div>
+            </div>
 
             {/* Social proof */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-              className="mt-4 text-[13px] text-[#9A9080]"
-            >
+            <p className="hero-ctas mt-4 font-mono text-[11px] text-[#9A9080] tracking-[0.04em]">
               Beta fechado · Acesso por convite · Gratuito durante o beta
-            </motion.p>
+            </p>
           </div>
 
           {/* ── Right: Mockup ── */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.2,
-              ease: [0.25, 0.1, 0.25, 1],
-            }}
-            className="relative flex items-center justify-center lg:justify-end mt-12 lg:mt-0"
+          <div
+            className="hero-mockup relative flex items-center justify-center lg:justify-end mt-12 lg:mt-0"
             style={{ overflow: "visible" }}
           >
             {/* Radial glow behind mockup */}
@@ -436,7 +397,7 @@ export default function Hero() {
                 <DashboardMockup />
               </FloatingMockup>
             </div>
-          </motion.div>
+          </div>
         </div>
       </Container>
 

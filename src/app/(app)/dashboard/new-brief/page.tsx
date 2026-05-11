@@ -42,7 +42,7 @@ function FieldGroup({ label, htmlFor, error, children }: {
 }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <Label htmlFor={htmlFor} className="text-sm font-semibold text-foreground">
+      <Label htmlFor={htmlFor} className="font-mono text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
         {label}
       </Label>
       {children}
@@ -183,8 +183,8 @@ export default function NewBriefPage() {
     <div className="max-w-2xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="font-heading font-bold text-2xl text-foreground">Novo brief</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
+        <h1 className="font-serif font-normal text-3xl text-foreground tracking-[-0.02em]">Novo brief</h1>
+        <p className="mt-1 font-sans text-sm text-muted-foreground">
           Preencha os dados do seu produto e a IA gera um brief completo em ~20 segundos.
         </p>
       </div>
@@ -192,7 +192,7 @@ export default function NewBriefPage() {
       <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-6">
         {/* Card: Produto */}
         <div className="rounded-2xl border border-border bg-card p-6 shadow-card flex flex-col gap-5">
-          <h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+          <h2 className="font-mono text-[10px] font-medium uppercase tracking-widest text-muted-foreground">
             Sobre o produto
           </h2>
 
@@ -236,7 +236,7 @@ export default function NewBriefPage() {
 
         {/* Card: Configurações */}
         <div className="rounded-2xl border border-border bg-card p-6 shadow-card flex flex-col gap-5">
-          <h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+          <h2 className="font-mono text-[10px] font-medium uppercase tracking-widest text-muted-foreground">
             Configurações do brief
           </h2>
 
@@ -275,7 +275,7 @@ export default function NewBriefPage() {
 
         {/* Card: Contexto adicional */}
         <div className="rounded-2xl border border-border bg-card p-6 shadow-card flex flex-col gap-3">
-          <h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+          <h2 className="font-mono text-[10px] font-medium uppercase tracking-widest text-muted-foreground">
             Contexto adicional <span className="normal-case font-normal">(opcional)</span>
           </h2>
           <textarea
@@ -293,7 +293,7 @@ export default function NewBriefPage() {
         </div>
 
         {/* Submit */}
-        <Button type="submit" size="lg" className="w-full" disabled={generating}>
+        <Button type="submit" size="lg" className="w-full font-serif font-normal italic" disabled={generating}>
           Gerar brief com IA →
         </Button>
       </form>

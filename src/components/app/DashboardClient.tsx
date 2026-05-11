@@ -61,12 +61,12 @@ function StatCard({
   return (
     <div className="rounded-2xl border border-border bg-card p-5 shadow-card flex flex-col gap-3">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{label}</span>
+        <span className="font-mono text-[10px] font-medium uppercase tracking-widest text-muted-foreground">{label}</span>
         <span className="flex items-center justify-center size-8 rounded-lg bg-primary/8 text-primary">
           <Icon className="size-4" />
         </span>
       </div>
-      <div className="text-2xl font-bold text-foreground">{value}</div>
+      <div className="font-serif font-normal text-4xl text-foreground tracking-[-0.02em]">{value}</div>
       {progress && (
         <div>
           <div className="flex items-center justify-between mb-1.5">
@@ -172,7 +172,7 @@ function EmptyState() {
       <div className="mb-4 flex size-16 items-center justify-center rounded-2xl bg-primary/8">
         <Zap className="size-8 text-primary" />
       </div>
-      <h3 className="font-heading font-bold text-xl text-foreground">Crie seu primeiro brief</h3>
+      <h3 className="font-serif font-normal text-2xl text-foreground tracking-[-0.02em]">Crie seu primeiro brief</h3>
       <p className="mt-2 text-sm text-muted-foreground max-w-xs leading-relaxed">
         Preencha o formulário com os dados do seu produto e a IA gera um brief completo em menos de 30 segundos.
       </p>
@@ -214,10 +214,10 @@ export function DashboardClient({
 
       {/* Page header */}
       <div className="mb-8">
-        <h1 className="font-heading font-bold text-2xl text-foreground">
-          {greeting}{firstName ? `, ${firstName}` : ''}! 👋
+        <h1 className="font-serif font-normal text-3xl text-foreground tracking-[-0.02em]">
+          {greeting}{firstName ? `, ${firstName}` : ''}!
         </h1>
-        <p className="mt-1 text-sm text-muted-foreground">
+        <p className="mt-1 font-sans text-sm text-muted-foreground">
           Aqui está um resumo da sua atividade no Briefr.
         </p>
       </div>
@@ -254,7 +254,7 @@ export function DashboardClient({
 
       {/* ── Quick actions ── */}
       <section aria-label="Ações rápidas" className="mb-8">
-        <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-4">
+        <h2 className="font-mono text-[10px] font-medium uppercase tracking-widest text-muted-foreground mb-4">
           Ações rápidas
         </h2>
         <div className="grid sm:grid-cols-3 gap-4">
@@ -285,7 +285,7 @@ export function DashboardClient({
       {/* ── Recent briefs ── */}
       <section aria-label="Briefs recentes">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground">
+          <h2 className="font-mono text-[10px] font-medium uppercase tracking-widest text-muted-foreground">
             Continuar de onde parou
           </h2>
           {recentBriefs.length > 0 && (

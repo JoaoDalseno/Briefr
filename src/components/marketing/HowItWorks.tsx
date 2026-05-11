@@ -46,20 +46,20 @@ function Step({
     >
       {/* Large number */}
       <span
-        className="font-bold leading-none select-none"
+        className="font-serif font-normal leading-none select-none"
         style={{
           fontSize: "64px",
           color: "#F4E8D6",
-          letterSpacing: "-0.03em",
+          letterSpacing: "-0.02em",
         }}
       >
         {step.number}
       </span>
       <div className="space-y-2">
-        <h3 className="text-lg font-semibold text-[#1F1A14] leading-snug">
+        <h3 className="font-sans text-lg font-semibold text-[#1F1A14] leading-snug">
           {step.title}
         </h3>
-        <p className="text-sm text-[#6B6258] leading-relaxed">
+        <p className="font-sans text-sm text-[#6B6258] leading-relaxed">
           {step.description}
         </p>
       </div>
@@ -73,15 +73,16 @@ export default function HowItWorks() {
       <Container>
         {/* Header */}
         <FadeUp className="text-center mb-16">
-          <p className="text-[13px] font-medium text-[#9A9080] uppercase tracking-[0.08em] mb-4">
+          <p className="font-mono text-[11px] text-[#9A9080] uppercase tracking-[0.08em] mb-3">
             — Como funciona
           </p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl tracking-tight text-[#1F1A14] leading-tight">
-            <span className="font-normal">Conecte uma vez.</span>
+          <div className="section-rule mb-5" />
+          <h2 className="font-serif font-normal text-3xl sm:text-4xl lg:text-5xl tracking-[-0.02em] text-[#1F1A14] leading-tight">
+            Conecte uma vez.
             <br />
-            <span className="font-bold">Brief pronto para sempre.</span>
+            <em className="font-serif">Brief pronto para sempre.</em>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#6B6258] max-w-xl mx-auto leading-relaxed">
+          <p className="mt-4 font-sans text-base sm:text-lg text-[#6B6258] max-w-xl mx-auto leading-relaxed">
             Três passos para sair do improviso e ter briefs profissionais em
             minutos.
           </p>

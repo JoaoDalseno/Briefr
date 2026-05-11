@@ -105,7 +105,7 @@ export function TopBar({ userName, userEmail, userInitials, onMenuClick }: TopBa
   const initials = userInitials ?? (userName ? userName.slice(0, 2).toUpperCase() : 'U')
 
   return (
-    <header className="flex h-16 shrink-0 items-center gap-4 border-b border-border bg-background px-4 sm:px-6">
+    <header className="flex h-16 shrink-0 items-center gap-4 border-b border-border px-4 sm:px-6 backdrop-blur-md" style={{ backgroundColor: 'rgba(255,252,245,0.85)' }}>
       {/* Mobile menu button */}
       <button
         type="button"
@@ -128,7 +128,7 @@ export function TopBar({ userName, userEmail, userInitials, onMenuClick }: TopBa
             placeholder="Buscar briefs..."
             className={cn(
               'w-full rounded-lg border border-border bg-muted/50 py-2 pl-9 pr-4',
-              'text-sm placeholder:text-muted-foreground',
+              'font-sans text-sm placeholder:text-muted-foreground',
               'focus:outline-none focus:ring-2 focus:ring-ring/50 focus:border-primary/40',
               'transition-colors'
             )}

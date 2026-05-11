@@ -102,9 +102,10 @@ const config: Config = {
       },
 
       fontFamily: {
-        sans:    ["var(--font-inter)", "Inter", "system-ui", "sans-serif"],
-        heading: ["var(--font-inter)", "Inter", "system-ui", "sans-serif"],
-        mono:    ["ui-monospace", "Cascadia Code", "monospace"],
+        serif:   ["var(--font-serif)", "Georgia", "serif"],
+        sans:    ["var(--font-sans)", "system-ui", "sans-serif"],
+        heading: ["var(--font-serif)", "Georgia", "serif"],
+        mono:    ["var(--font-mono)", "ui-monospace", "monospace"],
       },
 
       borderRadius: {

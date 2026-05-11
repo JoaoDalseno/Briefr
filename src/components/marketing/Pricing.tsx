@@ -143,16 +143,16 @@ export default function Pricing() {
 
                 {/* Header */}
                 <div className="mb-6">
-                  <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1">
+                  <p className="font-mono text-[10px] font-medium uppercase tracking-widest text-muted-foreground mb-1">
                     {plan.eyebrow}
                   </p>
-                  <p className="text-2xl font-bold text-foreground">{plan.name}</p>
+                  <p className="font-sans text-xl font-semibold text-foreground">{plan.name}</p>
                   <div className="mt-4 flex items-end gap-1">
-                    <span className="text-4xl font-bold tracking-tight text-foreground">
+                    <span className="font-serif font-normal text-5xl tracking-[-0.02em] text-foreground">
                       {price === 0 ? 'Grátis' : `R$\u00a0${price}`}
                     </span>
                     {price > 0 && (
-                      <span className="mb-1 text-sm text-muted-foreground">/mês</span>
+                      <span className="mb-2 font-sans text-sm text-muted-foreground">/mês</span>
                     )}
                   </div>
                   {annual && price > 0 && (
