@@ -1,293 +1,326 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { FloatingMockup } from "@/components/animations";
 
 const EASE = [0.25, 0.1, 0.25, 1] as const;
 
-const HOOKS = [
-  '"Ganhe 5kg de músculo em 30 dias"',
-  '"O motivo pelo qual seu treino não funciona"',
-  '"+12.000 brasileiros já transformaram o físico"',
-];
+// ─── Animated Mockup ──────────────────────────────────────────────────────────
 
-// ─── Dashboard Mockup ─────────────────────────────────────────────────────────
+function AnimatedMockup() {
+  const bodyRef = useRef<HTMLDivElement>(null);
 
-function DashboardMockup() {
+  useEffect(() => {
+    const mockBody = bodyRef.current;
+    if (!mockBody) return;
+    const mb: HTMLElement = mockBody;
+
+    let cancelled = false;
+    const wait = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
+
+    // Typewriter: walks text nodes so inline HTML stays intact
+    type TwNode = { node: Text; full: string };
+    function prepareTypewipe(el: HTMLElement) {
+      const nodes: TwNode[] = [];
+      function walk(n: Node) {
+        n.childNodes.forEach((c) => {
+          if (c.nodeType === Node.TEXT_NODE) {
+            nodes.push({ node: c as Text, full: (c as Text).nodeValue ?? "" });
+          } else if (c.nodeType === Node.ELEMENT_NODE) {
+            walk(c);
+          }
+        });
+      }
+      walk(el);
+      (el as HTMLElement & { __tw?: TwNode[] }).__tw = nodes;
+    }
+    function clearTypewipe(el: HTMLElement) {
+      const e = el as HTMLElement & { __tw?: TwNode[] };
+      if (!e.__tw) prepareTypewipe(el);
+      e.__tw!.forEach((n) => (n.node.nodeValue = ""));
+    }
+    async function typeText(
+      el: HTMLElement,
+      opts: { base?: number; jitter?: number; pComma?: number; pPeriod?: number } = {}
+    ) {
+      if (cancelled) return;
+      const { base = 26, jitter = 16, pComma = 90, pPeriod = 180 } = opts;
+      const e = el as HTMLElement & { __tw?: TwNode[] };
+      if (!e.__tw) prepareTypewipe(el);
+      clearTypewipe(el);
+      el.classList.add("is-typing");
+      for (const seg of e.__tw!) {
+        for (let i = 1; i <= seg.full.length; i++) {
+          if (cancelled) return;
+          seg.node.nodeValue = seg.full.slice(0, i);
+          const ch = seg.full[i - 1];
+          let d = base + (Math.random() * jitter - jitter / 2);
+          if (",;".includes(ch)) d += pComma;
+          if (".!?".includes(ch)) d += pPeriod;
+          if (ch === "\u2014") d += 60; // em dash
+          await wait(d);
+        }
+      }
+      el.classList.remove("is-typing");
+    }
+
+    // Count-up animation
+    function countUp(el: HTMLElement) {
+      const target = parseFloat(el.dataset.target ?? "0");
+      const dec = parseInt(el.dataset.decimals ?? "0", 10);
+      const pre = el.dataset.prefix ?? "";
+      const suf = el.dataset.suffix ?? "";
+      const dur = 850;
+      const t0 = performance.now();
+      function frame(t: number) {
+        if (cancelled) return;
+        const p = Math.min(1, (t - t0) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = pre + (target * eased).toFixed(dec) + suf;
+        if (p < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+    function resetMetrics() {
+      mb.querySelectorAll<HTMLElement>("[data-count]").forEach((el) => {
+        const pre = el.dataset.prefix ?? "";
+        const suf = el.dataset.suffix ?? "";
+        const dec = parseInt(el.dataset.decimals ?? "0", 10);
+        el.textContent = pre + (0).toFixed(dec) + suf;
+      });
+    }
+
+    const get = (k: string) =>
+      Array.from(mb.querySelectorAll<HTMLElement>(`[data-anim="${k}"]`));
+
+    const on = (k: string) => get(k).forEach((el) => el.classList.add("is-on"));
+    const off = (k: string) => get(k).forEach((el) => el.classList.remove("is-on"));
+
+    function rowOf(key: string) {
+      const el = mb.querySelector<HTMLElement>(`[data-anim="${key}"]`);
+      return el?.closest<HTMLElement>(".mockup-row") ?? null;
+    }
+    async function focusRow(key: string) {
+      mb.querySelectorAll(".mockup-row.is-active").forEach((el) => el.classList.remove("is-active"));
+      rowOf(key)?.classList.add("is-active");
+      await wait(140);
+    }
+
+    const typewipes = Array.from(mb.querySelectorAll<HTMLElement>(".typewipe"));
+    typewipes.forEach(prepareTypewipe);
+
+    const formatoRow = mb.querySelector<HTMLElement>(".mockup__chips")?.closest<HTMLElement>(".mockup-row");
+    const genBtn = mb.querySelector<HTMLElement>(".mockup-generate");
+
+    function reset() {
+      mb.querySelectorAll(".is-on").forEach((el) => el.classList.remove("is-on"));
+      mb.querySelectorAll(".mockup-row.is-active").forEach((el) => el.classList.remove("is-active"));
+      typewipes.forEach(clearTypewipe);
+      genBtn?.classList.remove("is-ready", "is-click");
+      resetMetrics();
+    }
+
+    async function loop() {
+      while (!cancelled) {
+        reset();
+        await wait(600);
+
+        await focusRow("produto");
+        await typeText(mb.querySelector<HTMLElement>('[data-anim="produto"]')!, { base: 22, jitter: 14 });
+        await wait(220);
+
+        await focusRow("promessa");
+        await typeText(mb.querySelector<HTMLElement>('[data-anim="promessa"]')!, { base: 30, jitter: 18, pComma: 120, pPeriod: 200 });
+        await wait(240);
+
+        if (formatoRow) {
+          formatoRow.classList.remove("is-active");
+          formatoRow.classList.add("is-active");
+          const chips = get("formato");
+          for (const chip of chips) {
+            if (cancelled) return;
+            await wait(110);
+            chip.classList.add("is-on");
+          }
+          await wait(360);
+        }
+
+        await focusRow("publico");
+        await typeText(mb.querySelector<HTMLElement>('[data-anim="publico"]')!, { base: 24, jitter: 14 });
+        await wait(260);
+
+        mb.querySelectorAll(".is-active").forEach((el) => el.classList.remove("is-active"));
+        genBtn?.classList.add("is-ready");
+        await wait(420);
+        genBtn?.classList.add("is-click");
+        await wait(260);
+
+        on("loading");
+        await wait(1150);
+        off("loading");
+        await wait(80);
+
+        on("brief-head");
+        await wait(360);
+
+        on("brief-hook");
+        await wait(180);
+        const hookEl = mb.querySelector<HTMLElement>(".brief-hook .typewipe");
+        if (hookEl) await typeText(hookEl, { base: 36, jitter: 18, pComma: 140, pPeriod: 220 });
+        await wait(380);
+
+        on("brief-roteiro");
+        await wait(240);
+        for (const line of ["brief-roteiro-1", "brief-roteiro-2", "brief-roteiro-3", "brief-roteiro-4"]) {
+          if (cancelled) return;
+          on(line);
+          await wait(200);
+        }
+        await wait(220);
+
+        on("brief-metrics");
+        await wait(180);
+        mb.querySelectorAll<HTMLElement>("[data-count]").forEach((el) => countUp(el));
+
+        await wait(4200);
+
+        mb.style.transition = "opacity 520ms ease";
+        mb.style.opacity = "0";
+        await wait(540);
+        if (cancelled) return;
+        reset();
+        mb.style.opacity = "1";
+        mb.style.transition = "";
+        await wait(180);
+      }
+    }
+
+    let started = false;
+    const startOnce = () => {
+      if (started || cancelled) return;
+      started = true;
+      loop();
+    };
+
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => entries.forEach((e) => { if (e.isIntersecting) { startOnce(); io.disconnect(); } }),
+        { threshold: 0.15 }
+      );
+      io.observe(mb);
+      return () => { cancelled = true; io.disconnect(); };
+    } else {
+      startOnce();
+      return () => { cancelled = true; };
+    }
+  }, []);
+
   return (
-    <div
-      className="relative rounded-2xl overflow-hidden border border-[#E8DCC4] bg-white"
-      style={{
-        boxShadow:
-          "0 0 0 1px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06), 0 32px 80px rgba(0,0,0,0.1), 0 64px 120px rgba(194,65,12,0.05)",
-      }}
-    >
+    <div className="mockup-shell">
       {/* Browser chrome */}
-      <div
-        style={{
-          background: "#F5F0E8",
-          borderBottom: "1px solid #E8DCC4",
-          padding: "10px 16px",
-          display: "flex",
-          alignItems: "center",
-          gap: "8px",
-        }}
-      >
-        <div style={{ display: "flex", gap: "6px" }}>
-          <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#FF5F56" }} />
-          <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#FFBD2E" }} />
-          <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#27C93F" }} />
+      <div className="mockup-chrome">
+        <div className="mockup-lights">
+          <span style={{ background: "#FF5F56" }} />
+          <span style={{ background: "#FFBD2E" }} />
+          <span style={{ background: "#27C93F" }} />
         </div>
-        <div
-          style={{
-            flex: 1,
-            margin: "0 12px",
-            background: "white",
-            border: "1px solid #E8DCC4",
-            borderRadius: "6px",
-            padding: "4px 12px",
-            fontSize: "11px",
-            color: "#9A9080",
-            textAlign: "center",
-            fontFamily: "monospace",
-          }}
-        >
-          briefr.com.br/dashboard
-        </div>
-        <div style={{ color: "#C4B8A0", fontSize: 16, lineHeight: 1 }}>↻</div>
+        <div className="mockup-url">briefr.com.br / novo-brief</div>
       </div>
 
-      {/* App UI — two panels */}
-      <div style={{ display: "flex", background: "#FAF6EE" }}>
-
-        {/* Left: Form panel (35%) */}
-        <div
-          style={{
-            background: "#FAF6EE",
-            borderRight: "1px solid #E8DCC4",
-            padding: "16px",
-            width: "35%",
-            flexShrink: 0,
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "monospace",
-              fontSize: "10px",
-              fontWeight: 600,
-              color: "#9A9080",
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              marginBottom: "14px",
-            }}
-          >
-            Novo Brief
-          </div>
-
-          {/* Produto — campo ativo */}
-          <div style={{ marginBottom: "10px" }}>
-            <div style={{ fontFamily: "monospace", fontSize: "9px", color: "#9A9080", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "4px" }}>
-              Produto
-            </div>
-            <div
-              style={{
-                background: "white",
-                border: "1px solid #C2410C",
-                borderRadius: "6px",
-                padding: "6px 10px",
-                fontSize: "11px",
-                color: "#1F1A14",
-                boxShadow: "0 0 0 3px rgba(194,65,12,0.1)",
-              }}
-            >
-              Suplemento Alpha Pro
+      {/* Body — animation drives this after mount */}
+      <div ref={bodyRef} className="mockup-body">
+        {/* Form pane */}
+        <div className="mockup-form">
+          <div className="mockup-row">
+            <div className="mockup-label">Produto</div>
+            <div className="mockup-field">
+              <span className="typewipe" data-anim="produto">Whey Protein Iso — 900g</span>
             </div>
           </div>
-
-          {/* Público */}
-          <div style={{ marginBottom: "10px" }}>
-            <div style={{ fontFamily: "monospace", fontSize: "9px", color: "#9A9080", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "4px" }}>
-              Público-alvo
-            </div>
-            <div
-              style={{
-                background: "white",
-                border: "1px solid #E8DCC4",
-                borderRadius: "6px",
-                padding: "6px 10px",
-                fontSize: "11px",
-                color: "#9A9080",
-              }}
-            >
-              Homens 25–40 que treinam...
+          <div className="mockup-row">
+            <div className="mockup-label">Promessa</div>
+            <div className="mockup-field mockup-field--multi">
+              <span className="typewipe" data-anim="promessa">
+                <b>Ganhe 5kg de músculo em 30 dias</b>, sem dieta restritiva.
+              </span>
             </div>
           </div>
-
-          {/* Formatos */}
-          <div style={{ marginBottom: "14px" }}>
-            <div style={{ fontFamily: "monospace", fontSize: "9px", color: "#9A9080", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "6px" }}>
-              Formatos
-            </div>
-            <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
-              {(["Estático", "Story", "UGC"] as const).map((f, i) => (
-                <span
-                  key={f}
-                  style={{
-                    background: i === 0 ? "#C2410C" : "white",
-                    color: i === 0 ? "white" : "#6B6258",
-                    border: `1px solid ${i === 0 ? "#C2410C" : "#E8DCC4"}`,
-                    borderRadius: "20px",
-                    padding: "2px 8px",
-                    fontSize: "10px",
-                    fontWeight: i === 0 ? 500 : 400,
-                  }}
-                >
-                  {f}
-                </span>
-              ))}
+          <div className="mockup-row">
+            <div className="mockup-label">Formato</div>
+            <div className="mockup__chips">
+              <span className="mockup-chip is-active" data-anim="formato">Story 9:16</span>
+              <span className="mockup-chip" data-anim="formato">UGC 15s</span>
+              <span className="mockup-chip" data-anim="formato">Estático</span>
             </div>
           </div>
-
-          {/* Botão */}
-          <div
-            style={{
-              width: "100%",
-              background: "#C2410C",
-              color: "white",
-              borderRadius: "8px",
-              padding: "8px 0",
-              fontSize: "11px",
-              fontWeight: 600,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "6px",
-              cursor: "pointer",
-            }}
-          >
+          <div className="mockup-row">
+            <div className="mockup-label">Público</div>
+            <div className="mockup-field">
+              <span className="typewipe" data-anim="publico">Homens 25-40, hipertrofia</span>
+            </div>
+          </div>
+          <button className="mockup-generate" type="button" data-anim="btn">
             <span>Gerar brief</span>
-            <span>→</span>
-          </div>
+            <span>↗</span>
+          </button>
         </div>
 
-        {/* Right: Output panel (65%) */}
-        <div style={{ padding: "16px", width: "65%", overflow: "hidden", background: "white" }}>
+        {/* Brief preview pane */}
+        <div className="mockup-brief">
+          <div className="brief-generating" data-anim="loading">
+            <div className="brief-generating-bar"><span /></div>
+            <div className="brief-generating-text">
+              Gerando brief
+              <span className="brief-dots"><i>.</i><i>.</i><i>.</i></span>
+            </div>
+          </div>
 
-          {/* Tabs */}
-          <div style={{ display: "flex", borderBottom: "1px solid #E8DCC4", marginBottom: "14px" }}>
-            {["Estático 1:1", "Story 9:16", "UGC 15s"].map((tab, i) => (
-              <div
-                key={tab}
-                style={{
-                  padding: "6px 10px",
-                  fontSize: "10px",
-                  fontWeight: i === 0 ? 600 : 400,
-                  color: i === 0 ? "#C2410C" : "#9A9080",
-                  borderBottom: i === 0 ? "2px solid #C2410C" : "2px solid transparent",
-                  marginBottom: "-1px",
-                  cursor: "pointer",
-                }}
-              >
-                {tab}
+          <div className="brief-section brief-head anim-fade" data-anim="brief-head">
+            <div className="brief-title">Brief <em>#0421</em> · Whey Iso</div>
+            <div className="brief-meta">gerado em 1m 47s</div>
+          </div>
+
+          <div className="brief-section anim-fade" data-anim="brief-hook">
+            <h5 className="brief-h5">Hook principal</h5>
+            <div className="brief-hook">
+              <span className="typewipe">
+                &ldquo;Se você treina pesado mas não cresce,<br />
+                o problema <em>não é o treino.</em>&rdquo;
+              </span>
+            </div>
+          </div>
+
+          <div className="brief-section anim-fade" data-anim="brief-roteiro">
+            <h5 className="brief-h5">Roteiro · 15s UGC</h5>
+            <ul className="brief-list">
+              <li className="anim-fade" data-anim="brief-roteiro-1">0-3s · Close no rosto, hook direto</li>
+              <li className="anim-fade" data-anim="brief-roteiro-2">3-8s · Mostrar produto + benefício</li>
+              <li className="anim-fade" data-anim="brief-roteiro-3">8-12s · Antes/depois com cliente real</li>
+              <li className="anim-fade" data-anim="brief-roteiro-4">12-15s · CTA: &ldquo;Garante o seu hoje&rdquo;</li>
+            </ul>
+          </div>
+
+          <div className="brief-section anim-fade" data-anim="brief-metrics">
+            <h5 className="brief-h5">Métricas esperadas</h5>
+            <div className="brief-metrics">
+              <div className="brief-metric">
+                <div className="brief-metric-v" data-count data-target="2.8" data-suffix="%" data-decimals="1">0%</div>
+                <div className="brief-metric-l">CTR</div>
               </div>
-            ))}
-          </div>
-
-          {/* Headline */}
-          <div style={{ marginBottom: "10px" }}>
-            <div style={{ fontFamily: "monospace", fontSize: "9px", fontWeight: 600, color: "#9A9080", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "4px" }}>
-              Headline
-            </div>
-            <div style={{ fontSize: "12px", fontWeight: 600, color: "#1F1A14", lineHeight: 1.4 }}>
-              &quot;Ganhe 5kg de músculo em 30 dias&quot;
-            </div>
-          </div>
-
-          <div style={{ height: "1px", background: "#F4E8D6", margin: "8px 0" }} />
-
-          {/* Hooks */}
-          <div style={{ marginBottom: "10px" }}>
-            <div style={{ fontFamily: "monospace", fontSize: "9px", fontWeight: 600, color: "#9A9080", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "6px" }}>
-              Hooks (3 opções)
-            </div>
-            {HOOKS.map((hook, i) => (
-              <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "6px", marginBottom: "4px" }}>
-                <span style={{ color: "#C2410C", fontWeight: 700, fontSize: "10px", minWidth: "14px", marginTop: "1px" }}>
-                  {i + 1}.
-                </span>
-                <span style={{ fontSize: "10px", color: "#4A4238", lineHeight: 1.5 }}>{hook}</span>
+              <div className="brief-metric">
+                <div className="brief-metric-v" data-count data-target="14" data-prefix="R$ " data-decimals="0">R$ 0</div>
+                <div className="brief-metric-l">CPA</div>
               </div>
-            ))}
-          </div>
-
-          <div style={{ height: "1px", background: "#F4E8D6", margin: "8px 0" }} />
-
-          {/* CTA */}
-          <div style={{ marginBottom: "10px" }}>
-            <div style={{ fontFamily: "monospace", fontSize: "9px", fontWeight: 600, color: "#9A9080", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "6px" }}>
-              CTA
+              <div className="brief-metric">
+                <div className="brief-metric-v" data-count data-target="3.2" data-suffix="x" data-decimals="1">0x</div>
+                <div className="brief-metric-l">ROAS</div>
+              </div>
             </div>
-            <div
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "4px",
-                background: "#C2410C",
-                color: "white",
-                borderRadius: "6px",
-                padding: "5px 12px",
-                fontSize: "10px",
-                fontWeight: 500,
-              }}
-            >
-              Comprar com 40% OFF →
-            </div>
-          </div>
-
-          <div style={{ height: "1px", background: "#F4E8D6", margin: "8px 0" }} />
-
-          {/* Footer */}
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <div style={{ fontFamily: "monospace", fontSize: "9px", color: "#9A9080", display: "flex", alignItems: "center", gap: "4px" }}>
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#16A34A", display: "inline-block" }} />
-              CTR: 2.8–4.2%
-            </div>
-            <div style={{ fontFamily: "monospace", fontSize: "9px", color: "#C2410C", cursor: "pointer" }}>
-              Exportar PDF →
-            </div>
-          </div>
-
-          {/* Progress bar */}
-          <div style={{ marginTop: "8px", height: "2px", background: "#F4E8D6", borderRadius: "1px", overflow: "hidden" }}>
-            <motion.div
-              style={{
-                height: "100%",
-                background: "linear-gradient(to right, #C2410C, #E87445)",
-                borderRadius: "1px",
-              }}
-              initial={{ width: "0%" }}
-              animate={{ width: "73%" }}
-              transition={{ duration: 1.5, delay: 1.2, ease: EASE }}
-            />
           </div>
         </div>
       </div>
-
-      {/* Fade gradient at bottom */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: "80px",
-          background: "linear-gradient(to bottom, transparent, #FFFCF5)",
-          pointerEvents: "none",
-          zIndex: 2,
-        }}
-      />
     </div>
   );
 }
@@ -297,7 +330,6 @@ function DashboardMockup() {
 export default function Hero() {
   return (
     <section className="relative overflow-x-hidden pt-20 pb-0 sm:pt-24">
-      {/* Subtle radial bg */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
@@ -310,10 +342,8 @@ export default function Hero() {
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-[45fr_55fr] gap-0 lg:gap-12 items-center min-h-[100vh] py-16 lg:py-0">
 
-          {/* ── Left: Text column ── */}
+          {/* Left: copy */}
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left lg:pr-8">
-
-            {/* Badge */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -323,44 +353,34 @@ export default function Hero() {
                 className="inline-flex items-center rounded-full border bg-[#FAF6EE] font-sans text-xs uppercase tracking-widest font-medium"
                 style={{ borderColor: "#E8DCC4", color: "#9A3309", padding: "6px 16px" }}
               >
-                ✦ Plataforma de Briefs com IA
+                ✦ Plataforma de briefs com IA
               </span>
             </motion.div>
 
-            {/* H1 */}
             <motion.h1
-              className="font-display font-normal leading-[1.0] tracking-[-0.03em]"
-              style={{ fontSize: "clamp(44px, 5vw, 72px)", maxWidth: "560px", marginTop: "20px" }}
+              className="font-display font-normal leading-[1.08] tracking-[-0.01em]"
+              style={{ fontSize: "clamp(40px, 6.2vw, 72px)", maxWidth: "560px", marginTop: "20px" }}
               initial={{ opacity: 0, x: -24 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
             >
               <span style={{ color: "#1F1A14" }}>Briefs que convertem,</span>
               <br />
-              <em className="font-display not-italic" style={{ color: "#C2410C", fontStyle: "italic" }}>
-                em minutos.
-              </em>
+              <em style={{ color: "#C2410C", fontStyle: "italic" }}>em minutos.</em>
             </motion.h1>
 
-            {/* Subtitle */}
             <motion.p
               className="font-sans"
-              style={{
-                fontSize: "18px",
-                color: "#6B6258",
-                maxWidth: "440px",
-                lineHeight: 1.65,
-                marginTop: "24px",
-              }}
+              style={{ fontSize: "18px", color: "#6B6258", maxWidth: "440px", lineHeight: 1.65, marginTop: "24px" }}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
             >
-              Descreva seu produto e a IA monta o brief completo do anúncio —
-              hook, copy, roteiro e referência visual. Em português, com contexto BR.
+              A primeira plataforma brasileira que transforma um produto em um
+              brief criativo completo — hook, roteiro, métricas e direção visual —
+              pronto para o designer rodar.
             </motion.p>
 
-            {/* CTAs */}
             <motion.div
               className="flex flex-row flex-wrap items-center justify-center lg:justify-start gap-3"
               style={{ marginTop: "36px" }}
@@ -371,29 +391,16 @@ export default function Hero() {
               <a
                 href="#waitlist"
                 className="inline-flex items-center font-sans font-medium transition-colors duration-200"
-                style={{
-                  background: "#C2410C",
-                  color: "white",
-                  borderRadius: "8px",
-                  padding: "13px 28px",
-                  fontSize: "15px",
-                }}
+                style={{ background: "#C2410C", color: "white", borderRadius: "8px", padding: "13px 28px", fontSize: "15px" }}
                 onMouseEnter={(e) => (e.currentTarget.style.background = "#9A3309")}
                 onMouseLeave={(e) => (e.currentTarget.style.background = "#C2410C")}
               >
                 Garantir minha vaga →
               </a>
               <a
-                href="#how"
+                href="#como-funciona"
                 className="inline-flex items-center font-sans font-medium transition-colors duration-200"
-                style={{
-                  border: "1px solid #E8DCC4",
-                  background: "transparent",
-                  color: "#1F1A14",
-                  borderRadius: "8px",
-                  padding: "13px 28px",
-                  fontSize: "15px",
-                }}
+                style={{ border: "1px solid #E8DCC4", background: "transparent", color: "#1F1A14", borderRadius: "8px", padding: "13px 28px", fontSize: "15px" }}
                 onMouseEnter={(e) => (e.currentTarget.style.background = "#FAF6EE")}
                 onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
               >
@@ -401,72 +408,57 @@ export default function Hero() {
               </a>
             </motion.div>
 
-            {/* Social proof */}
-            <motion.p
-              className="font-sans"
-              style={{ fontSize: "13px", color: "#9A9080", marginTop: "20px" }}
+            <motion.div
+              className="flex items-center gap-3 mt-5"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.4, ease: EASE }}
             >
-              Beta fechado · Acesso por convite · Gratuito durante o beta
-            </motion.p>
+              <div className="flex -space-x-2" aria-hidden>
+                {["R", "L", "M", "J"].map((l) => (
+                  <span
+                    key={l}
+                    className="inline-flex items-center justify-center rounded-full border-2 border-[#FFFCF5] text-white font-sans font-semibold"
+                    style={{ width: 28, height: 28, fontSize: 11, background: "#C2410C" }}
+                  >
+                    {l}
+                  </span>
+                ))}
+              </div>
+              <span className="font-sans text-[13px] text-[#6B6258]">
+                + 312 gestores de tráfego na lista de espera
+              </span>
+            </motion.div>
           </div>
 
-          {/* ── Right: Mockup column ── */}
-          <div
-            className="relative flex items-center justify-center lg:justify-end mt-12 lg:mt-0"
-            style={{ overflow: "visible" }}
-          >
-            {/* Radial glow behind mockup */}
+          {/* Right: mockup */}
+          <div className="relative flex items-center justify-center lg:justify-end mt-12 lg:mt-0" style={{ overflow: "visible" }}>
             <div
               aria-hidden
               style={{
                 position: "absolute",
                 inset: "-40px",
-                background:
-                  "radial-gradient(ellipse 80% 70% at 60% 50%, rgba(194,65,12,0.07) 0%, transparent 70%)",
+                background: "radial-gradient(ellipse 80% 70% at 60% 50%, rgba(194,65,12,0.07) 0%, transparent 70%)",
                 pointerEvents: "none",
                 zIndex: 0,
               }}
             />
-
-            {/* Mobile: no 3D tilt */}
-            <div
-              className="relative w-full lg:hidden"
-              style={{ maxWidth: "100%", zIndex: 1, overflow: "hidden" }}
-            >
-              <FloatingMockup>
-                <DashboardMockup />
-              </FloatingMockup>
+            <div className="relative w-full lg:hidden" style={{ maxWidth: "100%", zIndex: 1 }}>
+              <FloatingMockup><AnimatedMockup /></FloatingMockup>
             </div>
-
-            {/* Desktop: 3D tilt */}
             <div
               className="relative hidden lg:block w-full"
-              style={{
-                maxWidth: "580px",
-                marginRight: "-48px",
-                transform: "perspective(1200px) rotateY(-6deg) rotateX(2deg)",
-                zIndex: 1,
-              }}
+              style={{ maxWidth: "580px", marginRight: "-48px", transform: "perspective(1200px) rotateY(-6deg) rotateX(2deg)", zIndex: 1 }}
             >
-              <FloatingMockup>
-                <DashboardMockup />
-              </FloatingMockup>
+              <FloatingMockup><AnimatedMockup /></FloatingMockup>
             </div>
           </div>
         </div>
       </Container>
 
-      {/* Section separator */}
       <div
         aria-hidden
-        style={{
-          height: "1px",
-          background:
-            "linear-gradient(to right, transparent, #E8DCC4 30%, #E8DCC4 70%, transparent)",
-        }}
+        style={{ height: "1px", background: "linear-gradient(to right, transparent, #E8DCC4 30%, #E8DCC4 70%, transparent)" }}
       />
     </section>
   );

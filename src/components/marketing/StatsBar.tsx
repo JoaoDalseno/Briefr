@@ -5,9 +5,9 @@ import { motion, useInView } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 
 const STATS = [
-  { number: "10×", label: "mais rápido que montar no Word" },
-  { number: "2 min", label: "do briefing ao brief completo" },
-  { number: "100%", label: "em português, contexto BR" },
+  { number: "10×", label: "mais rápido vs. brief tradicional escrito do zero" },
+  { number: "2 min", label: "do produto ao brief completo, pronto para rodar" },
+  { number: "100% BR", label: "tom, gírias, métricas e plataformas do mercado brasileiro" },
 ];
 
 export default function StatsBar() {

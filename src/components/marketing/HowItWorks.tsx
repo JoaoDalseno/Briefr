@@ -8,21 +8,21 @@ import { useRef } from "react";
 const STEPS = [
   {
     number: "01",
-    title: "Descreva seu produto ou serviço.",
+    title: "Descreva seu produto",
     description:
-      "Preenche 8 campos sobre produto, público, diferencial e objetivo. Leva menos de 2 minutos.",
+      "Cole a página de vendas, o nome do produto e a promessa. Briefr puxa o resto.",
   },
   {
     number: "02",
-    title: "A IA monta o brief completo.",
+    title: "A IA monta o brief completo",
     description:
-      "O Claude analisa o contexto brasileiro do seu nicho e gera hooks, copy, roteiro e direção visual calibrados.",
+      "Em até 2 minutos, você recebe hooks, roteiro, métricas e direção visual, prontos para revisar.",
   },
   {
     number: "03",
-    title: "Exporte e mande pro designer.",
+    title: "Exporte para o designer",
     description:
-      "PDF formatado, link compartilhável ou texto puro. Pronto para executar sem uma pergunta sequer.",
+      "PDF tipografado ou link compartilhável com comentários. Sem CTRL+C, CTRL+V no WhatsApp.",
   },
 ];
 
@@ -74,17 +74,15 @@ export default function HowItWorks() {
         {/* Header */}
         <FadeUp className="text-center mb-16">
           <p className="font-mono text-[11px] text-[#9A9080] uppercase tracking-[0.08em] mb-3">
-            — Como funciona
+            <span className="text-[#C2410C]">✦</span> Como funciona
           </p>
-          <div className="section-rule mb-5" />
           <h2 className="font-serif font-normal text-3xl sm:text-4xl lg:text-5xl tracking-[-0.02em] text-[#1F1A14] leading-tight">
-            Conecte uma vez.
+            Três passos.
             <br />
-            <em className="font-serif">Brief pronto para sempre.</em>
+            <em className="font-serif" style={{ color: "#C2410C" }}>Sem prancheta, sem reunião.</em>
           </h2>
           <p className="mt-4 font-sans text-base sm:text-lg text-[#6B6258] max-w-xl mx-auto leading-relaxed">
-            Três passos para sair do improviso e ter briefs profissionais em
-            minutos.
+            Você descreve o produto. A IA monta o brief. O designer já sai produzindo — com tudo o que precisa em mãos.
           </p>
         </FadeUp>
 
