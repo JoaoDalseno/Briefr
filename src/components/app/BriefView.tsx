@@ -14,6 +14,7 @@ import { ptBR } from 'date-fns/locale'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import type { BriefOutput, BriefFormInput } from '@/lib/validations/brief'
+import { BriefRating } from '@/components/app/BriefRating'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -600,6 +601,8 @@ export function BriefView({ brief, plan }: BriefViewProps) {
               )}
             </motion.div>
           </AnimatePresence>
+
+          <BriefRating briefId={brief.id} />
         </div>
       </div>
     </>
