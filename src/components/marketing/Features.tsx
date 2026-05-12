@@ -8,37 +8,37 @@ const FEATURES = [
     ordinal: "01",
     title: "Hooks que param o scroll",
     description:
-      "3 opções calibradas pro mercado BR, com rationale de por que cada um funciona para o seu público específico.",
+      "3 a 5 ganchos testados em copy brasileira — com gatilhos de dor, curiosidade e prova social.",
   },
   {
     ordinal: "02",
     title: "Roteiro de vídeo UGC",
     description:
-      "Segundo a segundo: o que mostrar, o que falar, qual cena. Pronto para o creator gravar sem perguntar nada.",
+      "Storyboard segundo a segundo, com falas sugeridas e referências de enquadramento.",
   },
   {
     ordinal: "03",
     title: "Métricas esperadas",
     description:
-      "CTR de referência por nicho e o que otimizar se a campanha não performar como esperado.",
+      "CTR, CPA e ROAS de referência com base em benchmarks da categoria no mercado brasileiro.",
   },
   {
     ordinal: "04",
     title: "Direção visual",
     description:
-      "Paleta de cores, estilo de cena e elemento principal. Designer entende e executa sem revisões extras.",
+      "Paleta sugerida, tipografia, tom, exemplos de tratamento e o que evitar — sem placeholders genéricos.",
   },
   {
     ordinal: "05",
     title: "Exportação PDF",
     description:
-      "Brief formatado com logo do Briefr, pronto para enviar ao cliente ou guardar no histórico da conta.",
+      "Documento limpo e tipografado, com a sua marca, pronto para enviar pro cliente ou para o time.",
   },
   {
     ordinal: "06",
     title: "Link compartilhável",
     description:
-      "Compartilhe o brief sem login. Creator abre no celular e já começa a gravar no mesmo dia.",
+      "Permissão por convite, comentários em linha e versionamento — tudo num link só.",
   },
 ];
 
@@ -49,20 +49,18 @@ export default function Features() {
         {/* Header */}
         <FadeUp className="text-center mb-14">
           <p className="font-mono text-[11px] text-[#9A9080] uppercase tracking-[0.08em] mb-3">
-            — Recursos
+            <span className="text-[#C2410C]">✦</span> O que entra no brief
           </p>
-          <div className="section-rule mb-5" />
           <h2 className="font-serif font-normal text-3xl sm:text-4xl lg:text-5xl tracking-[-0.02em] text-[#1F1A14] leading-tight">
-            Antes levava horas,
+            Tudo o que o designer
             <br />
-            agora leva{" "}
+            precisa,{" "}
             <em className="font-serif" style={{ color: "#C2410C" }}>
-              2 minutos.
+              num documento só.
             </em>
           </h2>
           <p className="mt-4 font-sans text-base sm:text-lg text-[#6B6258] max-w-xl mx-auto leading-relaxed">
-            A Briefr transforma dados do produto em brief executável, pronto
-            para passar ao designer ou creator UGC.
+            Sem ping-pong no WhatsApp, sem &ldquo;manda referência&rdquo;, sem brief de duas linhas. Briefr entrega o pacote completo.
           </p>
         </FadeUp>
 

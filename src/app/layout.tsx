@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
-import { DM_Serif_Display, DM_Sans, DM_Mono } from "next/font/google";
+import { Playfair_Display, DM_Serif_Display, DM_Sans, DM_Mono } from "next/font/google";
 import { Suspense } from "react";
 import { Toaster } from "sonner";
 import { PostHogProvider } from "@/components/analytics/PostHogProvider";
 import "./globals.css";
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-display",
+  display: "swap",
+});
 
 const dmSerifDisplay = DM_Serif_Display({
   subsets: ["latin"],
@@ -79,7 +87,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${dmSerifDisplay.variable} ${dmSans.variable} ${dmMono.variable}`}>
+    <html lang="pt-BR" className={`${playfair.variable} ${dmSerifDisplay.variable} ${dmSans.variable} ${dmMono.variable}`}>
       <body className="antialiased bg-background text-foreground">
         <Suspense>
           <PostHogProvider>
