@@ -89,7 +89,6 @@ create view public.brief_examples_for_ai as
     b.id,
     b.form_data,
     b.generated_content,
-    b.formats,
     r.rating,
     r.comment        as rating_comment,
     b.created_at
